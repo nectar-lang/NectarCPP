@@ -1,0 +1,26 @@
+name: CI_NECTAR_CLANG
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install
+      run: | 
+        sudo apt install g++ clang
+        clang++ -v
+    - name: run
+      run: | 
+        clang++ -std=c++17 -c src/nectar.hpp -Ofast
+        clang++ -std=c++17 -c src/nectar.cpp -Ofast
+        clang++ -std=c++17 nectar.o test/object.cpp -lpthread -Ofast -o object.out
+        ./object.out
