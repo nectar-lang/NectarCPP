@@ -28,9 +28,4 @@ namespace Nectar::Global
 	Nectar::VAR null = __Nectar_Create_Null();
 	Nectar::VAR Infinity = std::numeric_limits<double>::infinity();
 	Nectar::VAR NaN = std::numeric_limits<double>::quiet_NaN();
-	
-	Nectar::VAR __Nectar_InitVar()
-	{
-		return Nectar::VAR();
-	}
 }
