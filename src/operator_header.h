@@ -19,7 +19,6 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
 Nectar::VAR __Nectar_Boolean_Result(Nectar::VAR _v);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);
 std::ostream &operator<<(std::ostream &os, const Nectar::VAR &_v);
@@ -31,8 +30,6 @@ Nectar::VAR __Nectar_Object_Stringify(Nectar::VAR _var);
 Nectar::VAR __Nectar_Object_Stringify(Nectar::VAR _var, bool _bracket);
 Nectar::VAR __Nectar_Object_Clone(Nectar::VAR& _var);
 void __Nectar_Object_Construct(Nectar::VAR _this, Nectar::VAR _prototype);
-inline Nectar::Class::Object* __Nectar_Create_Object();
-inline Nectar::Class::Array* __Nectar_Create_Array();
 Nectar::VAR __Nectar_CREATE_Function(void *_fn);
 Nectar::VAR __Nectar_Create_Native(void *_native);
 void *__Nectar_Get_Native(Nectar::VAR _native);

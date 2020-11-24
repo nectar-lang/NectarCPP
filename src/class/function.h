@@ -281,11 +281,6 @@ namespace Nectar::Class
 	}
 	#endif
 	
-	inline Nectar::VAR Function::Call(Nectar::VAR& __Nectar_THIS, Nectar::VAR* _args, int i)
-	{
-		return (*static_cast<Nectar::Type::function_t *>(value))(__Nectar_THIS, _args, i);
-	}
-	
 	// Comparation operators
 	Nectar::VAR Function::operator!() const 
 	{

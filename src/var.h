@@ -242,17 +242,20 @@ namespace Nectar
 	void VAR::operator=(const VAR &_v)
 	{
 		if(property[0] != 0) return;
-		
+		if(type > Nectar::Enum::Type::Number) 
+		{
+			((Nectar::Class::Base*)data.ptr)->Delete();
+		}
 		property = _v.property;
 		type = _v.type;
 		if(type < Nectar::Enum::Type::String)
 		{
 			data.number = (double)_v;
-			//if(type == _v.type) data.number = _v.data.number;
-			//else data.number = (double)_v;
 		}
-		else data.ptr = ((Nectar::Class::Base*)_v.data.ptr)->Copy();
-		
+		else
+		{
+			data.ptr = ((Nectar::Class::Base*)_v.data.ptr)->Copy();
+		}
 	}
 
 	/// Unary VAR::operators

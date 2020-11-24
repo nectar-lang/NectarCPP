@@ -498,7 +498,7 @@ namespace Nectar::Class
 		else
 			return Nectar::VAR(this->value);
 
-		Nectar::VAR _arr = __Nectar_Create_Array();
+		Nectar::VAR _arr = new Nectar::Class::Array();
 		char *_v = (char *)malloc(strlen(this->value.c_str()) + 1);
 		strcpy(_v, this->value.c_str());
 		char *delim = (char *)malloc(strlen(((std::string)_needle).c_str()) + 1);

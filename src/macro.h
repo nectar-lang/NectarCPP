@@ -57,7 +57,7 @@ object[_str].property.set(1,1); \
 return object[_str];}
 #define __Nectar_Object_Lazy_Loader(_name) \
 if(_sview.compare(_name) == 0) { \
-object[_str] = __Nectar_Create_Object(); \
+object[_str] = new Nectar::Class::Object(); \
 object[_str].property.set(1,1); \
 return object[_str];}
 #else
@@ -68,10 +68,9 @@ object.back().second.property.set(1,1); \
 return object.back().second;}
 #define __Nectar_Object_Lazy_Loader(_name) \
 if(_sview.compare(_name) == 0) { \
-object.push_back(Nectar::Type::pair_t(_str, __Nectar_Create_Object())); \
+object.push_back(Nectar::Type::pair_t(_str, new Nectar::Class::Object())); \
 object.back().second.property.set(1,1); \
 return object.back().second;}
 #endif
 
-#define __Nectar_EXIT exit
 /* END HELPERS */

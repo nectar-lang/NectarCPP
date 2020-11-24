@@ -22,5 +22,5 @@
  
 namespace Nectar::Global
 {
-	Nectar::VAR __Nectar_THIS = __Nectar_Create_Object();
+	Nectar::VAR __Nectar_THIS = new Nectar::Class::Object();
 }

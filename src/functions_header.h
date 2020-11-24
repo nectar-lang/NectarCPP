@@ -24,8 +24,6 @@ Nectar::VAR __Nectar_Log_Console(Nectar::VAR _var);
 Nectar::VAR __Nectar_Object_Keys(Nectar::VAR _var);
 Nectar::VAR __Nectar_Object_Stringify(Nectar::VAR _var);
 Nectar::VAR __Nectar_Object_Stringify(Nectar::VAR _var, bool _bracket);
-Nectar::Class::Object* __Nectar_Create_Object();
-Nectar::Class::Array* __Nectar_Create_Array();
 Nectar::VAR __Nectar_Object_Clone(Nectar::VAR& _var);
 Nectar::VAR __Nectar_Object_Set(std::string _index, Nectar::VAR _value, Nectar::Type::object_t *_obj);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);

@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 Nectar::VAR __Nectar_Boolean_Result(Nectar::VAR _v)
 {
 	if (_v.type == Nectar::Enum::Type::Number)
@@ -152,7 +152,7 @@ Nectar::VAR __Nectar_Log_Console(Nectar::VAR* _var, int _length)
 
 Nectar::VAR __Nectar_Object_Keys(Nectar::VAR _var)
 {
-	Nectar::VAR _res = __Nectar_Create_Array();
+	Nectar::VAR _res = new Nectar::Class::Array();
 	
 	if (_var.type != Nectar::Enum::Type::Object && _var.type != Nectar::Enum::Type::Array)
 	{
@@ -377,7 +377,7 @@ Nectar::VAR __Nectar_Object_Clone(Nectar::VAR& _var)
 			return _var;
 		case Nectar::Enum::Type::Array:
 		{
-			Nectar::VAR _res = __Nectar_Create_Array();
+			Nectar::VAR _res = new Nectar::Class::Array();
 			std::vector<Nectar::VAR> *_arr = &((Nectar::Class::Array*)_var.data.ptr)->value;
 
 			int j = (*_arr).size();
@@ -389,7 +389,7 @@ Nectar::VAR __Nectar_Object_Clone(Nectar::VAR& _var)
 		}
 		case Nectar::Enum::Type::Object:
 		{
-			const Nectar::VAR _res = __Nectar_Create_Object();
+			const Nectar::VAR _res = new Nectar::Class::Object();
 			Nectar::Type::object_t *_obj = &((Nectar::Class::Object*)_var.data.ptr)->object;
 			#ifndef __Nectar__OBJECT_VECTOR
 			for (auto _el: *_obj)
@@ -438,17 +438,6 @@ void __Nectar_Object_Construct(Nectar::VAR _this, Nectar::VAR _prototype)
 		#endif
 	}
 	
-}
-
-
-inline Nectar::Class::Object* __Nectar_Create_Object()
-{
-	return new Nectar::Class::Object();
-}
-
-inline Nectar::Class::Array* __Nectar_Create_Array()
-{
-	return new Nectar::Class::Array();
 }
 
 Nectar::VAR __Nectar_CREATE_Function(void *_fn)

@@ -44,8 +44,10 @@ namespace Nectar::Class
 		inline void Delete() noexcept;
 		inline void jsDelete(std::string _key) noexcept;
 		inline void* Copy() noexcept;
-		inline Nectar::VAR Call(Nectar::VAR& __Nectar_THIS, Nectar::VAR* __Nectar_VARARGS, int __Nectar_VARLENGTH);
-		
+		inline Nectar::VAR Call(Nectar::VAR& __Nectar_THIS, Nectar::VAR* _args, int i)
+		{
+			return (*static_cast<Nectar::Type::function_t *>(value))(__Nectar_THIS, _args, i);
+		}
 		template <class... Args>
 		Nectar::VAR New(Args... args)
 		{
@@ -53,7 +55,7 @@ namespace Nectar::Class
 			int i = sizeof...(args);
 			
 			Nectar::VAR _this = __Nectar_Object_Clone((*this)["prototype"]);
-			if(_this.type == Nectar::Enum::Type::Undefined) _this = __Nectar_Create_Object();
+			if(_this.type == Nectar::Enum::Type::Undefined) _this = new Nectar::Class::Object();
 			
 			Nectar::VAR _ret = this->Call(_this, _args, i);
 
