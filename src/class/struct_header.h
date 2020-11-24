@@ -53,7 +53,14 @@ namespace Nectar::Class
 		Nectar::VAR &operator[](int key);
 		Nectar::VAR &operator[](double key);
 		Nectar::VAR &operator[](const char* key);
-		template <class... Args> Nectar::VAR operator()(Args... args) const;
+		
+		template <class... Args>
+		Nectar::VAR operator()(Args... args) const
+		{
+			auto _args = Nectar::Type::vector_t{(Nectar::VAR)args...};
+			return (*static_cast<std::function<Nectar::VAR(Nectar::Type::vector_t)> *>(value))(_args);
+		}
+		
 		// Comparation operators
 		Nectar::VAR operator!() const;
 		bool operator==(const Nectar::VAR &_v1) const;

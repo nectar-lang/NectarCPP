@@ -153,12 +153,6 @@ namespace Nectar::Class
 		#endif
 	}
 	
-	template <class... Args>
-	Nectar::VAR Struct::operator()(Args... args) const
-	{
-		auto _args = Nectar::Type::vector_t{(Nectar::VAR)args...};
-		return (*static_cast<std::function<Nectar::VAR(Nectar::Type::vector_t)> *>(value))(_args);
-	}
 	// Comparation operators
 	Nectar::VAR Struct::operator!() const 
 	{

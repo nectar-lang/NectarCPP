@@ -195,32 +195,6 @@ namespace Nectar
 		((Nectar::Class::Function*)data.ptr)->This.type = _this.type;
 
 	}
-
-	template <class... Args>
-	VAR VAR::operator() (Args... args)
-	{
-		if (type != Nectar::Enum::Type::Function)
-		{
-	#ifndef __Nectar_NO_EXCEPT
-			throw VAR("TypeError: object is not a function");
-	#endif
-			exit(1);
-		}
-		else return (*(Nectar::Class::Function*)data.ptr)((VAR)(args)...);
-	}
-	
-	template <class... Args>
-	VAR VAR::operator() (Args... args) const
-	{
-		if (type != Nectar::Enum::Type::Function)
-		{
-	#ifndef __Nectar_NO_EXCEPT
-			throw VAR("TypeError: object is not a function");
-	#endif
-			exit(1);
-		}
-		else return (*(Nectar::Class::Function*)data.ptr)((VAR)(args)...);
-	}
 	
 	/* END CALL OVERLOAD */
 

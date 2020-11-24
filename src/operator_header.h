@@ -37,26 +37,57 @@ Nectar::VAR __Nectar_CREATE_Function(void *_fn);
 Nectar::VAR __Nectar_Create_Native(void *_native);
 void *__Nectar_Get_Native(Nectar::VAR _native);
 
-template <typename t>
-t operator-(t _left, const Nectar::VAR &_right);
+/*** REDIFINING STD OPERATORS ***/
 
 template <typename t>
-t operator*(t _left, const Nectar::VAR &_right);
+t operator+(t _left, const Nectar::VAR &_right)
+{
+	return _left + (t)_right;
+}
 
 template <typename t>
-t operator/(t _left, const Nectar::VAR &_right);
+t operator-(t _left, const Nectar::VAR &_right)
+{
+	return _left - (t)_right;
+}
+
+template <typename t>
+t operator*(t _left, const Nectar::VAR &_right)
+{
+	return _left * (t)_right;
+}
+
+template <typename t>
+t operator/(t _left, const Nectar::VAR &_right)
+{
+	return _left / (t)_right;
+}
 
 template <typename t, typename u>
-t operator<(t _left, const u &_right);
+t operator<(t _left, const u &_right)
+{
+	return _left < (t)_right;
+}
 
 template <typename t, typename u>
-t operator<=(t _left, const u &_right);
+t operator<=(t _left, const u &_right)
+{
+	return _left <= (t)_right;
+}
 
 template <typename t>
-t operator>(t _left, const Nectar::VAR &_right);
+t operator>(t _left, const Nectar::VAR &_right)
+{
+	return _left > (t)_right;
+}
 
 template <typename t>
-t operator>=(t _left, const Nectar::VAR &_right);
+t operator>=(t _left, const Nectar::VAR &_right)
+{
+	return _left >= (t)_right;
+}
+
+/*** END REDIFINING STD OPERATORS ***/
 
 extern Nectar::VAR eval;
 extern std::function<Nectar::VAR(Nectar::Type::vector_t)> *__Nectar_IS_NAN;
@@ -73,40 +104,65 @@ void operator+= (Nectar::VAR& _left, int right);
 void operator+= (Nectar::VAR& _left, double right);
 
 template<class T>
-void operator+= (Nectar::VAR& _left, T right);
-
-template<class T>
-void operator-= (Nectar::VAR& _left, T right);
+void operator-= (Nectar::VAR& _left, T right)
+{
+	if(_left.type == Nectar::Enum::Type::Number) _left.data.number -= right;
+	else _left -= right;
+}
 
 Nectar::VAR operator* (Nectar::VAR _left, const char* right);
 
 template<class T>
-Nectar::VAR operator* (Nectar::VAR _left, T right);
+Nectar::VAR operator* (Nectar::VAR _left, T right)
+{
+	return (double)_left * (double)(Nectar::VAR(right));
+}
 
 Nectar::VAR operator- (Nectar::VAR _left, const char* right);
 
 template<class T>
-Nectar::VAR operator- (Nectar::VAR _left, T right);
+Nectar::VAR operator- (Nectar::VAR _left, T right)
+{
+	return (double)_left - (double)(Nectar::VAR(right));
+}
 
 Nectar::VAR operator/ (Nectar::VAR _left, const char* right);
 
 template<class T>
-Nectar::VAR operator/ (Nectar::VAR _left, T right);
+Nectar::VAR operator/ (Nectar::VAR _left, T right)
+{
+	return (double)_left / (double)(Nectar::VAR(right));
+}
 
 template<class T>
-Nectar::VAR operator> (Nectar::VAR _left, T right);
+Nectar::VAR operator> (Nectar::VAR _left, T right)
+{
+	return (double)_left > right;
+}
 
 template<class T>
-Nectar::VAR operator>= (Nectar::VAR _left, T right);
+Nectar::VAR operator>= (Nectar::VAR _left, T right)
+{
+	return (double)_left >= right;
+}
 
 template<class T>
-Nectar::VAR operator< (Nectar::VAR _left, T right);
+Nectar::VAR operator< (Nectar::VAR _left, T right)
+{
+	return (_left.data.number < right);
+}
 
 template<class T>
-Nectar::VAR operator<= (Nectar::VAR _left, T right);
+Nectar::VAR operator<= (Nectar::VAR _left, T right)
+{
+	return (double)_left <= right;
+}
 
 template<class T>
-Nectar::VAR operator% (Nectar::VAR _left, T right);
+Nectar::VAR operator% (Nectar::VAR _left, T right)
+{
+	return (int)_left % right;
+}
 
 Nectar::VAR operator|| (Nectar::VAR _left, int right);
 Nectar::VAR operator|| (Nectar::VAR _left, double right);
@@ -114,22 +170,43 @@ Nectar::VAR operator|| (Nectar::VAR _left, std::string right);
 Nectar::VAR operator|| (Nectar::VAR _left, Nectar::VAR right);
 
 template<class T>
-Nectar::VAR operator== (Nectar::VAR _left, T right);
+Nectar::VAR operator== (Nectar::VAR _left, T right)
+{
+	return (double)_left == right;
+}
 
 template<class T>
-Nectar::VAR operator!= (Nectar::VAR _left, T right);
+Nectar::VAR operator!= (Nectar::VAR _left, T right)
+{
+	return (double)_left != right;
+}
 
 template<class T>
-Nectar::VAR operator|(Nectar::VAR _left, T right);
+Nectar::VAR operator|(Nectar::VAR _left, T right)
+{
+	return (int)_left | right;
+}
 
 template<class T>
-Nectar::VAR operator^(Nectar::VAR _left, T right);
+Nectar::VAR operator^(Nectar::VAR _left, T right)
+{
+	return (int)_left ^ right;
+}
 
 template<class T>
-Nectar::VAR operator&(Nectar::VAR _left, T right);
+Nectar::VAR operator&(Nectar::VAR _left, T right)
+{
+	return (int)_left & right;
+}
 
 template<class T>
-Nectar::VAR operator<<(Nectar::VAR _left, T right);
+Nectar::VAR operator<<(Nectar::VAR _left, T right)
+{
+	return (int)_left << right;
+}
 
 template<class T>
-Nectar::VAR operator>>(Nectar::VAR _left, T right);
+Nectar::VAR operator>>(Nectar::VAR _left, T right)
+{
+	return (int)_left >> right;
+}

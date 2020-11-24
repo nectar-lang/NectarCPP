@@ -33,10 +33,4 @@ namespace Nectar::Global
 	{
 		return Nectar::VAR();
 	}
-	
-	template <typename T>
-	Nectar::VAR __Nectar_InitVar(T _init)
-	{
-		return Nectar::VAR(_init);
-	}
 }

@@ -286,40 +286,6 @@ namespace Nectar::Class
 		return (*static_cast<Nectar::Type::function_t *>(value))(__Nectar_THIS, _args, i);
 	}
 	
-	
-	template <class... Args>
-	Nectar::VAR Function::New(Args... args)
-	{
-		Nectar::VAR _args[] = {args...};
-		int i = sizeof...(args);
-		
-		Nectar::VAR _this = __Nectar_Object_Clone((*this)["prototype"]);
-		if(_this.type == Nectar::Enum::Type::Undefined) _this = __Nectar_Create_Object();
-		
-		Nectar::VAR _ret = this->Call(_this, _args, i);
-
-		if(_ret.type == Nectar::Enum::Type::Object)
-		{
-			((Nectar::Class::Object*)_ret.data.ptr)->property.set(1,1);
-			((Nectar::Class::Object*)_ret.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
-			return _ret;
-		}
-		else
-		{
-			((Nectar::Class::Object*)_this.data.ptr)->property.set(1,1);
-			((Nectar::Class::Object*)_this.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
-			return _this;
-		}
-
-	}
-	
-	template <class... Args>
-	Nectar::VAR Function::operator()(Args... args)
-	{
-		Nectar::VAR _args[] = {args...};
-		int i = sizeof...(args);
-		return (*static_cast<Nectar::Type::function_t *>(value))(This, _args, i);
-	}
 	// Comparation operators
 	Nectar::VAR Function::operator!() const 
 	{

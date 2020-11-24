@@ -276,26 +276,6 @@ namespace Nectar::Class
 		return FixedArray();
 	}
 	
-	template <typename t>
-	bool FixedArray::operator==(const t &_v1) const { return false; }
-	
-	// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-	
-	template <typename t>
-	bool FixedArray::operator!=(const t &_v1) const { return true; }
-	
-	template <typename t>
-	bool FixedArray::operator<(const t &_v1) const { return (*this)[0] < _v1;}
-	
-	template <typename t>
-	bool FixedArray::operator<=(const t &_v1) const { return (*this)[0] <= _v1; }
-	
-	template <typename t>
-	bool FixedArray::operator>(const t &_v1) const { return (*this)[0] > _v1; }
-	
-	template <typename t>
-	bool FixedArray::operator>=(const t &_v1) const { return (*this)[0] >= _v1; }
 	// Numeric operators
 	FixedArray FixedArray::operator+() const
 	{ 

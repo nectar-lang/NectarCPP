@@ -52,7 +52,15 @@ namespace Nectar::Class
 		Nectar::VAR &operator[](int key);
 		Nectar::VAR &operator[](double key);
 		Nectar::VAR &operator[](const char* key);
-		template <class... Args> Nectar::VAR operator()(Args... args) const;
+		template <class... Args>
+		Nectar::VAR operator()(Args... args) const 
+		{
+			#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+			throw InvalidTypeException();
+			#endif
+			return Nectar::Global::undefined;
+		}
+	
 		// Comparation operators
 		Object operator!() const;
 		bool operator==(const Object &_v1) const;

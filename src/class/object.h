@@ -466,15 +466,6 @@ namespace Nectar::Class
 	}
 	#endif
 	
-	
-	template <class... Args>
-	Nectar::VAR Object::operator()(Args... args) const 
-	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-		#endif
-		return Nectar::Global::undefined;
-	}
 	// Comparation operators
 	Object Object::operator!() const 
 	{

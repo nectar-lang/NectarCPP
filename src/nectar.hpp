@@ -79,10 +79,10 @@ namespace Nectar
 
 #include "var_header.h"
 #include "type_header.h"
-#include "classes_header.h"
-#include "functions_header.h"
-#include "native_header.h"
 #include "values_header.h"
+#include "functions_header.h"
+#include "classes_header.h"
+#include "native_header.h"
 #include "this_header.h"
 #include "class/number_header.h"
 #include "objmgmt_header.h"

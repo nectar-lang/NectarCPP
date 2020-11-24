@@ -67,10 +67,32 @@ namespace Nectar
 		VAR(Nectar::Enum::Type _type, void *_value);
 		VAR(Nectar::Enum::Type _type, void *_value, VAR _this);
 		VAR(std::function<VAR(Nectar::VAR*, int)> &_value);
+		
 		template <class... Args>
-		VAR operator() (Args... args);
+		VAR operator() (Args... args)
+		{
+			if (type != Nectar::Enum::Type::Function)
+			{
+		#ifndef __Nectar_NO_EXCEPT
+				throw VAR("TypeError: object is not a function");
+		#endif
+				exit(1);
+			}
+			else return (*(Nectar::Class::Function*)data.ptr)((VAR)(args)...);
+		}
+		
 		template <class... Args>
-		VAR operator() (Args... args) const;
+		VAR operator() (Args... args) const
+		{
+			if (type != Nectar::Enum::Type::Function)
+			{
+		#ifndef __Nectar_NO_EXCEPT
+				throw VAR("TypeError: object is not a function");
+		#endif
+				exit(1);
+			}
+			else return (*(Nectar::Class::Function*)data.ptr)((VAR)(args)...);
+		}
 		
 		/* END CALL OVERLOAD */
 
