@@ -1,8 +1,8 @@
 #include "../src/nectar.hpp"
-using namespace Nectar;
-using namespace Nectar::Global;
-using namespace Nectar::Class;
-using namespace Nectar::Functions;
+using namespace NectarCore;
+using namespace NectarCore::Global;
+using namespace NectarCore::Class;
+using namespace NectarCore::Functions;
 
 int main(int argc, char** argv)
 {
