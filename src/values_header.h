@@ -29,11 +29,6 @@ namespace Nectar::Global
 	extern Nectar::VAR Infinity;
 	extern Nectar::VAR NaN;
 	
-	Nectar::VAR __Nectar_InitVar()
-	{
-		return Nectar::VAR();
-	}
-	
 	template <typename T>
 	Nectar::VAR __Nectar_InitVar(T _init)
 	{
