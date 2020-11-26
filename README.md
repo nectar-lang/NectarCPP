@@ -31,8 +31,10 @@ int main(int argc, char** argv)
 then:
 - Compile the headers: `g++ -std=c++17 -c src/nectar.hpp -Ofast`
 - Compile the main lib: `g++ -std=c++17 -c src/nectar.cpp -Ofast`
-- Compile your code `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
+- Compile your code 
+	* on Windows: `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
+	* on unix/linux: `g++ -std=c++17 mycode.cpp nectar.o -lpthread -Ofast -o myapp`
 
 You can then modify your app, and only compile your code, because the libs are already compiled:
-- Compile your code `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
-
+- On Windows: `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
+- On Unix/Linux: `g++ -std=c++17 mycode.cpp nectar.o -lpthread -Ofast -o myapp`
