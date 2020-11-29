@@ -51,51 +51,14 @@ namespace NectarCore::Class
 	}
 	// Native cast
 	Array::operator bool() const noexcept { return true; }
-	Array::operator double() const noexcept
-	{
-		if (value.size() == 1)
-		{
-			return (double)value[0];
-		}
-		else
-		{
-			return std::numeric_limits<double>::quiet_NaN();
-		}
-	}
-	Array::operator int() const noexcept
-	{
-		if (value.size() == 1)
-		{
-			return (int)value[0];
-		}
-		else
-		{
-			return std::numeric_limits<int>::quiet_NaN();
-		}
-	}
-	Array::operator long long() const noexcept
-	{
-		if (value.size() == 1)
-		{
-			return (long long)value[0];
-		}
-		else
-		{
-			return std::numeric_limits<long long>::quiet_NaN();
-		}
-	}
+	Array::operator double() const noexcept { return (double)value[0]; }
+	Array::operator int() const noexcept { return (int)value[0]; }
+	Array::operator long long() const noexcept { return (long long)value[0]; }
 	Array::operator std::string() const noexcept
 	{
-		auto l = value.size();
-		if (l == 0)
-			return "";
-		std::stringstream stream;
-		stream << (std::string)value[0];
-		for (auto i = 1; i < l; i++)
-		{
-			stream << "," << (std::string)value[i];
-		}
-		return stream.str();
+		NectarCore::VAR _arg = {};
+		auto str = (*this)["toString"](_arg, 0);
+		return (std::string)str;
 	}
 	// Main operators
 	NectarCore::VAR const Array::operator[](NectarCore::VAR key) const
@@ -677,8 +640,9 @@ namespace NectarCore::Class
 	NectarCore::VAR Array::map(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
 	NectarCore::VAR Array::pop(NectarCore::VAR* args, int _length) 
 	{ 
+		auto last = value.back();
 		value.pop_back();
-		return NectarCore::Global::undefined; 
+		return last;
 	}
 	NectarCore::VAR Array::push(NectarCore::VAR* args, int _length)
 	{
@@ -688,123 +652,83 @@ namespace NectarCore::Class
 		}
 		return this;
 	};
-	NectarCore::VAR Array::reduce(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::reduceRight(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::reverse(NectarCore::VAR* args, int _length) {
+	NectarCore::VAR Array::reduce(NectarCore::VAR* args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR Array::reduceRight(NectarCore::VAR* args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR Array::reverse(NectarCore::VAR* args, int _length)
+	{
 		std::reverse(value.begin(), value.end());
 		return this;
 	}
-	NectarCore::VAR Array::shift(NectarCore::VAR* args, int _length) { return NectarCore::Global::undefined; }
+	NectarCore::VAR Array::shift(NectarCore::VAR* args, int _length) {
+		auto ret = value.front();
+		value.erase(value.begin());
+		return ret;
+	}
 	NectarCore::VAR Array::slice(NectarCore::VAR* args, int _length) const 
 	{ 
-		if(_length == 1)
+		if (_length == 0) return new Array(value);
+		int start = 0;
+		int end = value.size();
+		if (_length > 0)
 		{
-			NectarCore::Type::vector_t _ret;
-			int start = 0;
-			if(args[0].type == NectarCore::Enum::Type::Number)
-			{
-				if((int)args[0] > -1) start = args[0];
-				else start = value.size() + (int)args[0];
-				if(start > value.size()) start = value.size();
-			}
-			_ret = NectarCore::Type::vector_t(value.begin() + start, value.end());
-			return new NectarCore::Class::Array(_ret);
+			start = (int)args[0] > -1 ? (int)args[0] : (value.size() + (int)args[0]);
+			if (start > value.size()) start = value.size();
 		}
-		else if(_length > 1)
+		if (_length > 1)
 		{
-			NectarCore::Type::vector_t _ret;
-			int start = 0;
-			int end = value.size();
-			if(args[0].type == NectarCore::Enum::Type::Number) start = args[0];
-			if(args[1].type == NectarCore::Enum::Type::Number)
-			{
-				if((int)args[1] < 0)
-				{
-					end = abs((int)args[1]);
-					if(end > value.size() - start) return new NectarCore::Class::Array(_ret);
-				}
-				else if((int)args[1] < start) return new NectarCore::Class::Array(_ret);
-				else if((int)args[1] <= end) end = (end - (int)args[1]);
-				else end = 0;
-			}
-			else end = 0;
-			
-			if(value.size() - end < start) return new NectarCore::Class::Array(_ret);
-			_ret = NectarCore::Type::vector_t(value.begin() + start, value.end() - end);
-			return new NectarCore::Class::Array(_ret);
+			end = (int)args[1] > 0 ? (start + (int)args[1]) : (value.size() + (int)args[1]);
+			if (end > value.size()) end = value.size();
 		}
-		else return new NectarCore::Class::Array(value);
+		auto ret = NectarCore::Type::vector_t(value.begin() + start, value.begin() + end);
+		return new NectarCore::Class::Array(ret);
 	}
-	NectarCore::VAR Array::some(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
+	NectarCore::VAR Array::some(NectarCore::VAR* args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
 	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length) const 
-	{ 
+	{
+		// TODO: Implement
 		return NectarCore::Global::undefined; 
 	}
 	NectarCore::VAR Array::splice(NectarCore::VAR* args, int _length)
-	{ 
-		NectarCore::VAR _ret = slice(args, _length);
-		if(_length == 1)
+	{
+		if (_length == 0) return new Array(value);
+		auto ret = slice(args, _length);
+		int start = 0;
+		int end = value.size();
+		if (_length > 0)
 		{
-			int start = 0;
-			if(args[0].type == NectarCore::Enum::Type::Number)
-			{
-				if((int)args[0] > -1) start = args[0];
-				else start = value.size() + (int)args[0];
-				if(start > value.size()) start = value.size();
-			}
-			
-			value.erase(value.begin() + start, value.end());
-			return _ret;
+			start = (int)args[0] > -1 ? (int)args[0] : (value.size() + (int)args[0]);
+			if (start > value.size()) start = value.size();
 		}
-		else if(_length > 1)
+		if (_length > 1)
 		{
-			int start = 0;
-			int end = value.size();
-			if(args[0].type == NectarCore::Enum::Type::Number) start = args[0];
-			
-			if(args[1].type == NectarCore::Enum::Type::Number)
-			{
-				if((int)args[1] < 0)
-				{
-					end = abs((int)args[1]);
-					if(end > value.size() - start) return _ret;
-					
-				}
-				else if((int)args[1] < start) return _ret;
-				else if((int)args[1] <= end) end = (end - (int)args[1]) -1;
-				else end = 0;
-				
-				if(start > value.size()) start = value.size();
-			
-			}
-			else end = 0;
-			
-			if(value.size() - end < start) return _ret;
-			value.erase(value.begin() + start, value.end() - end);
-
+			end = (int)args[1] > 0 ? (start + (int)args[1]) : 0;
+			if (end > value.size()) end = value.size();
 		}
-		for(int i = 2; i < _length; i++)
+		if (end != 0)
+		{
+			value.erase(value.begin() + start, value.begin() + end);
+		}
+		for (int i = 2; i < _length; i++)
 		{
 			value.push_back(args[i]);
 		}
-		return _ret;
+		return ret;
 	}
 	NectarCore::VAR Array::toLocaleString(NectarCore::VAR* args, int _length) const
 	{
-		/*
-		int l = value.size();
-		if (l == 0)
-			return "";
-		std::stringstream stream;
-		stream << (std::string)value[0]["toLocaleString"]();
-		for (int i = 1; i < l; i++)
-		{
-			NectarCore::VAR val = value[i];
-			stream << "," << (std::string)val["toLocaleString"]();
-		}
-		return stream.str();
-		*/
-		return this;
+		return toString(args, _length);
 	}
 	NectarCore::VAR Array::toString(NectarCore::VAR* args, int _length) const
 	{
@@ -814,8 +738,17 @@ namespace NectarCore::Class
 
 	NectarCore::VAR Array::unshift(NectarCore::VAR* args, int _length)
 	{
+		auto it = value.begin();
+		for (int i = 0; i < _length; i++)
+		{
+			it = value.insert(it, args[i]);
+		}
+		return (int)value.size();
+	}
+	NectarCore::VAR Array::values(NectarCore::VAR* args, int _length) const
+	{
+		// TODO: Add iterator
 		return this;
 	}
-	NectarCore::VAR Array::values(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	
+
 } // namespace NectarCore::Class
