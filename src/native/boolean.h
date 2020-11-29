@@ -20,6 +20,17 @@
  *
  */
  
-#include "native/int.h"
-#include "native/boolean.h"
-#include "native/double.h"
+inline bool operator!(NectarCore::VAR _v)
+{
+	return !(bool)_v;
+}
+
+inline bool operator&&(bool _b, NectarCore::VAR _v)
+{
+	return _b && (bool)_v;
+}
+
+inline bool operator||(bool _b, NectarCore::VAR _v)
+{
+	return _b || (bool)_v;
+}

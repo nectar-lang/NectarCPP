@@ -21,4 +21,5 @@
  */
  
 #include "native/int_header.h"
+#include "native/boolean_header.h"
 #include "native/double_header.h"
