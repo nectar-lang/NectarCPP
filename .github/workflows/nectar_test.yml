@@ -29,3 +29,5 @@ jobs:
         g++ -std=c++17 -c src/nectar.cpp -Ofast
         g++ -std=c++17 nectar.o test/object.cpp -lpthread -Ofast -o object.out
         ./object.out
+        g++ -std=c++17 nectar.o test/cast.cpp -lpthread -Ofast -o cast.out
+        ./cast.out
