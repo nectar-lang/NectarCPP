@@ -116,8 +116,8 @@ namespace NectarCore
 		VAR operator!();
 
 		/// Logical operators
-		VAR operator&&(const VAR &_v1);
-		VAR operator||(const VAR &_v1);
+		VAR operator&&(const VAR &_v1) const;
+		VAR operator||(const VAR &_v1) const;
 
 		/// Arithmetic operators
 		VAR operator+(const VAR &_v1);

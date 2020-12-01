@@ -31,3 +31,5 @@ jobs:
         ./object.out
         g++ -std=c++17 nectar.o test/cast.cpp -lpthread -Ofast -o cast.out
         ./cast.out
+        g++ -std=c++17 nectar.o test/operators.cpp -lpthread -Ofast -o cast.out
+        ./operators.out

@@ -283,8 +283,8 @@ namespace NectarCore
 	};
 
 	/// Logical VAR::operators
-	VAR VAR::operator&&(const VAR &_v1) { return (bool)*this && (bool)_v1; }
-	VAR VAR::operator||(const VAR &_v1) { return (bool)*this || (bool)_v1; }
+	VAR VAR::operator&&(const VAR &_v1) const { return (bool)*this && (bool)_v1; }
+	VAR VAR::operator||(const VAR &_v1) const { return (bool)*this || (bool)_v1; }
 
 	/// Arithmetic VAR::operators
 	VAR VAR::operator+(const VAR &_v1)
