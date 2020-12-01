@@ -137,7 +137,7 @@ namespace NectarCore
 		VAR& operator--(const int _v1);
 		VAR& operator--();
 		/// Comparison operators
-		VAR operator==(const VAR &_v1);
+		VAR operator==(const VAR &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
 		VAR operator!=(const VAR &_v1);
 		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE

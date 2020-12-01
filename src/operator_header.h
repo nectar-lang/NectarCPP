@@ -168,11 +168,17 @@ NectarCore::VAR operator|| (NectarCore::VAR _left, double right);
 NectarCore::VAR operator|| (NectarCore::VAR _left, std::string right);
 NectarCore::VAR operator|| (NectarCore::VAR _left, NectarCore::VAR right);
 
+/*
 template<class T>
 NectarCore::VAR operator== (NectarCore::VAR _left, T right)
 {
 	return (double)_left == right;
 }
+*/
+
+NectarCore::VAR operator== (NectarCore::VAR _left, int right);
+NectarCore::VAR operator== (NectarCore::VAR _left, double right);
+NectarCore::VAR operator== (NectarCore::VAR _left, std::string right);
 
 template<class T>
 NectarCore::VAR operator!= (NectarCore::VAR _left, T right)

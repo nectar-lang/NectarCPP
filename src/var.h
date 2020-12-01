@@ -435,7 +435,7 @@ namespace NectarCore
 	}
 
 	/// Comparison VAR::operators
-	VAR VAR::operator==(const VAR &_v1)
+	VAR VAR::operator==(const VAR &_v1) const
 	{
 		if (type == _v1.type)
 		{

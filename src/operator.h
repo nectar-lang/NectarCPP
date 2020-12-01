@@ -25,6 +25,20 @@ NectarCore::VAR operator+ (const char* _left, const NectarCore::VAR &_right)
 	return std::string(_left) + (std::string)_right;
 }
 
+NectarCore::VAR operator== (NectarCore::VAR _left, int right)
+{
+	return (double)_left == right;
+}
+
+NectarCore::VAR operator== (NectarCore::VAR _left, double right)
+{
+	return (double)_left == right;
+}
+
+NectarCore::VAR operator== (NectarCore::VAR _left, std::string right)
+{
+	return (std::string)_left == right;
+}
 
 NectarCore::VAR __Nectar_Boolean_Result(NectarCore::VAR _v)
 {
