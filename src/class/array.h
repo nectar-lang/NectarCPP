@@ -36,6 +36,8 @@ namespace NectarCore::Class
 	{
 		value = vec;
 	}
+	Array::Array(std::initializer_list<NectarCore::VAR> l) : value(l){}
+	
 	// Methods
 	inline void Array::Delete() noexcept
 	{

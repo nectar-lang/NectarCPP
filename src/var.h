@@ -134,6 +134,14 @@ namespace NectarCore
 		data.ptr = _value;
 	}
 	
+	VAR::VAR(std::initializer_list<NectarCore::VAR> l)
+	{
+		type = NectarCore::Enum::Type::Array;
+		NectarCore::Class::Array* _arr = new NectarCore::Class::Array(l);
+		_arr->counter++;
+		data.ptr = _arr;
+	}
+	
 	VAR::VAR(const NectarCore::Class::Array *_value)
 	{
 		type = NectarCore::Enum::Type::Array;
