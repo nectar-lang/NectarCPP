@@ -20,6 +20,5 @@
  *
  */
  
-inline bool operator!(NectarCore::VAR _v);
-inline bool operator&&(bool _b, NectarCore::VAR _v);
-inline bool operator||(bool _b, NectarCore::VAR _v);
+bool operator&&(bool _b, NectarCore::VAR _v);
+bool operator||(bool _b, NectarCore::VAR _v);

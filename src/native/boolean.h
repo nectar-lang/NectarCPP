@@ -20,17 +20,12 @@
  *
  */
  
-inline bool operator!(NectarCore::VAR _v)
-{
-	return !(bool)_v;
-}
-
-inline bool operator&&(bool _b, NectarCore::VAR _v)
+bool operator&&(bool _b, NectarCore::VAR _v)
 {
 	return _b && (bool)_v;
 }
 
-inline bool operator||(bool _b, NectarCore::VAR _v)
+bool operator||(bool _b, NectarCore::VAR _v)
 {
 	return _b || (bool)_v;
 }
