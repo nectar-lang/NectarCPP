@@ -1,0 +1,37 @@
+name: CI_NECTAR
+
+on:
+  push:
+    branches: [ cpp20 ]
+  pull_request:
+    branches: [ cpp20 ]
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+      
+    - name: Install
+      run: | 
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt install g++-10
+        g++ -v
+    - name: run
+      run: | 
+        g++ -std=c++20 -c src/nectar.hpp -Ofast
+        g++ -std=c++20 -c src/nectar.cpp -Ofast
+        g++ -std=c++20 nectar.o test/object.cpp -lpthread -Ofast -o object.out
+        ./object.out
+        g++ -std=c++20 nectar.o test/cast.cpp -lpthread -Ofast -o cast.out
+        ./cast.out
+        g++ -std=c++20 nectar.o test/operators.cpp -lpthread -Ofast -o operators.out
+        ./operators.out
+        g++ -std=c++20 nectar.o test/array.cpp -lpthread -Ofast -o array.out
+        ./array.out
