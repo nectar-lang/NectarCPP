@@ -106,14 +106,16 @@ namespace NectarCore::Class
 		Array operator>>=(const Array &_v1);
 		Array operator<<=(const Array &_v1);
 		// TODO: ">>>" and ">>>=" operators
-		
+
+		NectarCore::Type::vector_t Array::_flat(double depth) const;
+
 		NectarCore::VAR __iterator(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR __unscopables(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR concat(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR copyWithin(NectarCore::VAR* args, int _length);
 		NectarCore::VAR entries(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR every(NectarCore::VAR* args, int _length) const;
-		NectarCore::VAR fill(NectarCore::VAR* args, int _length) const;
+		NectarCore::VAR fill(NectarCore::VAR* args, int _length);
 		NectarCore::VAR filter(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR find(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR findIndex(NectarCore::VAR* args, int _length) const;

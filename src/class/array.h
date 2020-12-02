@@ -591,17 +591,14 @@ namespace NectarCore::Class
 	NectarCore::VAR Array::__unscopables(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
 	NectarCore::VAR Array::concat(NectarCore::VAR* args, int _length) const
 	{
-		/*
-		auto &res = *new Array();
-		auto &vec = res.value;
-		for (auto _arr : args)
+		auto res = new Array();
+		auto &arr = res->value;
+		for (int i = 0; i < _length; ++i)
 		{
-			auto &arr = (Array)_arr;
-			vec.insert(vec.end(), arr.begin(), arr.end());
+			auto &vec = ((Array*)args[i])->value;
+			arr.insert(arr.end(), vec.begin(), vec.end());
 		}
 		return res;
-		*/
-		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR Array::copyWithin(NectarCore::VAR* args, int _length)
 	{
@@ -624,42 +621,253 @@ namespace NectarCore::Class
 		return *this;*/
 		return NectarCore::Global::undefined;
 	}
-	NectarCore::VAR Array::entries(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::every(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::fill(NectarCore::VAR* args, int _length) const
+	NectarCore::VAR Array::entries(NectarCore::VAR* args, int _length) const
 	{
-		/*
-		NectarCore::VAR value = _length ? args[0] : NectarCore::Global::undefined;
-		value.assign(value.size(), value);
-		return *this;
-		*/
-		return NectarCore::Global::undefined;
+		auto res = new Array();
+		auto& arr = res->value;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto entry = NectarCore::Type::vector_t({ i, value[i] });
+			arr.push_back(NectarCore::VAR(new Array(entry)));
+		}
+		return res;
+	}
+	NectarCore::VAR Array::every(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1]
+				&& !func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
+			) return false;
+		}
+		return true;
+	}
+	NectarCore::VAR Array::fill(NectarCore::VAR* args, int _length)
+	{
+		auto& val = _length ? args[0] : NectarCore::Global::undefined;
+		value.assign(value.size(), val);
+		return this;
 	};
-	NectarCore::VAR Array::filter(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::find(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::findIndex(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::flat(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::flatMap(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::forEach(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::includes(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::indexOf(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
+	NectarCore::VAR Array::filter(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function) {
+			throw InvalidTypeException();
+		}
+		auto res = new Array();
+		auto& arr = res->value;
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto el = value[i];
+			if ((bool)el.property[1] && func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3))
+			{
+				arr.push_back(el);
+			}
+		}
+		return res;
+	}
+	NectarCore::VAR Array::find(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1]
+				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
+			) return value[i];
+		}
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR Array::findIndex(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1]
+				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
+			) return i;
+		}
+		return -1;
+	}
+	NectarCore::Type::vector_t Array::_flat(double depth) const
+	{
+		NectarCore::Type::vector_t arr = {};
+		for (auto& el : value)
+		{
+			if (!(bool)el.property[1]) continue;
+			if (el.type == NectarCore::Enum::Type::Array && depth > 0)
+			{
+				auto vec = ((Array*)el.data.ptr)->_flat(depth - 1);
+				arr.insert(arr.end(), vec.begin(), vec.end());
+			} else {
+				arr.push_back(el);
+			}
+		}
+		return arr;
+	}
+	NectarCore::VAR Array::flat(NectarCore::VAR* args, int _length) const
+	{
+		// Infinity cannot be represented as int
+		return new Array(_flat(_length > 0 ? (double)args[0] : 1));
+	}
+	NectarCore::VAR Array::flatMap(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto res = new Array();
+		auto& arr = res->value;
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto el = value[i];
+			if ((bool)el.property[1])
+			{
+				el = func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
+			}
+			if (el.type == NectarCore::Enum::Type::Array)
+			{
+				auto& vec = ((Array*)el.data.ptr)->value;
+				arr.insert(arr.end(), vec.begin(), vec.end());
+			} else {
+				arr.push_back(el);
+			}
+		}
+		return res;
+	}
+	NectarCore::VAR Array::forEach(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1])
+			{
+				func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
+			}
+		}
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR Array::includes(NectarCore::VAR* args, int _length) const
+	{
+		auto& search = _length > 0 ? args[0] : NectarCore::Global::undefined;
+		if (search.type == NectarCore::Enum::Type::Number && std::isnan(search.data.number)) {
+			for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+			{
+				auto& el = value[i];
+				if ((bool)el.property[1] // Is enumerable
+					&& el.type == NectarCore::Enum::Type::Number // Is number
+					&& std::isnan(el.data.number) // Is NaN
+				) return true;
+			}
+			return false;
+		}
+		for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1] // Is enumerable
+				&& search.type == el.type // Is same type
+				&& search == el // Is equal
+			) return true;
+		}
+		return false;
+	}
+	NectarCore::VAR Array::indexOf(NectarCore::VAR* args, int _length) const
+	{
+		auto search = _length > 0 ? args[0] : NectarCore::Global::undefined;
+		for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1] // Is enumerable
+				&& search.type == el.type // Is same type
+				&& search == el // Is equal
+			) return i;
+		}
+		return -1;
+	}
 	NectarCore::VAR Array::join(NectarCore::VAR* args, int _length) const
 	{
-		auto _str = (std::string)(_length ? args[0] : NectarCore::Global::undefined);
-		int l = value.size();
-		if (l == 0)
-			return "";
+		if (value.empty()) return "";
+		std::string _str = _length ? args[0] : NectarCore::Global::undefined;
 		std::stringstream stream;
 		stream << (std::string)value[0];
-		for (int i = 1; i < l; i++)
+		for (auto& el : value)
 		{
-			stream << _str << (std::string)value[i];
+			stream << _str << (std::string)el;
 		}
 		return stream.str();
 	};
-	NectarCore::VAR Array::keys(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::lastIndexOf(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
-	NectarCore::VAR Array::map(NectarCore::VAR* args, int _length) const { return NectarCore::Global::undefined; }
+	NectarCore::VAR Array::keys(NectarCore::VAR* args, int _length) const
+	{
+		auto res = new Array();
+		auto& arr = res->value;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			arr.push_back(i);
+		}
+		return res;
+	}
+	NectarCore::VAR Array::lastIndexOf(NectarCore::VAR* args, int _length) const
+	{
+		auto& search = _length > 0 ? args[0] : NectarCore::Global::undefined;
+		int index = -1;
+		for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1] // Is enumerable
+				&& search.type == el.type // Is same type
+				&& search == el // Is equal
+			) { index = i; }
+		}
+		return index;
+	}
+	NectarCore::VAR Array::map(NectarCore::VAR* args, int _length) const
+	{
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto res = new Array();
+		auto& arr = res->value;
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto el = value[i];
+			if ((bool)el.property[1])
+			{
+				el = func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
+			}
+			arr.push_back(el);
+		}
+		return res;
+	}
 	NectarCore::VAR Array::pop(NectarCore::VAR* args, int _length) 
 	{ 
 		auto last = value.back();
@@ -668,7 +876,7 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR Array::push(NectarCore::VAR* args, int _length)
 	{
-		for (int i = 0; i < _length; i++)
+		for (int i = 0; i < _length; ++i)
 		{
 			value.push_back(args[i]);
 		}
@@ -676,27 +884,54 @@ namespace NectarCore::Class
 	};
 	NectarCore::VAR Array::reduce(NectarCore::VAR* args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = args[0];
+		auto result = _length > 1 ? args[1] : value[0];
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1])
+			{
+				result = func(result, el, i, this);
+			}
+		}
+		return result;
 	}
 	NectarCore::VAR Array::reduceRight(NectarCore::VAR* args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = args[0];
+		auto result = _length > 1 ? args[1] : value[0];
+		for (int i = value.size() - 1; i > -1; --i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1])
+			{
+				result = func(result, el, i, this);
+			}
+		}
+		return result;
 	}
 	NectarCore::VAR Array::reverse(NectarCore::VAR* args, int _length)
 	{
 		std::reverse(value.begin(), value.end());
 		return this;
 	}
-	NectarCore::VAR Array::shift(NectarCore::VAR* args, int _length) {
+	NectarCore::VAR Array::shift(NectarCore::VAR* args, int _length)
+	{
 		auto ret = value.front();
 		value.erase(value.begin());
 		return ret;
 	}
 	NectarCore::VAR Array::slice(NectarCore::VAR* args, int _length) const 
 	{ 
-		if (_length == 0) return new Array(value);
+		if (value.empty()) return new Array(value);
 		int start = 0;
 		int end = value.size();
 		if (_length > 0)
@@ -710,17 +945,41 @@ namespace NectarCore::Class
 			if (end > value.size()) end = value.size();
 		}
 		auto ret = NectarCore::Type::vector_t(value.begin() + start, value.begin() + end);
-		return new NectarCore::Class::Array(ret);
+		return new Array(ret);
 	}
 	NectarCore::VAR Array::some(NectarCore::VAR* args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
+			throw InvalidTypeException();
+		}
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (int i = 0, l = value.size(); i < l; ++i)
+		{
+			auto& el = value[i];
+			if ((bool)el.property[1]
+				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
+			) return true;
+		}
+		return false;
 	}
 	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length) const 
 	{
-		// TODO: Implement
+		// TODO: Implement custom sorting algorithm
 		return NectarCore::Global::undefined; 
+
+		if (value.empty()) return false;
+		if (_length)
+		{
+			// TODO: Implement
+		}
+		else
+		{
+			// Do lexicographical comparisons
+			std::sort(value.begin(), value.end());
+		}
+		return this;
 	}
 	NectarCore::VAR Array::splice(NectarCore::VAR* args, int _length)
 	{
@@ -742,7 +1001,7 @@ namespace NectarCore::Class
 		{
 			value.erase(value.begin() + start, value.begin() + end);
 		}
-		for (int i = 2; i < _length; i++)
+		for (int i = 2; i < _length; ++i)
 		{
 			value.push_back(args[i]);
 		}
@@ -754,14 +1013,13 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR Array::toString(NectarCore::VAR* args, int _length) const
 	{
-		NectarCore::VAR _arg[1] = {","};
-		return join(_arg, 1);
+		return join((NectarCore::VAR[]){","}, 1);
 	}
 
 	NectarCore::VAR Array::unshift(NectarCore::VAR* args, int _length)
 	{
 		auto it = value.begin();
-		for (int i = 0; i < _length; i++)
+		for (int i = 0; i < _length; ++i)
 		{
 			it = value.insert(it, args[i]);
 		}
@@ -770,7 +1028,7 @@ namespace NectarCore::Class
 	NectarCore::VAR Array::values(NectarCore::VAR* args, int _length) const
 	{
 		// TODO: Add iterator
-		return this;
+		return new Array(value);
 	}
 
 } // namespace NectarCore::Class
