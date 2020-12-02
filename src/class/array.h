@@ -595,31 +595,25 @@ namespace NectarCore::Class
 		auto &arr = res->value;
 		for (int i = 0; i < _length; ++i)
 		{
-			auto &vec = ((Array*)args[i])->value;
+			auto &vec = ((Array*)args[i].data.ptr)->value;
 			arr.insert(arr.end(), vec.begin(), vec.end());
 		}
 		return res;
 	}
 	NectarCore::VAR Array::copyWithin(NectarCore::VAR* args, int _length)
 	{
-		/*
-		auto &vec = value;
-		int _size = _length;
-		int target = _size > 0 ? (int)args[0] : 0;
-		int start = _size > 1 ? (int)args[1] : 0;
-		int end = _size > 2 ? (int)args[2] : vec.size();
-		int size = vec.size();
-		if (start < 0)
-		{
-			start += size;
-		}
-		if (end < 0)
-		{
-			end += size;
-		}
-		std::copy(vec.begin() + target, vec.begin() + end, vec.begin() + start);
-		return *this;*/
-		return NectarCore::Global::undefined;
+		if (_length == 0 || value.empty()) return this;
+		int size = value.size();
+
+		int target = (int)args[0];
+		if (target < 0) target += size;
+		if (target > size) return this;
+		int start = _length > 1 ? (int)args[1] : 0;
+		if (start < 0) start += size;
+		int end = _length > 2 ? (int)args[2] : size;
+		if (end < 0) end += size;
+		std::copy(value.begin() + start, value.begin() + end, value.begin() + target);
+		return this;
 	}
 	NectarCore::VAR Array::entries(NectarCore::VAR* args, int _length) const
 	{
@@ -657,7 +651,8 @@ namespace NectarCore::Class
 	};
 	NectarCore::VAR Array::filter(NectarCore::VAR* args, int _length) const
 	{
-		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function) {
+		if (_length == 0 || args[0].type != NectarCore::Enum::Type::Function)
+		{
 			throw InvalidTypeException();
 		}
 		auto res = new Array();
