@@ -29,6 +29,16 @@ namespace NectarCore::Class
 	NectarCore::VAR __proxy;
 	// Constructors
 	Object::Object() { }
+	
+	Object(const char* _key, NectarCore::VAR _value)
+	{ 
+		object[_key] = _value;
+	}
+	
+	Object(NectarCore::Type::object_t _obj)
+	{ 
+		object = _obj;
+	}
 	// Methods
 	inline void Object::Delete() noexcept
 	{

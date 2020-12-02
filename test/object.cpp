@@ -14,5 +14,14 @@ int main(int argc, char** argv)
 	o["string"] = "str";
 	println(o);
 
+	var init = new Object(
+	{
+		{"one", 1}, // number
+		{"two", "2"}, // string
+		{"three", {1,2,3}}, // array
+		{"four", new Object("key", "value")} // sub object with only one key
+	});
+	println(init);
+
 	return 0;
 }

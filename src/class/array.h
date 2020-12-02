@@ -55,7 +55,7 @@ namespace NectarCore::Class
 			#else
 				for (NectarCore::Type::object_t::iterator it = object.begin() ; it != object.end(); ++it)
 				{
-					if (((std::string_key)).compare(it->first) == 0)
+					if (((std::string)_key).compare(it->first) == 0)
 					{
 						object.erase(it);
 						return;

@@ -168,7 +168,7 @@ namespace NectarCore
 		_value->counter++;
 		data.ptr = _value;
 	}
-	
+
 	VAR::VAR(NectarCore::Class::String *_value)
 	{
 		type = NectarCore::Enum::Type::String;
