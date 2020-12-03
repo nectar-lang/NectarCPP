@@ -30,12 +30,12 @@ namespace NectarCore::Class
 	// Constructors
 	Object::Object() { }
 	
-	Object(const char* _key, NectarCore::VAR _value)
+	Object::Object(const char* _key, NectarCore::VAR _value)
 	{ 
 		object[_key] = _value;
 	}
 	
-	Object(NectarCore::Type::object_t _obj)
+	Object::Object(NectarCore::Type::object_t _obj)
 	{ 
 		object = _obj;
 	}
