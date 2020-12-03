@@ -20,8 +20,15 @@
  *
  */
 
-constexpr bool operator==(std::string_view sw, const char* c);
-constexpr bool operator!=(std::string_view sw, const char* c);
+constexpr bool operator==(std::string_view sw, const char* c)
+{
+	return sw == std::string_view(c);
+}
+
+constexpr bool operator!=(std::string_view sw, const char* c)
+{
+	return sw != std::string_view(c);
+}
 
 NectarCore::VAR __Nectar_Boolean_Result(NectarCore::VAR _v);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);

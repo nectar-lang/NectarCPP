@@ -20,16 +20,6 @@
  *
  */
 
-constexpr bool operator==(std::string_view sw, const char* c)
-{
-	return sw == std::string_view(c);
-}
-
-constexpr bool operator!=(std::string_view sw, const char* c)
-{
-	return sw != std::string_view(c);
-}
-
 NectarCore::VAR operator+ (const char* _left, const NectarCore::VAR &_right)
 {
 	return NectarCore::VAR(_left) + _right;
