@@ -54,6 +54,7 @@ namespace NectarCore
 		VAR(char *_value);
 		VAR(std::string _value);
 		VAR(const char *_value);
+		VAR(std::string_view _value);
 		VAR(NectarCore::Class::FixedArray *_value);
 		VAR(NectarCore::Class::Array *_value);
 		VAR(const NectarCore::Class::Array *_value);
@@ -115,8 +116,8 @@ namespace NectarCore
 		VAR operator!();
 
 		/// Logical operators
-		VAR operator&&(const VAR &_v1);
-		VAR operator||(const VAR &_v1);
+		VAR operator&&(const VAR &_v1) const;
+		VAR operator||(const VAR &_v1) const;
 
 		/// Arithmetic operators
 		VAR operator+(const VAR &_v1);
@@ -136,7 +137,7 @@ namespace NectarCore
 		VAR& operator--(const int _v1);
 		VAR& operator--();
 		/// Comparison operators
-		VAR operator==(const VAR &_v1);
+		VAR operator==(const VAR &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
 		VAR operator!=(const VAR &_v1);
 		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
@@ -165,9 +166,10 @@ namespace NectarCore
 		operator bool();
 		explicit operator std::string() const;
 		operator std::string();
-		explicit operator const char*() const;
-		explicit operator long long();
+		operator const char*() const;
+		operator long long();
 		explicit operator long long() const;
+		operator std::string_view() const;
 		
 	};
 } // namespace NectarCore

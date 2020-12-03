@@ -24,3 +24,7 @@ jobs:
         clang++ -std=c++17 -c src/nectar.cpp -Ofast
         clang++ -std=c++17 nectar.o test/object.cpp -lpthread -Ofast -o object.out
         ./object.out
+        clang++ -std=c++17 nectar.o test/cast.cpp -lpthread -Ofast -o cast.out
+        ./cast.out
+        clang++ -std=c++17 nectar.o test/operators.cpp -lpthread -Ofast -o cast.out
+        ./operators.out
