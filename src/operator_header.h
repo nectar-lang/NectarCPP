@@ -19,6 +19,10 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+constexpr bool operator==(std::string_view sw, const char* c);
+constexpr bool operator!=(std::string_view sw, const char* c);
+
 NectarCore::VAR __Nectar_Boolean_Result(NectarCore::VAR _v);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);
 std::ostream &operator<<(std::ostream &os, const NectarCore::VAR &_v);
