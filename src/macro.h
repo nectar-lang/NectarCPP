@@ -33,9 +33,11 @@
 #define __Nectar_Create_FixedArray(_length) NectarCore::VAR(new NectarCore::Class::FixedArray(_length))
 #define __Nectar_Create_Lambda(name) NectarCore::Type::function_t* name = new NectarCore::Type::function_t([](NectarCore::VAR __Nectar_THIS, NectarCore::VAR* __Nectar_VARARGS, int __Nectar_VARLENGTH)
 #define __Nectar_Create_Ptr_Scoped_Anon(__CONTENT__) new NectarCore::Type::function_t([&](NectarCore::VAR __Nectar_THIS, NectarCore::VAR* __Nectar_VARARGS, int __Nectar_VARLENGTH){ __CONTENT__ })
+#define __Nectar_Create_Ptr_Scoped_Copy_Anon(__CONTENT__) new NectarCore::Type::function_t([=](NectarCore::VAR __Nectar_THIS, NectarCore::VAR* __Nectar_VARARGS, int __Nectar_VARLENGTH){ __CONTENT__ })
 #define __Nectar_Create_Ptr_Unscoped_Anon(__CONTENT__) new NectarCore::Type::function_t([](NectarCore::VAR __Nectar_THIS, NectarCore::VAR* __Nectar_VARARGS, int __Nectar_VARLENGTH){ __CONTENT__ })
 #define __Nectar_Create_Var_Scoped_Anon(__CONTENT__) NectarCore::VAR(NectarCore::Enum::Type::Function, __Nectar_Create_Ptr_Scoped_Anon(__CONTENT__))
 #define __Nectar_Create_Var_Unscoped_Anon(__CONTENT__) NectarCore::VAR(NectarCore::Enum::Type::Function, __Nectar_Create_Ptr_Unscoped_Anon(__CONTENT__))
+#define __Nectar_Create_Var_Scoped_Copy_Anon(__CONTENT__) NectarCore::VAR(NectarCore::Enum::Type::Function, __Nectar_Create_Ptr_Scoped_Copy_Anon(__CONTENT__))
 #define __Nectar_Init_Int(_name, _value) int _name = _value
 #define __Nectar_Init_Double(_name, _value) double _name = _value
 #define __Nectar_Init_String(_name, _value) std::string _name = _value
