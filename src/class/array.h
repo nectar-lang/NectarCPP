@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "array_header.h"
 #include <sstream>
@@ -28,8 +28,8 @@
 namespace NectarCore::Class
 {
 	// Constructors
-	Array::Array() 
-	{ 
+	Array::Array()
+	{
 
 	}
 	Array::Array(NectarCore::Type::vector_t vec)
@@ -117,7 +117,7 @@ namespace NectarCore::Class
 			{
 				return NectarCore::Global::undefined;
 			}
-			else 
+			else
 			{
 				if (i >= value.size())
 				{
@@ -137,7 +137,7 @@ namespace NectarCore::Class
 		}
 		
 		NectarCore::VAR& _obj = object[_str];
-		if(_obj) return _obj; 
+		if(_obj) return _obj;
 		
 		__Nectar_Method_Lazy_Loader("push", push);
 		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
@@ -187,7 +187,7 @@ namespace NectarCore::Class
 			{
 				return NectarCore::Global::undefined;
 			}
-			else 
+			else
 			{
 				if (i >= value.size())
 				{
@@ -260,7 +260,7 @@ namespace NectarCore::Class
 		{
 			return NectarCore::Global::undefined;
 		}
-		else 
+		else
 		{
 			if (key >= value.size())
 			{
@@ -276,7 +276,7 @@ namespace NectarCore::Class
 		{
 			return NectarCore::Global::undefined;
 		}
-		else 
+		else
 		{
 			if (key >= value.size())
 			{
@@ -299,7 +299,7 @@ namespace NectarCore::Class
 		}
 		
 		NectarCore::VAR& _obj = object[_str];
-		if(_obj) return _obj; 
+		if(_obj) return _obj;
 		
 		__Nectar_Method_Lazy_Loader("push", push);
 		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
@@ -399,188 +399,188 @@ namespace NectarCore::Class
 	#endif
 	
 	// Comparation operators
-	Array Array::operator!() const 
-	{ 
+	Array Array::operator!() const
+	{
 		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException(); 
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
 	
 	// Numeric operators
 	Array Array::operator+() const
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
 	Array Array::operator-() const
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
 	Array Array::operator++(const int _v1)
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
 	Array Array::operator--(const int _v1)
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator+(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator+(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator+=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator+=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator-(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator-(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator-=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator-=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator*(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator*(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator*=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator*=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
 	// TODO: "**" and "**=" operators
-	Array Array::operator/(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator/(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator/=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator/=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator%(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator%(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator%=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator%=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator&(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator&(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator|(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator|(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator^(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator^(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator~() const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator~() const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator>>(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator>>(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator<<(const Array &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator<<(const Array &_v1) const
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator&=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator&=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator|=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator|=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator^=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator^=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator>>=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator>>=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
-	Array Array::operator<<=(const Array &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
+	Array Array::operator<<=(const Array &_v1)
+	{
+		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
 		#endif
 		return Array();
 	}
@@ -637,9 +637,9 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto& el = value[i];
-			if ((bool)el.property[1]
-				&& !func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
-			) return false;
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			if (!func.Call(_this, args, 3)) return false;
 		}
 		return true;
 	}
@@ -662,10 +662,9 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto el = value[i];
-			if ((bool)el.property[1] && func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3))
-			{
-				arr.push_back(el);
-			}
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			if (func.Call(_this, args, 3)) arr.push_back(el);
 		}
 		return res;
 	}
@@ -680,9 +679,9 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto& el = value[i];
-			if ((bool)el.property[1]
-				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
-			) return value[i];
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			if (func.Call(_this, args, 3)) return el;
 		}
 		return NectarCore::Global::undefined;
 	}
@@ -697,9 +696,9 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto& el = value[i];
-			if ((bool)el.property[1]
-				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
-			) return i;
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			if (func.Call(_this, args, 3)) return i;
 		}
 		return -1;
 	}
@@ -713,7 +712,9 @@ namespace NectarCore::Class
 			{
 				auto vec = ((Array*)el.data.ptr)->_flat(depth - 1);
 				arr.insert(arr.end(), vec.begin(), vec.end());
-			} else {
+			}
+			else
+			{
 				arr.push_back(el);
 			}
 		}
@@ -739,13 +740,16 @@ namespace NectarCore::Class
 			auto el = value[i];
 			if ((bool)el.property[1])
 			{
-				el = func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
+				NectarCore::VAR args[] = { el, i, this };
+				el = func.Call(_this, args, 3);
 			}
 			if (el.type == NectarCore::Enum::Type::Array)
 			{
 				auto& vec = ((Array*)el.data.ptr)->value;
 				arr.insert(arr.end(), vec.begin(), vec.end());
-			} else {
+			}
+			else
+			{
 				arr.push_back(el);
 			}
 		}
@@ -762,20 +766,19 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto& el = value[i];
-			if ((bool)el.property[1])
-			{
-				func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
-			}
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			func.Call(_this, args, 3)
 		}
 		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR Array::includes(NectarCore::VAR* args, int _length) const
 	{
 		auto& search = _length > 0 ? args[0] : NectarCore::Global::undefined;
-		if (search.type == NectarCore::Enum::Type::Number && std::isnan(search.data.number)) {
-			for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+		if (search.type == NectarCore::Enum::Type::Number && std::isnan(search.data.number))
+		{
+			for (auto& el : value)
 			{
-				auto& el = value[i];
 				if ((bool)el.property[1] // Is enumerable
 					&& el.type == NectarCore::Enum::Type::Number // Is number
 					&& std::isnan(el.data.number) // Is NaN
@@ -783,9 +786,8 @@ namespace NectarCore::Class
 			}
 			return false;
 		}
-		for (int i = _length > 1 ? (int)args[1] : 0, l = value.size(); i < l; ++i)
+		for (auto& el : value)
 		{
-			auto& el = value[i];
 			if ((bool)el.property[1] // Is enumerable
 				&& search.type == el.type // Is same type
 				&& search == el // Is equal
@@ -857,14 +859,15 @@ namespace NectarCore::Class
 			auto el = value[i];
 			if ((bool)el.property[1])
 			{
-				el = func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3);
+				NectarCore::VAR args[] = { el, i, this };
+				el = func.Call(_this, args, 3);
 			}
 			arr.push_back(el);
 		}
 		return res;
 	}
-	NectarCore::VAR Array::pop(NectarCore::VAR* args, int _length) 
-	{ 
+	NectarCore::VAR Array::pop(NectarCore::VAR* args, int _length)
+	{
 		auto last = value.back();
 		value.pop_back();
 		return last;
@@ -924,8 +927,8 @@ namespace NectarCore::Class
 		value.erase(value.begin());
 		return ret;
 	}
-	NectarCore::VAR Array::slice(NectarCore::VAR* args, int _length) const 
-	{ 
+	NectarCore::VAR Array::slice(NectarCore::VAR* args, int _length) const
+	{
 		if (value.empty()) return new Array(value);
 		int start = 0;
 		int end = value.size();
@@ -953,16 +956,17 @@ namespace NectarCore::Class
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
 			auto& el = value[i];
-			if ((bool)el.property[1]
-				&& func.Call(_this, ((NectarCore::VAR[]){ el, i, this }), 3)
-			) return true;
+			if (!(bool)el.property[1]) continue;
+			NectarCore::VAR args[] = { el, i, this };
+			if (func.Call(_this, args, 3)) return true;
 		}
 		return false;
 	}
-	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length) const 
+	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length) const
 	{
 		// TODO: Implement custom sorting algorithm
-		return NectarCore::Global::undefined; 
+		// using -1/0/1 instead of true/false
+		return NectarCore::Global::undefined;
 
 		if (value.empty()) return false;
 		if (_length)
@@ -1008,7 +1012,8 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR Array::toString(NectarCore::VAR* args, int _length) const
 	{
-		return join((NectarCore::VAR[]){","}, 1);
+		NectarCore::VAR args[] = {","};
+		return join(args, 1);
 	}
 
 	NectarCore::VAR Array::unshift(NectarCore::VAR* args, int _length)

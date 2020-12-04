@@ -107,7 +107,7 @@ namespace NectarCore::Class
 		Array operator<<=(const Array &_v1);
 		// TODO: ">>>" and ">>>=" operators
 
-		NectarCore::Type::vector_t Array::_flat(double depth) const;
+		NectarCore::Type::vector_t _flat(double depth) const;
 
 		NectarCore::VAR __iterator(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR __unscopables(NectarCore::VAR* args, int _length) const;
