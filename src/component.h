@@ -19,13 +19,9 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+ 
+#pragma once
 
-NectarCore::VAR getArguments(int argc, char** argv)
-{
-	NectarCore::VAR __NJS_ARGS = new NectarCore::Class::Array();
-	for( int i = 0; i < argc; i++)
-	{
-		__NJS_ARGS[i] = argv[i];
-	}
-	return __NJS_ARGS;
-}
+#include "./component/event.h"
+#include "./component/globals.h"
+#include "./component/native.h"

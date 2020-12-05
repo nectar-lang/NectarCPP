@@ -21,21 +21,6 @@
  */
  
 #pragma once
-
-namespace NectarCore::Enum
-{
-	enum Type
-	{
-		Null,
-		Boolean,
-		Number,
-		String,
-		Native,
-		Struct,
-		FixedArray,
-		Array,
-		Object,
-		Function,
-		Undefined,
-	};
-}
+#include "./native/boolean_header.h"
+#include "./native/double_header.h"
+#include "./native/int_header.h"
