@@ -20,6 +20,8 @@
  *
  */
  
+#pragma once
+
 namespace NectarCore
 {
 	union Data

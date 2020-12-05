@@ -21,14 +21,11 @@
  */
  
 #pragma once
-#define __INC_Nectar_CLASSES_HEADER
 
-#include "./class/base_header.h"
-#include "./class/array_header.h"
-#include "./class/object_header.h"
-#include "./class/function_header.h"
-#include "./class/native_header.h"
-#include "./class/struct_header.h"
-#include "./class/fixed_array_header.h"
-#include "./class/string_header.h"
-#include "./class/undefined_header.h"
+#include "./builtins/number_header.h"
+#include "./builtins/object_header.h"
+#include "./builtins/array_header.h"
+#include "./builtins/function_header.h"
+#include "./builtins/native_header.h"
+#include "./builtins/string_header.h"
+#include "./builtins/undefined_header.h"

@@ -20,11 +20,8 @@
  *
  */
  
-#include "nectar.hpp"
+#pragma once
 
-#include "enum.h"
-#include "var.h"
-#include "values.h"
-#include "helpers.h"
-#include "class.h"
-#include "component.h"
+#include "./class/base_header.h"
+#include "./class/builtins_header.h"
+#include "./class/custom_header.h"
