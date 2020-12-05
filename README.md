@@ -7,7 +7,7 @@ You need a C++ compile (g++ or clang++) to use NectarCPP.
 
 Clone this repository, and create a file mycode.cpp. Add in this file the folling lines: 
 
-```
+```cpp
 #include "../src/nectar.hpp"
 using namespace NectarCore;
 using namespace NectarCore::Global;
