@@ -20,6 +20,10 @@
  *
  */
  
-#include "native/int_header.h"
-#include "native/boolean_header.h"
-#include "native/double_header.h"
+#pragma once
+
+#include "./helpers/functions_header.h"
+#include "./helpers/macro.h"
+#include "./helpers/objmgmt_header.h"
+#include "./helpers/operator_header.h"
+#include "./helpers/stdfn_header.h"

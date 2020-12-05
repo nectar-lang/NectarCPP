@@ -21,7 +21,7 @@
  */
  
 #pragma once
-#include "_meta.h"
+#include "../_meta.h"
 
 namespace NectarCore::Class
 {
@@ -136,7 +136,7 @@ namespace NectarCore::Class
 		NectarCore::VAR shift(NectarCore::VAR* args, int _length);
 		NectarCore::VAR slice(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR some(NectarCore::VAR* args, int _length) const;
-		NectarCore::VAR sort(NectarCore::VAR* args, int _length) const;
+		NectarCore::VAR sort(NectarCore::VAR* args, int _length);
 		NectarCore::VAR splice(NectarCore::VAR* args, int _length);
 		NectarCore::VAR toLocaleString(NectarCore::VAR* args, int _length) const;
 		NectarCore::VAR toString(NectarCore::VAR* args, int _length) const;

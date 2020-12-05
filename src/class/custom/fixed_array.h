@@ -21,7 +21,7 @@
  */
  
 #pragma once
-#include "array_header.h"
+#include "fixed_array_header.h"
 #include <sstream>
 #include <limits>
 		

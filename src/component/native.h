@@ -20,12 +20,7 @@
  *
  */
  
-bool operator&&(bool _b, NectarCore::VAR _v)
-{
-	return _b && (bool)_v;
-}
-
-bool operator||(bool _b, NectarCore::VAR _v)
-{
-	return _b || (bool)_v;
-}
+#pragma once
+#include "./native/boolean.h"
+#include "./native/double.h"
+#include "./native/int.h"

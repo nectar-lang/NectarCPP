@@ -20,9 +20,7 @@
  *
  */
  
-namespace NectarCore::JS
-{
-	extern NectarCore::VAR setImmediate;
-	extern NectarCore::VAR setTimeout;
-	extern NectarCore::VAR setInterval;
-}
+#pragma once
+
+#include "./custom/fixed_array.h"
+#include "./custom/struct.h"

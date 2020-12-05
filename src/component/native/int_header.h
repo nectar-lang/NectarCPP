@@ -20,5 +20,21 @@
  *
  */
  
-bool operator&&(bool _b, NectarCore::VAR _v);
-bool operator||(bool _b, NectarCore::VAR _v);
+#pragma once
+
+NectarCore::VAR operator+(int _i, NectarCore::VAR _v);
+void operator+=(int& _i, NectarCore::VAR _v);
+double operator-(int _i, NectarCore::VAR _v);
+void operator-=(int& _i, NectarCore::VAR _v);
+double operator*(int _i, NectarCore::VAR _v);
+void operator*=(int& _i, NectarCore::VAR _v);
+double operator/(int _i, NectarCore::VAR _v);
+void operator/=(int& _i, NectarCore::VAR _v);
+double operator%(int _i, NectarCore::VAR _v);
+void operator%=(int& _i, NectarCore::VAR _v);
+bool operator==(int _i, NectarCore::VAR _v);
+bool operator!=(int _i, NectarCore::VAR _v);
+bool operator>(int _i, NectarCore::VAR _v);
+bool operator>=(int _i, NectarCore::VAR _v);
+bool operator<(int _i, NectarCore::VAR _v);
+bool operator<=(int _i, NectarCore::VAR _v);

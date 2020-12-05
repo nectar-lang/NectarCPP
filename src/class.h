@@ -20,19 +20,8 @@
  *
  */
  
-NectarCore::VAR operator+(int _i, NectarCore::VAR _v);
-void operator+=(int& _i, NectarCore::VAR _v);
-double operator-(int _i, NectarCore::VAR _v);
-void operator-=(int& _i, NectarCore::VAR _v);
-double operator*(int _i, NectarCore::VAR _v);
-void operator*=(int& _i, NectarCore::VAR _v);
-double operator/(int _i, NectarCore::VAR _v);
-void operator/=(int& _i, NectarCore::VAR _v);
-double operator%(int _i, NectarCore::VAR _v);
-void operator%=(int& _i, NectarCore::VAR _v);
-double operator==(int _i, NectarCore::VAR _v);
-double operator!=(int _i, NectarCore::VAR _v);
-double operator>(int _i, NectarCore::VAR _v);
-double operator>=(int _i, NectarCore::VAR _v);
-double operator<(int _i, NectarCore::VAR _v);
-double operator<=(int _i, NectarCore::VAR _v);
+#pragma once
+
+#include "./class/base_header.h"
+#include "./class/builtins.h"
+#include "./class/custom.h"

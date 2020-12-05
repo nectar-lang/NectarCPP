@@ -20,6 +20,8 @@
  *
  */
  
+#pragma once
+
 /*** HELPERS ***/
 #define __Nectar_GET_String(_var) _var.get().s->value
 #define __Nectar_Create_Boolean(_value) NectarCore::VAR(NectarCore::Enum::Type::Boolean, _value)

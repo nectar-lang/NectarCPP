@@ -768,7 +768,7 @@ namespace NectarCore::Class
 			auto& el = value[i];
 			if (!(bool)el.property[1]) continue;
 			NectarCore::VAR args[] = { el, i, this };
-			func.Call(_this, args, 3)
+			func.Call(_this, args, 3);
 		}
 		return NectarCore::Global::undefined;
 	}
@@ -962,22 +962,29 @@ namespace NectarCore::Class
 		}
 		return false;
 	}
-	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length) const
+	NectarCore::VAR Array::sort(NectarCore::VAR* args, int _length)
 	{
-		// TODO: Implement custom sorting algorithm
-		// using -1/0/1 instead of true/false
-		return NectarCore::Global::undefined;
-
-		if (value.empty()) return false;
-		if (_length)
+		if (_length > 0 && args[0].type != NectarCore::Enum::Type::Function)
 		{
-			// TODO: Implement
+			throw InvalidTypeException();
 		}
-		else
+		int nonEnumerables = 0;
+		auto& func = *((NectarCore::Class::Function*)args[0].data.ptr);
+		auto& _this = _length > 1 ? args[1] : func.This;
+		for (auto& el : value)
 		{
-			// Do lexicographical comparisons
-			std::sort(value.begin(), value.end());
+			if (!(bool)el.property[1]) { ++nonEnumerables; }
 		}
+		if (nonEnumerables > 0) {
+			// Move "holes" to end
+			std::stable_sort(value.begin(), value.end(), [](const NectarCore::VAR &a, const NectarCore::VAR &b) -> bool {
+				return (a.property[1] - b.property[1]) > 0;
+			});
+		}
+		std::stable_sort(value.begin(), value.end() - nonEnumerables, [&](const NectarCore::VAR &a, const NectarCore::VAR &b) -> bool {
+			NectarCore::VAR args[] = { a, b };
+			return func.Call(_this, args, 2) < 0;
+		});
 		return this;
 	}
 	NectarCore::VAR Array::splice(NectarCore::VAR* args, int _length)
@@ -1012,8 +1019,8 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR Array::toString(NectarCore::VAR* args, int _length) const
 	{
-		NectarCore::VAR args[] = {","};
-		return join(args, 1);
+		NectarCore::VAR _args[] = {","};
+		return join(_args, 1);
 	}
 
 	NectarCore::VAR Array::unshift(NectarCore::VAR* args, int _length)

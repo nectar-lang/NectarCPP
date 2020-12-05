@@ -20,7 +20,7 @@
  *
  */
  
-namespace NectarCore::Global
-{
-	NectarCore::VAR __Nectar_THIS = new NectarCore::Class::Object();
-}
+#pragma once
+
+#include "./custom/fixed_array_header.h"
+#include "./custom/struct_header.h"

@@ -20,6 +20,10 @@
  *
  */
  
+#pragma once
+
+// TODO: Move functions body to classes and
+// leave these declarations as aliases/macroses
 NectarCore::VAR __Nectar_Log_Console(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Keys(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Stringify(NectarCore::VAR _var);

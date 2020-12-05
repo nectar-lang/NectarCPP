@@ -20,19 +20,21 @@
  *
  */
  
+#pragma once
 #include <deque>
+#include "event_header.h"
 
 namespace NectarCore::Event
 {
 	std::deque<NectarCore::VAR> evQ = {};
-	std::deque<std::tuple<uint64_t,bool,NectarCore::VAR>> timeQ = {};
+	std::deque<std::tuple<uint64_t, bool, NectarCore::VAR>> timeQ = {};
 
 	inline uint64_t getMillis()
 	{
-		#ifndef __Nectar_ENV_ARDUINO
-			return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-		#else
+		#ifdef __Nectar_ENV_ARDUINO
 			return millis();
+		#else
+			return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		#endif
 	}
 	void sleep(uint64_t _timer)
@@ -63,7 +65,7 @@ namespace NectarCore::Event
 				{
 					#ifndef __Nectar_ENV_ARDUINO
 						uint64_t& _t = std::get<0>(*it);
-						NectarCore::VAR _ev = std::get<2>(*it);
+						NectarCore::VAR& _ev = std::get<2>(*it);
 						bool& _b = std::get<1>(*it);
 					#else
 						uint64_t _t = it->get<0>();

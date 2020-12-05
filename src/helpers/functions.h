@@ -19,62 +19,19 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
-int __Nectar_Get_Int(NectarCore::VAR _v)
-{
-	return (int)_v.data.number;
-}
 
-const char *__Nectar_Get_String(NectarCore::VAR _v)
-{
-	if (_v.type != NectarCore::Enum::Type::String)
-		return "";
-	return ((NectarCore::Class::String*)_v.data.ptr)->value.c_str();
-}
+#pragma once
 
-const std::string _array[] = {"object", "boolean", "number", "string", "native", "struct", "fixed_array", "array", "object", "function", "NectarCore::Global::undefined" };
-NectarCore::VAR __Nectar_typeof(NectarCore::VAR _var)
+NectarCore::VAR getArguments(int argc, char** argv)
 {
-	return __Nectar_Create_String(_array[_var.type]);
-}
-
-NectarCore::VAR __Nectar_instanceof(NectarCore::VAR _left, NectarCore::VAR _right)
-{
-	if(_left.type < NectarCore::Enum::Type::Object) return __Nectar_Boolean_FALSE;
-	
-	NectarCore::VAR protoRight = _right["prototype"];
-	if(!protoRight) return __Nectar_Boolean_FALSE;
-	
-	NectarCore::Type::vector_p vLeft = ((NectarCore::Class::Object*)_left.data.ptr)->instance;
-		
-	for (auto searchLeft : vLeft)
+	NectarCore::VAR __NJS_ARGS = new NectarCore::Class::Array();
+	for( int i = 0; i < argc; i++)
 	{
-		if(searchLeft == protoRight.data.ptr) return __Nectar_Boolean_TRUE;
+		__NJS_ARGS[i] = argv[i];
 	}
-	return __Nectar_Boolean_FALSE;
+	return __NJS_ARGS;
 }
 
-NectarCore::VAR __Nectar_delete(NectarCore::VAR _left, NectarCore::VAR _right)
-{
-	if(_left.type == NectarCore::Enum::Type::Object)
-	{
-		((NectarCore::Class::Object*)_left.data.ptr)->jsDelete(_right);
-		return __Nectar_Boolean_TRUE;
-	}
-	else if(_left.type == NectarCore::Enum::Type::Array)
-	{
-		((NectarCore::Class::Array*)_left.data.ptr)->jsDelete(_right);
-		return __Nectar_Boolean_TRUE;
-	}
-	else if(_left.type == NectarCore::Enum::Type::Function)
-	{
-		((NectarCore::Class::Function*)_left.data.ptr)->jsDelete(_right);
-		return __Nectar_Boolean_TRUE;
-	}
-	return __Nectar_Boolean_FALSE;
-}
-
-/*** ***/
 #ifndef __Nectar__OBJECT_VECTOR
 NectarCore::VAR __Nectar_Object_Set(std::string _index, NectarCore::VAR _value, NectarCore::Type::object_t *_obj)
 {

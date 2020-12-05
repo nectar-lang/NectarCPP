@@ -23,4 +23,8 @@
 namespace NectarCore::Global
 {
 	extern NectarCore::VAR __Nectar_THIS;
+	extern NectarCore::VAR globalThis;
+	extern NectarCore::VAR setImmediate;
+	extern NectarCore::VAR setTimeout;
+	extern NectarCore::VAR setInterval;
 }

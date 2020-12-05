@@ -20,15 +20,7 @@
  *
  */
  
-#include <deque>
+#pragma once
 
-namespace NectarCore::Event
-{
-	extern std::deque<NectarCore::VAR> evQ;
-	extern std::deque<std::tuple<uint64_t,bool,NectarCore::VAR>> timeQ;
-	
-	inline uint64_t getMillis();
-	void sleep(uint64_t _timer);
-	void setTimer(NectarCore::VAR _var, int _timer, bool repeat);
-	void Loop();
-}
+bool operator&&(bool _b, NectarCore::VAR _v) { return _b && (bool)_v; }
+bool operator||(bool _b, NectarCore::VAR _v) { return _b || (bool)_v; }

@@ -20,6 +20,7 @@
  *
  */
  
-#include "native/int.h"
-#include "native/boolean.h"
-#include "native/double.h"
+#pragma once
+
+bool operator&&(bool _b, NectarCore::VAR _v);
+bool operator||(bool _b, NectarCore::VAR _v);
