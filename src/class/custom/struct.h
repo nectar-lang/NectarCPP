@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "struct_header.h"
 #include <functional>
@@ -33,10 +33,10 @@ namespace NectarCore::Class
 	{
 		value = val;
 	}
-	Struct::Struct(void *val, void* fn)
+	Struct::Struct(void *val, void *fn)
 	{
 		value = val;
-		Clean = (NectarCore::Type::clean_struct*)fn;
+		Clean = (NectarCore::Type::clean_struct *)fn;
 	}
 	// Methods
 	inline void Struct::Delete() noexcept
@@ -48,8 +48,8 @@ namespace NectarCore::Class
 			delete this;
 		}
 	}
-	
-	inline void* Struct::Copy() noexcept
+
+	inline void *Struct::Copy() noexcept
 	{
 		counter++;
 		return this;
@@ -79,10 +79,10 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR &Struct::operator[](NectarCore::VAR key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[(std::string)key];
-		#else
-		for (auto & search : object)
+#else
+		for (auto &search : object)
 		{
 			if (((std::string)key).compare(search.first) == 0)
 			{
@@ -92,16 +92,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t((std::string)key, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	NectarCore::VAR &Struct::operator[](int key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[std::to_string(key)];
-		#else
+#else
 		std::string _str = std::to_string(key);
-		for (auto & search : object)
+		for (auto &search : object)
 		{
 			if (_str.compare(search.first) == 0)
 			{
@@ -111,16 +111,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	NectarCore::VAR &Struct::operator[](double key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[std::to_string(key)];
-		#else
+#else
 		std::string _str = std::to_string(key);
-		for (auto & search : object)
+		for (auto &search : object)
 		{
 			if (_str.compare(search.first) == 0)
 			{
@@ -130,17 +130,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
-	
-	NectarCore::VAR &Struct::operator[](const char* key)
+
+	NectarCore::VAR &Struct::operator[](const char *key)
 	{
 		std::string str = key;
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[str];
-		#else
-		for (auto & search : object)
+#else
+		for (auto &search : object)
 		{
 			if (str.compare(search.first) == 0)
 			{
@@ -150,15 +149,15 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	// Comparation operators
-	NectarCore::VAR Struct::operator!() const 
+	NectarCore::VAR Struct::operator!() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
 	bool Struct::operator==(const NectarCore::VAR &_v1) const { return false; }
@@ -170,180 +169,180 @@ namespace NectarCore::Class
 	bool Struct::operator>(const NectarCore::VAR &_v1) const { return false; }
 	bool Struct::operator>=(const NectarCore::VAR &_v1) const { return true; }
 	// Numeric operators
-	NectarCore::VAR Struct::operator+() const 
+	NectarCore::VAR Struct::operator+() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator-() const 
+	NectarCore::VAR Struct::operator-() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator++(const int _v1) 
+	NectarCore::VAR Struct::operator++(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator--(const int _v1) 
+	NectarCore::VAR Struct::operator--(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator+(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator+(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator+=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator+=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator-(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator-(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator-=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator-=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator*(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator*(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator*=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator*=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
 	// TODO: "**" and "**=" operators
-	NectarCore::VAR Struct::operator/(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator/(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator/=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator/=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator%(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator%(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator%=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator%=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator&(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator&(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator|(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator|(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator^(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator^(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator~() const 
+	NectarCore::VAR Struct::operator~() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator>>(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator>>(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator<<(const NectarCore::VAR &_v1) const 
+	NectarCore::VAR Struct::operator<<(const NectarCore::VAR &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator&=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator&=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator|=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator|=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator^=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator^=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator>>=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator>>=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
-	NectarCore::VAR Struct::operator<<=(const NectarCore::VAR &_v1) 
+	NectarCore::VAR Struct::operator<<=(const NectarCore::VAR &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return NectarCore::VAR();
 	}
 	// TODO: ">>>" and ">>>=" operators

@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "_meta.h"
 
@@ -28,19 +28,37 @@ namespace NectarCore::Class
 	class Base
 	{
 	public:
-		#ifdef __Nectar_ENV_ESP32
-		virtual ~Base() { }
-		#endif
-		virtual void Delete() noexcept{};
-		virtual void* Copy() noexcept{ return nullptr; };
-		virtual explicit operator bool() const noexcept{ return false;};
-		virtual explicit operator std::string() const noexcept{ return "";};
-		virtual explicit operator int() const noexcept {return 0;};
-		virtual explicit operator double() const noexcept {return 0.0;};
-		virtual explicit operator long long() const noexcept {return 0;};
-		virtual NectarCore::VAR &operator[](NectarCore::VAR key){static NectarCore::VAR _ret = NectarCore::VAR(); return _ret;};
-		virtual NectarCore::VAR &operator[](int key){static NectarCore::VAR _ret = NectarCore::VAR(); return _ret;};
-		virtual NectarCore::VAR &operator[](double key){static NectarCore::VAR _ret = NectarCore::VAR(); return _ret;};
-		virtual NectarCore::VAR &operator[](const char* key){static NectarCore::VAR _ret = NectarCore::VAR(); return _ret;};
+#ifdef __Nectar_ENV_ESP32
+		virtual ~Base()
+		{
+		}
+#endif
+		virtual void Delete() noexcept {};
+		virtual void *Copy() noexcept { return nullptr; };
+		virtual explicit operator bool() const noexcept { return false; };
+		virtual explicit operator std::string() const noexcept { return ""; };
+		virtual explicit operator int() const noexcept { return 0; };
+		virtual explicit operator double() const noexcept { return 0.0; };
+		virtual explicit operator long long() const noexcept { return 0; };
+		virtual NectarCore::VAR &operator[](NectarCore::VAR key)
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		};
+		virtual NectarCore::VAR &operator[](int key)
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		};
+		virtual NectarCore::VAR &operator[](double key)
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		};
+		virtual NectarCore::VAR &operator[](const char *key)
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		};
 	};
-}
+} // namespace NectarCore::Class

@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 
 #include "./class/base_header.h"

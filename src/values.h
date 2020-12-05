@@ -19,13 +19,16 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
+#pragma once
+#include <limits>
+
 namespace NectarCore::Global
-{	
+{
 	using var = NectarCore::VAR;
 	using let = NectarCore::VAR;
-	NectarCore::VAR undefined = NectarCore::VAR(new NectarCore::Class::Undefined());
+	NectarCore::VAR undefined = new NectarCore::Class::Undefined();
 	NectarCore::VAR null = __Nectar_Create_Null();
 	NectarCore::VAR Infinity = std::numeric_limits<double>::infinity();
 	NectarCore::VAR NaN = std::numeric_limits<double>::quiet_NaN();
-}
+} // namespace NectarCore::Global

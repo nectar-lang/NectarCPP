@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <string>
@@ -71,7 +71,7 @@ namespace NectarCore
 		class Native;
 		class Struct;
 		class FixedArray;
-	}
+	} // namespace Class
 } // namespace NectarCore
 
 #include "enum.h"

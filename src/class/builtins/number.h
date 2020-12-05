@@ -19,56 +19,57 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
-namespace NectarCore::Class::NUMBER 
+
+namespace NectarCore::Class::NUMBER
 {
 	NectarCore::VAR _fn;
-	
-	std::string toString(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length)
+
+	std::string toString(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length)
 	{
 		return (std::string)__Nectar_THIS;
 	}
-	
-	double valueOf(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length)
+
+	double valueOf(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length)
 	{
 		return __Nectar_THIS.data.number;
 	}
-	
-	std::string toFixed(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length)
+
+	std::string toFixed(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length)
 	{
 		int precision;
-		if(_length > 0)
+		if (_length > 0)
 		{
 			precision = _args[0];
 		}
-		else precision = 0;
-		std::ostringstream strout ;
-		strout << std::fixed << std::setprecision(precision) << (double)__Nectar_THIS ;
-		std::string str = strout.str() ;
+		else
+			precision = 0;
+		std::ostringstream strout;
+		strout << std::fixed << std::setprecision(precision) << (double)__Nectar_THIS;
+		std::string str = strout.str();
 		return str;
 	}
-	
-	inline NectarCore::VAR& Accessor(NectarCore::VAR _this, NectarCore::VAR key)
+
+	inline NectarCore::VAR &Accessor(NectarCore::VAR _this, NectarCore::VAR key)
 	{
-		if(((std::string)key).compare("toFixed") == 0)
+		if (((std::string)key).compare("toFixed") == 0)
 		{
-			_fn = __Nectar_Create_Var_Scoped_Anon( return toFixed(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH); );
-			((NectarCore::Class::Function*)_fn.data.ptr)->This = _this;
+			_fn = __Nectar_Create_Var_Scoped_Anon(return toFixed(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH););
+			((NectarCore::Class::Function *)_fn.data.ptr)->This = _this;
 			return _fn;
 		}
-		else if(((std::string)key).compare("toString") == 0)
+		else if (((std::string)key).compare("toString") == 0)
 		{
-			_fn = __Nectar_Create_Var_Scoped_Anon( return toString(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH); );
-			((NectarCore::Class::Function*)_fn.data.ptr)->This = _this;
+			_fn = __Nectar_Create_Var_Scoped_Anon(return toString(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH););
+			((NectarCore::Class::Function *)_fn.data.ptr)->This = _this;
 			return _fn;
 		}
-		else if(((std::string)key).compare("valueOf") == 0)
+		else if (((std::string)key).compare("valueOf") == 0)
 		{
-			_fn = __Nectar_Create_Var_Scoped_Anon( return valueOf(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH); );
-			((NectarCore::Class::Function*)_fn.data.ptr)->This = _this;
+			_fn = __Nectar_Create_Var_Scoped_Anon(return valueOf(__Nectar_THIS, __Nectar_VARARGS, __Nectar_VARLENGTH););
+			((NectarCore::Class::Function *)_fn.data.ptr)->This = _this;
 			return _fn;
 		}
-		
+
 		return NectarCore::Global::undefined;
 	}
-}
+} // namespace NectarCore::Class::NUMBER

@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include <exception>
 
@@ -33,11 +33,11 @@ namespace NectarCore::Class
 	class InvalidTypeException : public std::exception
 	{
 	};
-	#ifdef __Nectar_ENV_ARDUINO
+#ifdef __Nectar_ENV_ARDUINO
 	const int SMI_MAX = 32767;
 	const int SMI_MIN = -32768;
-	#else
+#else
 	const int SMI_MAX = 1073741823;
 	const int SMI_MIN = -1073741824;
-	#endif
+#endif
 } // namespace NectarCore::Class

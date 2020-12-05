@@ -19,19 +19,19 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 
 NectarCore::VAR operator+(double _i, NectarCore::VAR _v);
-void operator+=(double& _i, NectarCore::VAR _v);
+void operator+=(double &_i, NectarCore::VAR _v);
 double operator-(double _i, NectarCore::VAR _v);
-void operator-=(double& _i, NectarCore::VAR _v);
+void operator-=(double &_i, NectarCore::VAR _v);
 double operator*(double _i, NectarCore::VAR _v);
-void operator*=(double& _i, NectarCore::VAR _v);
+void operator*=(double &_i, NectarCore::VAR _v);
 double operator/(double _i, NectarCore::VAR _v);
-void operator/=(double& _i, NectarCore::VAR _v);
+void operator/=(double &_i, NectarCore::VAR _v);
 double operator%(double _i, NectarCore::VAR _v);
-void operator%=(double& _i, NectarCore::VAR _v);
+void operator%=(double &_i, NectarCore::VAR _v);
 bool operator==(double _i, NectarCore::VAR _v);
 bool operator!=(double _i, NectarCore::VAR _v);
 bool operator>(double _i, NectarCore::VAR _v);

@@ -19,11 +19,11 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 namespace NectarCore::Functions
 {
 	NectarCore::VAR println();
 	NectarCore::VAR println(NectarCore::VAR _var);
 	NectarCore::VAR print();
 	NectarCore::VAR print(NectarCore::VAR _var);
-}
+} // namespace NectarCore::Functions

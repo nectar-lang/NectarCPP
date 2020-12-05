@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 
 bool operator&&(bool _b, NectarCore::VAR _v) { return _b && (bool)_v; }

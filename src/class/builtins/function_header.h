@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "../_meta.h"
 
@@ -30,21 +30,21 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		Function();
-		Function(void* val);
-		Function(void* val, NectarCore::VAR bind);
+		Function(void *val);
+		Function(void *val, NectarCore::VAR bind);
 		// Properties
 		count_t counter = 0;
-		#ifdef __Nectar_DEBUG
+#ifdef __Nectar_DEBUG
 		std::string code = "[native code]";
-		#endif
-		NectarCore::Type::function_t* value = nullptr;
+#endif
+		NectarCore::Type::function_t *value = nullptr;
 		NectarCore::VAR This;
 		NectarCore::Type::object_t object;
 		// Methods
 		inline void Delete() noexcept;
 		inline void jsDelete(std::string _key) noexcept;
-		inline void* Copy() noexcept;
-		inline NectarCore::VAR Call(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int i)
+		inline void *Copy() noexcept;
+		inline NectarCore::VAR Call(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int i)
 		{
 			return (*static_cast<NectarCore::Type::function_t *>(value))(__Nectar_THIS, _args, i);
 		}
@@ -53,27 +53,27 @@ namespace NectarCore::Class
 		{
 			NectarCore::VAR _args[] = {args...};
 			int i = sizeof...(args);
-			
+
 			NectarCore::VAR _this = __Nectar_Object_Clone((*this)["prototype"]);
-			if(_this.type == NectarCore::Enum::Type::Undefined) _this = new NectarCore::Class::Object();
-			
+			if (_this.type == NectarCore::Enum::Type::Undefined)
+				_this = new NectarCore::Class::Object();
+
 			NectarCore::VAR _ret = this->Call(_this, _args, i);
 
-			if(_ret.type == NectarCore::Enum::Type::Object)
+			if (_ret.type == NectarCore::Enum::Type::Object)
 			{
-				((NectarCore::Class::Object*)_ret.data.ptr)->property.set(1,1);
-				((NectarCore::Class::Object*)_ret.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
+				((NectarCore::Class::Object *)_ret.data.ptr)->property.set(1, 1);
+				((NectarCore::Class::Object *)_ret.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
 				return _ret;
 			}
 			else
 			{
-				((NectarCore::Class::Object*)_this.data.ptr)->property.set(1,1);
-				((NectarCore::Class::Object*)_this.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
+				((NectarCore::Class::Object *)_this.data.ptr)->property.set(1, 1);
+				((NectarCore::Class::Object *)_this.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
 				return _this;
 			}
-
 		}
-		
+
 		template <class... Args>
 		NectarCore::VAR operator()(Args... args)
 		{
@@ -81,7 +81,7 @@ namespace NectarCore::Class
 			int i = sizeof...(args);
 			return (*static_cast<NectarCore::Type::function_t *>(value))(This, _args, i);
 		}
-	
+
 		// Native cast
 		explicit operator bool() const noexcept;
 		explicit operator double() const noexcept;
@@ -93,7 +93,7 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char* key);
+		NectarCore::VAR &operator[](const char *key);
 
 		// Comparation operators
 		NectarCore::VAR operator!() const;
@@ -133,10 +133,10 @@ namespace NectarCore::Class
 		Function operator>>=(const Function &_v1);
 		Function operator<<=(const Function &_v1);
 		// TODO: ">>>" and ">>>=" operators
-		NectarCore::VAR toString(NectarCore::VAR* _args, int _length) const;
-		NectarCore::VAR valueOf(NectarCore::VAR* _args, int _length) const;
-		NectarCore::VAR bind(NectarCore::VAR* _args, int _length);
-		NectarCore::VAR call(NectarCore::VAR* _args, int _length);
-		NectarCore::VAR apply(NectarCore::VAR* _args, int _length);
+		NectarCore::VAR toString(NectarCore::VAR *_args, int _length) const;
+		NectarCore::VAR valueOf(NectarCore::VAR *_args, int _length) const;
+		NectarCore::VAR bind(NectarCore::VAR *_args, int _length);
+		NectarCore::VAR call(NectarCore::VAR *_args, int _length);
+		NectarCore::VAR apply(NectarCore::VAR *_args, int _length);
 	};
 } // namespace NectarCore::Class

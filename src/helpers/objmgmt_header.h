@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 int __Nectar_Get_Int(NectarCore::VAR _v);
 const char *__Nectar_Get_String(NectarCore::VAR _v);
 extern const std::string _array[11];
@@ -28,3 +28,5 @@ NectarCore::VAR __Nectar_instanceof(NectarCore::VAR _left, NectarCore::VAR _righ
 NectarCore::VAR __Nectar_delete(NectarCore::VAR _left, NectarCore::VAR _right);
 NectarCore::VAR __Nectar_Object_Set(std::string _index, NectarCore::VAR _value, NectarCore::Type::object_t *_obj);
 NectarCore::VAR __Nectar_Object_Set(NectarCore::VAR _index, NectarCore::VAR _value, NectarCore::VAR _array);
+template <typename T>
+NectarCore::VAR __Nectar_InitVar(T _init);

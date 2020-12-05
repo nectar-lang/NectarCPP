@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "undefined_header.h"
 #include <limits>
@@ -27,12 +27,12 @@
 namespace NectarCore::Class
 {
 	// Constructors
-	Undefined::Undefined() { }
+	Undefined::Undefined() {}
 	// Methods
 	inline void Undefined::Delete() noexcept
 	{
 	}
-	inline void* Undefined::Copy() noexcept
+	inline void *Undefined::Copy() noexcept
 	{
 		return this;
 	}
@@ -45,46 +45,46 @@ namespace NectarCore::Class
 	// Main operators
 	NectarCore::VAR const Undefined::operator[](NectarCore::VAR key) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw NectarCore::VAR("TypeError: Cannot read property '" + (std::string)key + "' of undefined ");
-		#endif
+#endif
 		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR &Undefined::operator[](NectarCore::VAR key)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw NectarCore::VAR("TypeError: Cannot read property '" + (std::string)key + "' of undefined ");
-		#endif
+#endif
 		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR &Undefined::operator[](int key)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw NectarCore::VAR("TypeError: Cannot read property " + std::to_string(key) + " of undefined ");
-		#endif
+#endif
 		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR &Undefined::operator[](double key)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw NectarCore::VAR("TypeError: Cannot read property " + std::to_string(key) + " of undefined ");
-		#endif
+#endif
 		return NectarCore::Global::undefined;
 	}
-	NectarCore::VAR &Undefined::operator[](const char* key)
+	NectarCore::VAR &Undefined::operator[](const char *key)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw NectarCore::VAR("TypeError: Cannot read property '" + (std::string)key + "' of undefined ");
-		#endif
+#endif
 		return NectarCore::Global::undefined;
 	}
-	
+
 	// Comparation operators
-	Undefined Undefined::operator!() const 
+	Undefined Undefined::operator!() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
 	bool Undefined::operator==(const Undefined &_v1) const { return true; }
@@ -96,180 +96,180 @@ namespace NectarCore::Class
 	bool Undefined::operator>(const Undefined &_v1) const { return false; }
 	bool Undefined::operator>=(const Undefined &_v1) const { return false; }
 	// Numeric operators
-	Undefined Undefined::operator+() const 
+	Undefined Undefined::operator+() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator-() const 
+	Undefined Undefined::operator-() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator++(const int _v1) 
+	Undefined Undefined::operator++(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator--(const int _v1) 
+	Undefined Undefined::operator--(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator+(const Undefined &_v1) const 
+	Undefined Undefined::operator+(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator+=(const Undefined &_v1) 
+	Undefined Undefined::operator+=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator-(const Undefined &_v1) const 
+	Undefined Undefined::operator-(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator-=(const Undefined &_v1) 
+	Undefined Undefined::operator-=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator*(const Undefined &_v1) const 
+	Undefined Undefined::operator*(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator*=(const Undefined &_v1) 
+	Undefined Undefined::operator*=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
 	// TODO: "**" and "**=" operators
-	Undefined Undefined::operator/(const Undefined &_v1) const 
+	Undefined Undefined::operator/(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator/=(const Undefined &_v1) 
+	Undefined Undefined::operator/=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator%(const Undefined &_v1) const 
+	Undefined Undefined::operator%(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator%=(const Undefined &_v1) 
+	Undefined Undefined::operator%=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator&(const Undefined &_v1) const 
+	Undefined Undefined::operator&(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator|(const Undefined &_v1) const 
+	Undefined Undefined::operator|(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator^(const Undefined &_v1) const 
+	Undefined Undefined::operator^(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator~() const 
+	Undefined Undefined::operator~() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator>>(const Undefined &_v1) const 
+	Undefined Undefined::operator>>(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator<<(const Undefined &_v1) const 
+	Undefined Undefined::operator<<(const Undefined &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator&=(const Undefined &_v1) 
+	Undefined Undefined::operator&=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator|=(const Undefined &_v1) 
+	Undefined Undefined::operator|=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator^=(const Undefined &_v1) 
+	Undefined Undefined::operator^=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator>>=(const Undefined &_v1) 
+	Undefined Undefined::operator>>=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
-	Undefined Undefined::operator<<=(const Undefined &_v1) 
+	Undefined Undefined::operator<<=(const Undefined &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Undefined();
 	}
 	// TODO: ">>>" and ">>>=" operators

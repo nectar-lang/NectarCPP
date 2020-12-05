@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "../_meta.h"
 
@@ -34,11 +34,11 @@ namespace NectarCore::Class
 		// Properties
 		count_t counter = 0;
 		NectarCore::VAR length;
-		NectarCore::VAR* value;
+		NectarCore::VAR *value;
 		NectarCore::Type::object_t object;
 		// Methods
 		inline void Delete() noexcept;
-		inline void* Copy() noexcept;
+		inline void *Copy() noexcept;
 		// Native cast
 		explicit operator bool() const noexcept;
 		explicit operator double() const noexcept;
@@ -51,32 +51,32 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char* key);
+		NectarCore::VAR &operator[](const char *key);
 
 		// Comparation operators
 		FixedArray operator!() const;
-		
+
 		template <typename t>
 		bool operator==(const t &_v1) const { return false; }
-		
+
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
 		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-		
+
 		template <typename t>
 		bool operator!=(const t &_v1) const { return true; }
-		
+
 		template <typename t>
-		bool operator<(const t &_v1) const { return (*this)[0] < _v1;}
-		
+		bool operator<(const t &_v1) const { return (*this)[0] < _v1; }
+
 		template <typename t>
 		bool operator<=(const t &_v1) const { return (*this)[0] <= _v1; }
-		
+
 		template <typename t>
 		bool operator>(const t &_v1) const { return (*this)[0] > _v1; }
-		
+
 		template <typename t>
 		bool operator>=(const t &_v1) const { return (*this)[0] >= _v1; }
-		
+
 		// Numeric operators
 		FixedArray operator+() const;
 		FixedArray operator-() const;

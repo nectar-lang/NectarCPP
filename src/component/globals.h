@@ -39,8 +39,7 @@ namespace NectarCore::Global
 
 		NectarCore::Event::setTimer(_fn, (int)_delay, false);
 
-		return NectarCore::Global::undefined;
-	);
+		return NectarCore::Global::undefined;);
 
 	NectarCore::VAR setInterval = __Nectar_Create_Var_Unscoped_Anon(
 		NectarCore::VAR _fn;
@@ -50,6 +49,5 @@ namespace NectarCore::Global
 
 		NectarCore::Event::setTimer(_fn, (int)_delay, true);
 
-		return NectarCore::Global::undefined;
-	);
-}
+		return NectarCore::Global::undefined;);
+} // namespace NectarCore::Global

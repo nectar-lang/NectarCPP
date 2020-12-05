@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "native_header.h"
 #include <functional>
@@ -38,11 +38,12 @@ namespace NectarCore::Class
 	{
 		if (--counter < 1)
 		{
-			if((*this)["__Nectar_On_Destroy"]) (*this)["__Nectar_On_Destroy"]();
+			if ((*this)["__Nectar_On_Destroy"])
+				(*this)["__Nectar_On_Destroy"]();
 			delete this;
 		}
 	}
-	inline void* Native::Copy() noexcept
+	inline void *Native::Copy() noexcept
 	{
 		counter++;
 		return this;
@@ -72,10 +73,10 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR &Native::operator[](NectarCore::VAR key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[(std::string)key];
-		#else
-		for (auto & search : object)
+#else
+		for (auto &search : object)
 		{
 			if (((std::string)key).compare(search.first) == 0)
 			{
@@ -85,16 +86,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t((std::string)key, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	NectarCore::VAR &Native::operator[](int key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[std::to_string(key)];
-		#else
+#else
 		std::string _str = std::to_string(key);
-		for (auto & search : object)
+		for (auto &search : object)
 		{
 			if (_str.compare(search.first) == 0)
 			{
@@ -104,16 +105,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	NectarCore::VAR &Native::operator[](double key)
 	{
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[std::to_string(key)];
-		#else
+#else
 		std::string _str = std::to_string(key);
-		for (auto & search : object)
+		for (auto &search : object)
 		{
 			if (_str.compare(search.first) == 0)
 			{
@@ -123,17 +124,16 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
-	
-	NectarCore::VAR &Native::operator[](const char* key)
+
+	NectarCore::VAR &Native::operator[](const char *key)
 	{
 		std::string str = key;
-		#ifndef __Nectar__OBJECT_VECTOR
+#ifndef __Nectar__OBJECT_VECTOR
 		return object[str];
-		#else
-		for (auto & search : object)
+#else
+		for (auto &search : object)
 		{
 			if (str.compare(search.first) == 0)
 			{
@@ -143,15 +143,15 @@ namespace NectarCore::Class
 
 		object.push_back(NectarCore::Type::pair_t(str, NectarCore::VAR()));
 		return object[object.size() - 1].second;
-		#endif
+#endif
 	}
-	
+
 	// Comparation operators
-	Native Native::operator!() const 
+	Native Native::operator!() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
 	bool Native::operator==(const Native &_v1) const { return false; }
@@ -163,180 +163,180 @@ namespace NectarCore::Class
 	bool Native::operator>(const Native &_v1) const { return false; }
 	bool Native::operator>=(const Native &_v1) const { return true; }
 	// Numeric operators
-	Native Native::operator+() const 
+	Native Native::operator+() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator-() const 
+	Native Native::operator-() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator++(const int _v1) 
+	Native Native::operator++(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator--(const int _v1) 
+	Native Native::operator--(const int _v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator+(const Native &_v1) const 
+	Native Native::operator+(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator+=(const Native &_v1) 
+	Native Native::operator+=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator-(const Native &_v1) const 
+	Native Native::operator-(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator-=(const Native &_v1) 
+	Native Native::operator-=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator*(const Native &_v1) const 
+	Native Native::operator*(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator*=(const Native &_v1) 
+	Native Native::operator*=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
 	// TODO: "**" and "**=" operators
-	Native Native::operator/(const Native &_v1) const 
+	Native Native::operator/(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator/=(const Native &_v1) 
+	Native Native::operator/=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator%(const Native &_v1) const 
+	Native Native::operator%(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator%=(const Native &_v1) 
+	Native Native::operator%=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator&(const Native &_v1) const 
+	Native Native::operator&(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator|(const Native &_v1) const 
+	Native Native::operator|(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator^(const Native &_v1) const 
+	Native Native::operator^(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator~() const 
+	Native Native::operator~() const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator>>(const Native &_v1) const 
+	Native Native::operator>>(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator<<(const Native &_v1) const 
+	Native Native::operator<<(const Native &_v1) const
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator&=(const Native &_v1) 
+	Native Native::operator&=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator|=(const Native &_v1) 
+	Native Native::operator|=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator^=(const Native &_v1) 
+	Native Native::operator^=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator>>=(const Native &_v1) 
+	Native Native::operator>>=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
-	Native Native::operator<<=(const Native &_v1) 
+	Native Native::operator<<=(const Native &_v1)
 	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 		throw InvalidTypeException();
-		#endif
+#endif
 		return Native();
 	}
 	// TODO: ">>>" and ">>>=" operators

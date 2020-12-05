@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "../_meta.h"
 
@@ -30,14 +30,14 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		Native();
-		Native(void* val);
+		Native(void *val);
 		// Properties
 		count_t counter = 1;
-		void* value = nullptr;
+		void *value = nullptr;
 		NectarCore::Type::object_t object;
 		// Methods
 		inline void Delete() noexcept;
-		inline void* Copy() noexcept;
+		inline void *Copy() noexcept;
 		// Native cast
 		explicit operator bool() const noexcept;
 		explicit operator double() const noexcept;
@@ -49,14 +49,14 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char* key);
+		NectarCore::VAR &operator[](const char *key);
 		template <class... Args>
 		NectarCore::VAR operator()(Args... args) const
 		{
 			auto _args = NectarCore::Type::vector_t{(NectarCore::VAR)args...};
 			return (*static_cast<std::function<NectarCore::VAR(NectarCore::Type::vector_t)> *>(value))(_args);
 		}
-	
+
 		// Comparation operators
 		Native operator!() const;
 		bool operator==(const Native &_v1) const;

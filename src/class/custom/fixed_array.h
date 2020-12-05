@@ -19,17 +19,17 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "fixed_array_header.h"
 #include <sstream>
 #include <limits>
-		
+
 namespace NectarCore::Class
 {
 	// Constructors
-	FixedArray::FixedArray() 
-	{ 
+	FixedArray::FixedArray()
+	{
 		length = 8;
 		value = new NectarCore::VAR[8];
 	}
@@ -47,7 +47,7 @@ namespace NectarCore::Class
 			delete this;
 		}
 	}
-	inline void* FixedArray::Copy() noexcept
+	inline void *FixedArray::Copy() noexcept
 	{
 		counter++;
 		return this;
@@ -109,7 +109,7 @@ namespace NectarCore::Class
 				return value[i];
 			}
 		}
-		
+
 		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR const FixedArray::operator[](int key) const
@@ -118,13 +118,13 @@ namespace NectarCore::Class
 		{
 			return value[key];
 		}
-		
+
 		return NectarCore::Global::undefined;
 	}
-	
-	#ifndef __Nectar__OBJECT_VECTOR
+
+#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &FixedArray::operator[](NectarCore::VAR key)
-	{	
+	{
 		if (key.type == NectarCore::Enum::Type::Number)
 		{
 			auto i = (int)key;
@@ -133,7 +133,7 @@ namespace NectarCore::Class
 			{
 				return NectarCore::Global::undefined;
 			}
-			else 
+			else
 			{
 				if (i >= (int)length)
 				{
@@ -142,31 +142,31 @@ namespace NectarCore::Class
 			}
 			return value[i];
 		}
-		
+
 		std::string _str = ((std::string)key);
 		NectarCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
+
+		if (_sview.compare("length") == 0)
 		{
 			return length;
 		}
-		
-		NectarCore::VAR& _obj = object[_str];
-				
+
+		NectarCore::VAR &_obj = object[_str];
+
 		return _obj;
 	}
-	#else
+#else
 	NectarCore::VAR &FixedArray::operator[](NectarCore::VAR key)
 	{
 		if (key.type == NectarCore::Enum::Type::Number)
 		{
 			auto i = (int)key;
-			
+
 			if (i < 0)
 			{
 				return NectarCore::Global::undefined;
 			}
-			else 
+			else
 			{
 				if (i >= (int)length)
 				{
@@ -175,35 +175,35 @@ namespace NectarCore::Class
 			}
 			return value[i];
 		}
-		
+
 		std::string _str = ((std::string)key);
 		NectarCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
+
+		if (_sview.compare("length") == 0)
 		{
 			return length;
 		}
-		
-		for (auto & search : object)
+
+		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
 			{
 				return search.second;
 			}
 		}
-		
+
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
 	}
-	#endif
-	
+#endif
+
 	NectarCore::VAR &FixedArray::operator[](int key)
 	{
 		if (key < 0)
 		{
 			return NectarCore::Global::undefined;
 		}
-		else 
+		else
 		{
 			if (key >= (int)length)
 			{
@@ -212,14 +212,14 @@ namespace NectarCore::Class
 		}
 		return value[key];
 	}
-	
+
 	NectarCore::VAR &FixedArray::operator[](double key)
 	{
 		if (key < 0)
 		{
 			return NectarCore::Global::undefined;
 		}
-		else 
+		else
 		{
 			if (key >= (int)length)
 			{
@@ -228,33 +228,33 @@ namespace NectarCore::Class
 		}
 		return value[(int)key];
 	}
-	
-	#ifndef __Nectar__OBJECT_VECTOR
-	NectarCore::VAR &FixedArray::operator[](const char* key)
-	{		
-		std::string _str = key;
-		NectarCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
-		{
-			return length;
-		}
-		
-		NectarCore::VAR& _obj = object[_str];
-		return _obj; 
-	}
-	#else
-	NectarCore::VAR &FixedArray::operator[](const char* key)
+
+#ifndef __Nectar__OBJECT_VECTOR
+	NectarCore::VAR &FixedArray::operator[](const char *key)
 	{
 		std::string _str = key;
 		NectarCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
+
+		if (_sview.compare("length") == 0)
 		{
 			return length;
 		}
-		
-		for (auto & search : object)
+
+		NectarCore::VAR &_obj = object[_str];
+		return _obj;
+	}
+#else
+	NectarCore::VAR &FixedArray::operator[](const char *key)
+	{
+		std::string _str = key;
+		NectarCore::Type::StringView _sview = _str;
+
+		if (_sview.compare("length") == 0)
+		{
+			return length;
+		}
+
+		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
 			{
@@ -265,194 +265,194 @@ namespace NectarCore::Class
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
 	}
-	#endif
-	
+#endif
+
 	// Comparation operators
-	FixedArray FixedArray::operator!() const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator!() const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	
+
 	// Numeric operators
 	FixedArray FixedArray::operator+() const
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
 	FixedArray FixedArray::operator-() const
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
 	FixedArray FixedArray::operator++(const int _v1)
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
 	FixedArray FixedArray::operator--(const int _v1)
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator+(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator+(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator+=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator+=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator-(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator-(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator-=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator-=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator*(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator*(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator*=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator*=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
 	// TODO: "**" and "**=" operators
-	FixedArray FixedArray::operator/(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator/(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator/=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator/=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator%(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator%(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator%=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator%=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator&(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator&(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator|(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator|(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator^(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator^(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator~() const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator~() const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator>>(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator>>(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator<<(const FixedArray &_v1) const 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator<<(const FixedArray &_v1) const
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator&=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator&=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator|=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator|=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator^=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator^=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator>>=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator>>=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
-	FixedArray FixedArray::operator<<=(const FixedArray &_v1) 
-	{ 
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32) 
-		throw InvalidTypeException(); 
-		#endif
+	FixedArray FixedArray::operator<<=(const FixedArray &_v1)
+	{
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		throw InvalidTypeException();
+#endif
 		return FixedArray();
 	}
 	// TODO: ">>>" and ">>>=" operators
-	
+
 } // namespace NectarCore::Class

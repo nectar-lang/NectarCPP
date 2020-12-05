@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 
 // TODO: Move functions body to classes and
@@ -28,7 +28,7 @@ NectarCore::VAR __Nectar_Log_Console(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Keys(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Stringify(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Stringify(NectarCore::VAR _var, bool _bracket);
-NectarCore::VAR __Nectar_Object_Clone(NectarCore::VAR& _var);
+NectarCore::VAR __Nectar_Object_Clone(NectarCore::VAR &_var);
 NectarCore::VAR __Nectar_Object_Set(std::string _index, NectarCore::VAR _value, NectarCore::Type::object_t *_obj);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);
 
@@ -56,22 +56,22 @@ namespace std
 	{
 		return ::signbit(__x);
 	}
-	inline double stod(std::string _str, std::string::size_type* sz)
+	inline double stod(std::string _str, std::string::size_type *sz)
 	{
 		*sz = _str.length();
 		return String(_str.c_str()).toFloat();
 	}
-	inline int stoi(std::string _str, std::string::size_type* sz, int _base)
+	inline int stoi(std::string _str, std::string::size_type *sz, int _base)
 	{
 		*sz = _str.length();
 		return String(_str.c_str()).toInt();
 	}
-	inline long long stoll(std::string _str, std::string::size_type* sz, int _base)
+	inline long long stoll(std::string _str, std::string::size_type *sz, int _base)
 	{
 		*sz = _str.length();
 		return atol(_str.c_str());
 	}
-}
+} // namespace std
 
 template <typename m, typename n>
 m remainder(m _dividend, n _divisor)
@@ -111,4 +111,4 @@ double __Nectar_Str_To_Double(m _left)
 }
 /* END Number MANIPULATION */
 
-NectarCore::VAR getArguments(int argc, char** argv);
+NectarCore::VAR getArguments(int argc, char **argv);

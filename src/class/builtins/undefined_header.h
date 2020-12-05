@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
 #include "../_meta.h"
 
@@ -27,14 +27,17 @@ namespace NectarCore::Class
 {
 	class Undefined : public virtual Base
 	{
-	class Empty {};
+		class Empty
+		{
+		};
+
 	public:
 		// Constructors
 		Undefined();
 		// Properties
 		// Methods
 		inline void Delete() noexcept;
-		inline void* Copy() noexcept;
+		inline void *Copy() noexcept;
 		// Native cast
 		explicit operator bool() const noexcept;
 		explicit operator double() const noexcept;
@@ -46,17 +49,17 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char* key);
-		
+		NectarCore::VAR &operator[](const char *key);
+
 		template <class... Args>
-		NectarCore::VAR operator()(Args... args) const 
+		NectarCore::VAR operator()(Args... args) const
 		{
-			#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 			throw InvalidTypeException();
-			#endif
+#endif
 			return NectarCore::Global::undefined;
 		}
-		
+
 		// Comparation operators
 		Undefined operator!() const;
 		bool operator==(const Undefined &_v1) const;

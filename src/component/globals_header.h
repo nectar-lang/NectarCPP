@@ -19,7 +19,7 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 namespace NectarCore::Global
 {
 	extern NectarCore::VAR __Nectar_THIS;
@@ -27,4 +27,4 @@ namespace NectarCore::Global
 	extern NectarCore::VAR setImmediate;
 	extern NectarCore::VAR setTimeout;
 	extern NectarCore::VAR setInterval;
-}
+} // namespace NectarCore::Global

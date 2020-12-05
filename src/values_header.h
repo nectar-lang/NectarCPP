@@ -19,19 +19,13 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 namespace NectarCore::Global
-{	
+{
 	using var = NectarCore::VAR;
 	using let = NectarCore::VAR;
 	extern NectarCore::VAR undefined;
 	extern NectarCore::VAR null;
 	extern NectarCore::VAR Infinity;
 	extern NectarCore::VAR NaN;
-	
-	template <typename T>
-	NectarCore::VAR __Nectar_InitVar(T _init)
-	{
-		return NectarCore::VAR(_init);
-	}
-}
+} // namespace NectarCore::Global

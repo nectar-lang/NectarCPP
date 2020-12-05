@@ -24,11 +24,11 @@ std::string __Nectar_DOUBLE_TO_STRING(double _var);
 std::ostream &operator<<(std::ostream &os, const NectarCore::VAR &_v);
 NectarCore::VAR parseInt(NectarCore::VAR _str);
 NectarCore::VAR __Nectar_Log_Console(NectarCore::VAR _var);
-NectarCore::VAR __Nectar_Log_Console(NectarCore::VAR* _var, int _length);
+NectarCore::VAR __Nectar_Log_Console(NectarCore::VAR *_var, int _length);
 NectarCore::VAR __Nectar_Object_Keys(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Stringify(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_Object_Stringify(NectarCore::VAR _var, bool _bracket);
-NectarCore::VAR __Nectar_Object_Clone(NectarCore::VAR& _var);
+NectarCore::VAR __Nectar_Object_Clone(NectarCore::VAR &_var);
 void __Nectar_Object_Construct(NectarCore::VAR _this, NectarCore::VAR _prototype);
 NectarCore::VAR __Nectar_CREATE_Function(void *_fn);
 NectarCore::VAR __Nectar_Create_Native(void *_native);
@@ -36,58 +36,57 @@ void *__Nectar_Get_Native(NectarCore::VAR _native);
 
 /*** REDIFINING STD OPERATORS ***/
 
-NectarCore::VAR operator+ (const char* _left, const NectarCore::VAR &_right);
-NectarCore::VAR operator+ (std::string _left, const NectarCore::VAR &_right);
+NectarCore::VAR operator+(const char *_left, const NectarCore::VAR &_right);
+NectarCore::VAR operator+(std::string _left, const NectarCore::VAR &_right);
 template <typename t>
 t operator+(t _left, const NectarCore::VAR &_right)
 {
 	return _left + (t)_right;
 }
 
-NectarCore::VAR operator- (const char* _left, const NectarCore::VAR &_right);
-NectarCore::VAR operator- (std::string _left, const NectarCore::VAR &_right);
+NectarCore::VAR operator-(const char *_left, const NectarCore::VAR &_right);
+NectarCore::VAR operator-(std::string _left, const NectarCore::VAR &_right);
 template <typename t>
 t operator-(t _left, const NectarCore::VAR &_right)
 {
 	return _left - (t)_right;
 }
 
-NectarCore::VAR operator* (const char* _left, const NectarCore::VAR &_right);
-NectarCore::VAR operator* (std::string _left, const NectarCore::VAR &_right);
+NectarCore::VAR operator*(const char *_left, const NectarCore::VAR &_right);
+NectarCore::VAR operator*(std::string _left, const NectarCore::VAR &_right);
 template <typename t>
 t operator*(t _left, const NectarCore::VAR &_right)
 {
 	return _left * (t)_right;
 }
 
-NectarCore::VAR operator/ (const char* _left, const NectarCore::VAR &_right);
-NectarCore::VAR operator/ (std::string _left, const NectarCore::VAR &_right);
+NectarCore::VAR operator/(const char *_left, const NectarCore::VAR &_right);
+NectarCore::VAR operator/(std::string _left, const NectarCore::VAR &_right);
 template <typename t>
 t operator/(t _left, const NectarCore::VAR &_right)
 {
 	return _left / (t)_right;
 }
 
-NectarCore::VAR operator< (NectarCore::VAR _left, int right);
-NectarCore::VAR operator< (NectarCore::VAR _left, double right);
-NectarCore::VAR operator< (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator< (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator<(NectarCore::VAR _left, int right);
+NectarCore::VAR operator<(NectarCore::VAR _left, double right);
+NectarCore::VAR operator<(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator<(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator<= (NectarCore::VAR _left, int right);
-NectarCore::VAR operator<= (NectarCore::VAR _left, double right);
-NectarCore::VAR operator<= (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator<= (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator<=(NectarCore::VAR _left, int right);
+NectarCore::VAR operator<=(NectarCore::VAR _left, double right);
+NectarCore::VAR operator<=(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator<=(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator> (NectarCore::VAR _left, int right);
-NectarCore::VAR operator> (NectarCore::VAR _left, double right);
-NectarCore::VAR operator> (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator> (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator>(NectarCore::VAR _left, int right);
+NectarCore::VAR operator>(NectarCore::VAR _left, double right);
+NectarCore::VAR operator>(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator>(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator>= (NectarCore::VAR _left, int right);
-NectarCore::VAR operator>= (NectarCore::VAR _left, double right);
-NectarCore::VAR operator>= (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator>= (NectarCore::VAR _left, const char* right);
-
+NectarCore::VAR operator>=(NectarCore::VAR _left, int right);
+NectarCore::VAR operator>=(NectarCore::VAR _left, double right);
+NectarCore::VAR operator>=(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator>=(NectarCore::VAR _left, const char *right);
 
 /*** END REDIFINING STD OPERATORS ***/
 
@@ -97,79 +96,81 @@ extern NectarCore::VAR isNaN;
 
 NectarCore::VAR __Nectar_EQUAL_VALUE_AND_TYPE(NectarCore::VAR _left, NectarCore::VAR _right);
 NectarCore::VAR __Nectar_NOT_EQUAL_VALUE_AND_TYPE(NectarCore::VAR _left, NectarCore::VAR _right);
-NectarCore::VAR operator+ (NectarCore::VAR _left, int right);
-NectarCore::VAR operator+ (NectarCore::VAR _left, double right);
+NectarCore::VAR operator+(NectarCore::VAR _left, int right);
+NectarCore::VAR operator+(NectarCore::VAR _left, double right);
 
-void operator+= (NectarCore::VAR& _left, std::string right);
-void operator+= (NectarCore::VAR& _left, const char* right);
-void operator+= (NectarCore::VAR& _left, int right);
-void operator+= (NectarCore::VAR& _left, double right);
+void operator+=(NectarCore::VAR &_left, std::string right);
+void operator+=(NectarCore::VAR &_left, const char *right);
+void operator+=(NectarCore::VAR &_left, int right);
+void operator+=(NectarCore::VAR &_left, double right);
 
-template<class T>
-void operator-= (NectarCore::VAR& _left, T right)
+template <class T>
+void operator-=(NectarCore::VAR &_left, T right)
 {
-	if(_left.type == NectarCore::Enum::Type::Number) _left.data.number -= right;
-	else _left -= right;
+	if (_left.type == NectarCore::Enum::Type::Number)
+		_left.data.number -= right;
+	else
+		_left -= right;
 }
 
-NectarCore::VAR operator* (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator*(NectarCore::VAR _left, const char *right);
 
-template<class T>
-NectarCore::VAR operator* (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator*(NectarCore::VAR _left, T right)
 {
 	return (double)_left * (double)(NectarCore::VAR(right));
 }
 
-NectarCore::VAR operator- (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator-(NectarCore::VAR _left, const char *right);
 
-template<class T>
-NectarCore::VAR operator- (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator-(NectarCore::VAR _left, T right)
 {
 	return (double)_left - (double)(NectarCore::VAR(right));
 }
 
-NectarCore::VAR operator/ (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator/(NectarCore::VAR _left, const char *right);
 
-template<class T>
-NectarCore::VAR operator/ (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator/(NectarCore::VAR _left, T right)
 {
 	return (double)_left / (double)(NectarCore::VAR(right));
 }
 
-template<class T>
-NectarCore::VAR operator> (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator>(NectarCore::VAR _left, T right)
 {
 	return (double)_left > right;
 }
 
-template<class T>
-NectarCore::VAR operator>= (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator>=(NectarCore::VAR _left, T right)
 {
 	return (double)_left >= right;
 }
 
-template<class T>
-NectarCore::VAR operator< (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator<(NectarCore::VAR _left, T right)
 {
 	return (_left.data.number < right);
 }
 
-template<class T>
-NectarCore::VAR operator<= (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator<=(NectarCore::VAR _left, T right)
 {
 	return (double)_left <= right;
 }
 
-template<class T>
-NectarCore::VAR operator% (NectarCore::VAR _left, T right)
+template <class T>
+NectarCore::VAR operator%(NectarCore::VAR _left, T right)
 {
 	return (int)_left % right;
 }
 
-NectarCore::VAR operator|| (NectarCore::VAR _left, int right);
-NectarCore::VAR operator|| (NectarCore::VAR _left, double right);
-NectarCore::VAR operator|| (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator|| (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator||(NectarCore::VAR _left, int right);
+NectarCore::VAR operator||(NectarCore::VAR _left, double right);
+NectarCore::VAR operator||(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator||(NectarCore::VAR _left, const char *right);
 
 /*
 template<class T>
@@ -179,37 +180,37 @@ NectarCore::VAR operator== (NectarCore::VAR _left, T right)
 }
 */
 
-NectarCore::VAR operator== (NectarCore::VAR _left, int right);
-NectarCore::VAR operator== (NectarCore::VAR _left, double right);
-NectarCore::VAR operator== (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator== (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator==(NectarCore::VAR _left, int right);
+NectarCore::VAR operator==(NectarCore::VAR _left, double right);
+NectarCore::VAR operator==(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator==(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator!= (NectarCore::VAR _left, int right);
-NectarCore::VAR operator!= (NectarCore::VAR _left, double right);
-NectarCore::VAR operator!= (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator!= (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator!=(NectarCore::VAR _left, int right);
+NectarCore::VAR operator!=(NectarCore::VAR _left, double right);
+NectarCore::VAR operator!=(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator!=(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator| (NectarCore::VAR _left, int right);
-NectarCore::VAR operator| (NectarCore::VAR _left, double right);
-NectarCore::VAR operator| (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator| (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator|(NectarCore::VAR _left, int right);
+NectarCore::VAR operator|(NectarCore::VAR _left, double right);
+NectarCore::VAR operator|(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator|(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator^ (NectarCore::VAR _left, int right);
-NectarCore::VAR operator^ (NectarCore::VAR _left, double right);
-NectarCore::VAR operator^ (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator^ (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator^(NectarCore::VAR _left, int right);
+NectarCore::VAR operator^(NectarCore::VAR _left, double right);
+NectarCore::VAR operator^(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator^(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator& (NectarCore::VAR _left, int right);
-NectarCore::VAR operator& (NectarCore::VAR _left, double right);
-NectarCore::VAR operator& (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator& (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator&(NectarCore::VAR _left, int right);
+NectarCore::VAR operator&(NectarCore::VAR _left, double right);
+NectarCore::VAR operator&(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator&(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator<< (NectarCore::VAR _left, int right);
-NectarCore::VAR operator<< (NectarCore::VAR _left, double right);
-NectarCore::VAR operator<< (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator<< (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator<<(NectarCore::VAR _left, int right);
+NectarCore::VAR operator<<(NectarCore::VAR _left, double right);
+NectarCore::VAR operator<<(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator<<(NectarCore::VAR _left, const char *right);
 
-NectarCore::VAR operator>> (NectarCore::VAR _left, int right);
-NectarCore::VAR operator>> (NectarCore::VAR _left, double right);
-NectarCore::VAR operator>> (NectarCore::VAR _left, std::string right);
-NectarCore::VAR operator>> (NectarCore::VAR _left, const char* right);
+NectarCore::VAR operator>>(NectarCore::VAR _left, int right);
+NectarCore::VAR operator>>(NectarCore::VAR _left, double right);
+NectarCore::VAR operator>>(NectarCore::VAR _left, std::string right);
+NectarCore::VAR operator>>(NectarCore::VAR _left, const char *right);

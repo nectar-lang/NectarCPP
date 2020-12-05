@@ -19,12 +19,12 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
-namespace NectarCore::Class::NUMBER 
+
+namespace NectarCore::Class::NUMBER
 {
 	extern NectarCore::VAR _fn;
-	std::string toString(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length);
-	double valueOf(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length);
-	std::string toFixed(NectarCore::VAR& __Nectar_THIS, NectarCore::VAR* _args, int _length);
-	inline NectarCore::VAR& Accessor(NectarCore::VAR _this, NectarCore::VAR key);
-}
+	std::string toString(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length);
+	double valueOf(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length);
+	std::string toFixed(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int _length);
+	inline NectarCore::VAR &Accessor(NectarCore::VAR _this, NectarCore::VAR key);
+} // namespace NectarCore::Class::NUMBER
