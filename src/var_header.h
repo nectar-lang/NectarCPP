@@ -58,6 +58,7 @@ namespace NectarCore
 		VAR(std::string_view _value);
 		VAR(NectarCore::Class::FixedArray *_value);
 		VAR(NectarCore::Class::Array *_value);
+		VAR(std::initializer_list<NectarCore::VAR> l);
 		VAR(const NectarCore::Class::Array *_value);
 		VAR(bool _value);
 		VAR(NectarCore::Class::Function *_value);
