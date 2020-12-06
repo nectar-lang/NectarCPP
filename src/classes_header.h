@@ -28,6 +28,7 @@
 #include "./class/object_header.h"
 #include "./class/function_header.h"
 #include "./class/native_header.h"
+#include "./class/native_tpl_header.h"
 #include "./class/struct_header.h"
 #include "./class/fixed_array_header.h"
 #include "./class/string_header.h"

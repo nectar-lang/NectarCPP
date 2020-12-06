@@ -52,16 +52,15 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char* key);
 		
+		// Comparation operators
 		template <class... Args>
-		NectarCore::VAR operator()(Args... args) const 
+		NectarCore::VAR operator() (Args... args)
 		{
 			#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
 			throw InvalidTypeException();
 			#endif
 			return NectarCore::Global::undefined;
 		}
-		
-		// Comparation operators
 		String operator!() const;
 		bool operator==(const String &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE

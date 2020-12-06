@@ -35,3 +35,5 @@ jobs:
         ./operators.out
         g++ -std=c++17 nectar.o test/array.cpp -lpthread -Ofast -o array.out
         ./array.out
+        g++ -std=c++17 nectar.o test/native.cpp -lpthread -Ofast -o native.out
+        ./native.out

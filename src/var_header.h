@@ -25,9 +25,7 @@ namespace NectarCore
 	union Data
 	{
 		void* ptr;
-		double number;
-		char* str;
-		
+		double number;		
 	};
 	
 	struct VAR
@@ -70,18 +68,48 @@ namespace NectarCore
 		VAR(NectarCore::Enum::Type _type, void *_value, VAR _this);
 		VAR(std::function<VAR(NectarCore::VAR*, int)> &_value);
 		
-		template <class... Args>
-		VAR operator() (Args... args)
+		
+		
+		template<typename T>
+		VAR(NectarCore::Class::NativeTPL<T>* _value)
 		{
-			if (type != NectarCore::Enum::Type::Function)
+			this->type = NectarCore::Enum::Type::NativeTPL;
+			data.ptr = _value;
+		};
+
+		
+		template <typename T>
+		T toNative (T _type)
+		{
+			if(type == NectarCore::Enum::Type::NativeTPL)
+			{
+				return (*(NectarCore::Class::NativeTPL<T>*)data.ptr)(_type);
+			}
+			else
 			{
 		#ifndef __Nectar_NO_EXCEPT
-				throw VAR("TypeError: object is not a function");
+				throw VAR("TypeError: Object is not a Native object");
 		#endif
 				exit(1);
-			}
-			else return (*(NectarCore::Class::Function*)data.ptr)((VAR)(args)...);
+			} 
 		}
+		
+		template <typename T>
+		T toNative ()
+		{
+			if(type == NectarCore::Enum::Type::NativeTPL)
+			{
+				return (*(NectarCore::Class::NativeTPL<T>*)data.ptr)();
+			}
+			else
+			{
+		#ifndef __Nectar_NO_EXCEPT
+				throw VAR("TypeError: Object is not a Native object");
+		#endif
+				exit(1);
+			} 
+		}
+		
 		
 		template <class... Args>
 		VAR operator() (Args... args) const

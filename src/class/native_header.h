@@ -50,13 +50,7 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char* key);
-		template <class... Args>
-		NectarCore::VAR operator()(Args... args) const
-		{
-			auto _args = NectarCore::Type::vector_t{(NectarCore::VAR)args...};
-			return (*static_cast<std::function<NectarCore::VAR(NectarCore::Type::vector_t)> *>(value))(_args);
-		}
-	
+		
 		// Comparation operators
 		Native operator!() const;
 		bool operator==(const Native &_v1) const;

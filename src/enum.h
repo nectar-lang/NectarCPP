@@ -29,6 +29,7 @@ namespace NectarCore::Enum
 		Number,
 		String,
 		Native,
+		NativeTPL,
 		Struct,
 		FixedArray,
 		Array,

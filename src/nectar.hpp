@@ -62,6 +62,7 @@
 namespace NectarCore
 {
 	struct VAR;
+	
 	namespace Class
 	{
 		class Base;
@@ -74,6 +75,9 @@ namespace NectarCore
 		class Native;
 		class Struct;
 		class FixedArray;
+		
+		template<typename T>
+		class NativeTPL;
 	}
 } // namespace NectarCore
 

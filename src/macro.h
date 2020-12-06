@@ -43,6 +43,7 @@
 #define __Nectar_Init_String(_name, _value) std::string _name = _value
 #define __Nectar_EXCEPTION_PARAMETER NectarCore::VAR &e
 #define finally ;
+#define __Nectar_Throw_Error(_err) NectarCore::VAR(NectarCore::VAR(_err) + ", line: " + std::to_string(__LINE__) + ", file: " + __FILE__)
 #define __Nectar_Boolean_TRUE __Nectar_Create_Boolean(true)
 #define __Nectar_Boolean_FALSE __Nectar_Create_Boolean(false)
 #define __Nectar_FAST_INT double
