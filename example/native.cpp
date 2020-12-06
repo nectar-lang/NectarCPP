@@ -11,17 +11,23 @@ struct s
 };
 
 s* typeStruct = new s();
-auto __fn = []() {std::cout << "Hello" << std::endl;};
 
 int main(int argc, char** argv)
 {
 	try 
 	{
-		var _struct = new NativeTPL(new s({3,4}));
-		std::cout << _struct.toNative(typeStruct)->i << std::endl;
-		
-		var _fn = new NativeTPL(__fn);
-		_fn.toNative(__fn)();
+		#if __cplusplus > 202002L
+			auto __fn = []() {std::cout << "Hello" << std::endl;};
+			
+			var _struct = new NativeTPL(new s({3,4}));
+			std::cout << _struct.toNative(typeStruct)->i << std::endl;
+			
+			var _fn = new NativeTPL(__fn);
+			_fn.toNative(__fn)();
+		#else
+			var _struct = new NativeTPL<s*>(new s({3,4}));
+			std::cout << _struct.toNative(typeStruct)->i << std::endl;
+		#endif
 	}
 	catch(var e)
 	{
