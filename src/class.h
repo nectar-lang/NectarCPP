@@ -24,4 +24,5 @@
 
 #include "./class/base_header.h"
 #include "./class/core.h"
+#include "./class/builtins.h"
 #include "./class/custom.h"
