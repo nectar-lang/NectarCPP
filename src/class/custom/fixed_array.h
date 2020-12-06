@@ -35,8 +35,8 @@ namespace NectarCore::Class
 	}
 	FixedArray::FixedArray(NectarCore::VAR _length)
 	{
-		length = (int)_length;
-		value = new NectarCore::VAR[length];
+		length = _length;
+		value = new NectarCore::VAR[(int)_length];
 	}
 	// Methods
 	inline void FixedArray::Delete() noexcept
@@ -56,7 +56,7 @@ namespace NectarCore::Class
 	FixedArray::operator bool() const noexcept { return true; }
 	FixedArray::operator double() const noexcept
 	{
-		if (length == 1)
+		if ((int)length == 1)
 		{
 			return (double)value[0];
 		}
@@ -67,7 +67,7 @@ namespace NectarCore::Class
 	}
 	FixedArray::operator int() const noexcept
 	{
-		if (length == 1)
+		if ((int)length == 1)
 		{
 			return (int)value[0];
 		}
@@ -78,7 +78,7 @@ namespace NectarCore::Class
 	}
 	FixedArray::operator long long() const noexcept
 	{
-		if (length == 1)
+		if ((int)length == 1)
 		{
 			return (long long)value[0];
 		}
@@ -89,9 +89,10 @@ namespace NectarCore::Class
 	}
 	FixedArray::operator std::string() const noexcept
 	{
+		auto l = (int)length;
 		std::stringstream stream;
 		stream << (std::string)value[0];
-		for (auto i = 1; i < length; i++)
+		for (auto i = 1; i < l; i++)
 		{
 			stream << "," << (std::string)value[i];
 		}
@@ -103,7 +104,7 @@ namespace NectarCore::Class
 		if (key.type == NectarCore::Enum::Type::Number)
 		{
 			auto i = (int)key;
-			if (i >= 0 && i <= length)
+			if (i >= 0 && i <= (int)length)
 			{
 				return value[i];
 			}
@@ -113,7 +114,7 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR const FixedArray::operator[](int key) const
 	{
-		if (key >= 0 && key <= length)
+		if (key >= 0 && key <= (int)length)
 		{
 			return value[key];
 		}
@@ -128,9 +129,16 @@ namespace NectarCore::Class
 		{
 			auto i = (int)key;
 
-			if (i < 0 || i >= length)
+			if (i < 0)
 			{
 				return NectarCore::Global::undefined;
+			}
+			else
+			{
+				if (i >= (int)length)
+				{
+					return NectarCore::Global::undefined;
+				}
 			}
 			return value[i];
 		}
@@ -154,9 +162,16 @@ namespace NectarCore::Class
 		{
 			auto i = (int)key;
 
-			if (i < 0 || i >= length)
+			if (i < 0)
 			{
 				return NectarCore::Global::undefined;
+			}
+			else
+			{
+				if (i >= (int)length)
+				{
+					return NectarCore::Global::undefined;
+				}
 			}
 			return value[i];
 		}
@@ -184,18 +199,32 @@ namespace NectarCore::Class
 
 	NectarCore::VAR &FixedArray::operator[](int key)
 	{
-		if (key < 0 || key >= length)
+		if (key < 0)
 		{
 			return NectarCore::Global::undefined;
+		}
+		else
+		{
+			if (key >= (int)length)
+			{
+				return NectarCore::Global::undefined;
+			}
 		}
 		return value[key];
 	}
 
 	NectarCore::VAR &FixedArray::operator[](double key)
 	{
-		if (key < 0 || key >= length)
+		if (key < 0)
 		{
 			return NectarCore::Global::undefined;
+		}
+		else
+		{
+			if (key >= (int)length)
+			{
+				return NectarCore::Global::undefined;
+			}
 		}
 		return value[(int)key];
 	}

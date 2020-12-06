@@ -33,7 +33,7 @@ namespace NectarCore::Class
 		FixedArray(NectarCore::VAR length);
 		// Properties
 		count_t counter = 0;
-		count_t length;
+		NectarCore::VAR length;
 		NectarCore::VAR *value;
 		NectarCore::Type::object_t object;
 		// Methods
