@@ -23,5 +23,5 @@
 #pragma once
 
 #include "./class/base_header.h"
-#include "./class/builtins.h"
+#include "./class/core.h"
 #include "./class/custom.h"

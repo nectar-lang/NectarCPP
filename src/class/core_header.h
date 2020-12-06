@@ -22,10 +22,10 @@
 
 #pragma once
 
-#include "./builtins/number.h"
-#include "./builtins/object.h"
-#include "./builtins/array.h"
-#include "./builtins/function.h"
-#include "./builtins/native.h"
-#include "./builtins/string.h"
-#include "./builtins/undefined.h"
+#include "./core/number_header.h"
+#include "./core/object_header.h"
+#include "./core/array_header.h"
+#include "./core/function_header.h"
+#include "./core/native_header.h"
+#include "./core/string_header.h"
+#include "./core/undefined_header.h"
