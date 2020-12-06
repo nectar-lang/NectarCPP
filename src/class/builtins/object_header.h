@@ -30,8 +30,6 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		Object();
-		Object(const char* _key, NectarCore::VAR _value);
-		Object(NectarCore::Type::object_t _obj);
 		// Properties
 		std::bitset<4> property; // writable, prototype, configurable, enumarable
 		count_t counter = 0;

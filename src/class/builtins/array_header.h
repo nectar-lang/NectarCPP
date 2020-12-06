@@ -31,16 +31,6 @@ namespace NectarCore::Class
 		// Constructors
 		Array();
 		Array(NectarCore::Type::vector_t vec);
-		
-		template<typename ...Args>
-		Array(Args ... args)
-		{
-			NectarCore::Type::vector_t _vec = {args...};
-			value = _vec;
-		}
-		
-		Array(std::initializer_list<NectarCore::VAR> l);
-		
 		// Properties
 		count_t counter = 0;
 		NectarCore::VAR length;

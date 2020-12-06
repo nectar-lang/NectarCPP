@@ -1,5 +1,5 @@
 # NectarCPP
-Nectar C++ lib/runtime. C++17/20 compatible.
+Nectar C++ lib/runtime
 
 # Gettin started
 
