@@ -22,7 +22,7 @@
  
 int __Nectar_Get_Int(NectarCore::VAR _v);
 const char *__Nectar_Get_String(NectarCore::VAR _v);
-extern const std::string _array[11];
+extern const std::string _array[12];
 NectarCore::VAR __Nectar_typeof(NectarCore::VAR _var);
 NectarCore::VAR __Nectar_instanceof(NectarCore::VAR _left, NectarCore::VAR _right);
 NectarCore::VAR __Nectar_delete(NectarCore::VAR _left, NectarCore::VAR _right);

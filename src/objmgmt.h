@@ -32,7 +32,7 @@ const char *__Nectar_Get_String(NectarCore::VAR _v)
 	return ((NectarCore::Class::String*)_v.data.ptr)->value.c_str();
 }
 
-const std::string _array[] = {"object", "boolean", "number", "string", "native", "struct", "fixed_array", "array", "object", "function", "NectarCore::Global::undefined" };
+const std::string _array[] = {"object", "boolean", "number", "string", "native", "native", "struct", "fixed_array", "array", "object", "function", "undefined" };
 NectarCore::VAR __Nectar_typeof(NectarCore::VAR _var)
 {
 	return __Nectar_Create_String(_array[_var.type]);

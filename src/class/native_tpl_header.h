@@ -19,22 +19,34 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 #pragma once
 #include "_meta.h"
+
 
 namespace NectarCore::Class
 {
 	template<typename T>
 	class NativeTPL : public virtual Base
 	{
+		
+	private:
+		void internalDelete(std::true_type)
+		{
+			if((*this)["__Nectar_On_Destroy"]) (*this)["__Nectar_On_Destroy"]();
+			if(std::is_pointer<T>::value) delete value;
+		}
+		void internalDelete(std::false_type)
+		{
+			if((*this)["__Nectar_On_Destroy"]) (*this)["__Nectar_On_Destroy"]();
+		}
 	public:
 		// Constructors
 		bool is_ptr = 0;
-		NativeTPL() {}
+		const char* info;
 		NativeTPL(T val)
 		{
 			is_ptr = std::is_pointer<T>::value;
+			info = typeid(T).name();
 			value = val;
 		}
 		// Properties
@@ -45,9 +57,9 @@ namespace NectarCore::Class
 		
 		inline void Delete() noexcept
 		{
-			if (--counter < 1)
+			if (--counter == 0)
 			{
-				if((*this)["__Nectar_On_Destroy"]) (*this)["__Nectar_On_Destroy"]();
+				internalDelete(std::is_pointer<T>());
 				delete this;
 			}
 		}
@@ -59,9 +71,9 @@ namespace NectarCore::Class
 		}
 		
 		template<typename Cast>
-		inline T operator()(Cast& c) const
+		const inline T operator()(Cast& c) const
 		{
-			if(std::is_same<Cast, T>::value && is_ptr == std::is_pointer<Cast>::value)
+			if(std::string(typeid(Cast).name()).compare(info) == 0)
 			{
 				return value;
 			}
@@ -69,6 +81,7 @@ namespace NectarCore::Class
 			{
 				throw(__Nectar_Throw_Error("Invalid native type casting"));
 			}
+			
 		}
 		
 		inline T operator()() const
