@@ -148,30 +148,6 @@ NectarCore::VAR operator/ (NectarCore::VAR _left, T right)
 }
 
 template<class T>
-NectarCore::VAR operator> (NectarCore::VAR _left, T right)
-{
-	return (double)_left > right;
-}
-
-template<class T>
-NectarCore::VAR operator>= (NectarCore::VAR _left, T right)
-{
-	return (double)_left >= right;
-}
-
-template<class T>
-NectarCore::VAR operator< (NectarCore::VAR _left, T right)
-{
-	return (_left.data.number < right);
-}
-
-template<class T>
-NectarCore::VAR operator<= (NectarCore::VAR _left, T right)
-{
-	return (double)_left <= right;
-}
-
-template<class T>
 NectarCore::VAR operator% (NectarCore::VAR _left, T right)
 {
 	return (int)_left % right;
