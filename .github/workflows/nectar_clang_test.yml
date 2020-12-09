@@ -26,5 +26,9 @@ jobs:
         ./object.out
         clang++ -std=c++17 nectar.o test/cast.cpp -lpthread -Ofast -o cast.out
         ./cast.out
-        clang++ -std=c++17 nectar.o test/operators.cpp -lpthread -Ofast -o cast.out
+        clang++ -std=c++17 nectar.o test/operators.cpp -lpthread -Ofast -o operators.out
         ./operators.out
+        clang++ -std=c++17 nectar.o test/array.cpp -lpthread -Ofast -o array.out
+        ./array.out
+        clang++ -std=c++17 nectar.o test/native.cpp -lpthread -Ofast -o native.out
+        ./native.out

@@ -19,9 +19,9 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
+ 
 #pragma once
-#include "../base_header.h"
+#include "_meta.h"
 
 namespace NectarCore::Class
 {
@@ -30,6 +30,8 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		Object();
+		Object(const char* _key, NectarCore::VAR _value);
+		Object(NectarCore::Type::object_t _obj);
 		// Properties
 		std::bitset<4> property; // writable, prototype, configurable, enumarable
 		count_t counter = 0;
@@ -38,8 +40,8 @@ namespace NectarCore::Class
 		// Methods
 		inline void Delete() noexcept;
 		inline void jsDelete(const std::string _key) noexcept;
-
-		inline void *Copy() noexcept;
+		
+		inline void* Copy() noexcept;
 		// Native cast
 		explicit operator bool() const noexcept;
 		explicit operator double() const noexcept;
@@ -51,16 +53,9 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char *key);
-		template <class... Args>
-		NectarCore::VAR operator()(Args... args) const
-		{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-			throw InvalidTypeException();
-#endif
-			return NectarCore::Global::undefined;
-		}
+		NectarCore::VAR &operator[](const char* key);
 
+	
 		// Comparation operators
 		Object operator!() const;
 		bool operator==(const Object &_v1) const;
