@@ -1,9 +1,21 @@
 # NectarCPP
 Nectar C++ lib/runtime. C++17/20 compatible.
 
+# About NectarCPP
+NectarCPP lets you write JS like code in C++:
+
+```
+var a = 0;
+for(var i = 0; i < 100000; i++)
+{
+	a += i;
+}
+println(a);
+```
+
 # Gettin started
 
-You need a C++ compile (g++ or clang++) to use NectarCPP.
+You need a C++ compiler (g++ or clang++) to use NectarCPP.
 
 Clone this repository, and create a file mycode.cpp. Add in this file the folling lines: 
 
