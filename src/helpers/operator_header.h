@@ -19,6 +19,17 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+constexpr bool operator==(std::string_view sw, const char *c)
+{
+	return sw == std::string_view(c);
+}
+
+constexpr bool operator!=(std::string_view sw, const char *c)
+{
+	return sw != std::string_view(c);
+}
+
 NectarCore::VAR __Nectar_Boolean_Result(NectarCore::VAR _v);
 std::string __Nectar_DOUBLE_TO_STRING(double _var);
 std::ostream &operator<<(std::ostream &os, const NectarCore::VAR &_v);
@@ -135,30 +146,6 @@ template <class T>
 NectarCore::VAR operator/(NectarCore::VAR _left, T right)
 {
 	return (double)_left / (double)(NectarCore::VAR(right));
-}
-
-template <class T>
-NectarCore::VAR operator>(NectarCore::VAR _left, T right)
-{
-	return (double)_left > right;
-}
-
-template <class T>
-NectarCore::VAR operator>=(NectarCore::VAR _left, T right)
-{
-	return (double)_left >= right;
-}
-
-template <class T>
-NectarCore::VAR operator<(NectarCore::VAR _left, T right)
-{
-	return (_left.data.number < right);
-}
-
-template <class T>
-NectarCore::VAR operator<=(NectarCore::VAR _left, T right)
-{
-	return (double)_left <= right;
 }
 
 template <class T>
