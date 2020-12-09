@@ -21,6 +21,9 @@
  */
 
 #pragma once
+#include "enum.h"
+#include "class_header.h"
+#include <bitset>
 
 namespace NectarCore
 {

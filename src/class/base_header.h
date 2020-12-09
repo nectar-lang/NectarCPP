@@ -22,6 +22,8 @@
 
 #pragma once
 #include "_meta.h"
+#include "../var_header.h"
+#include "../helpers_header.h"
 
 namespace NectarCore::Class
 {

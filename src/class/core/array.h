@@ -169,7 +169,7 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("some", some);
 		__Nectar_Method_Lazy_Loader("sort", sort);
 		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toLocaleString);
+		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("unshift", unshift);
 		__Nectar_Method_Lazy_Loader("values", values);
@@ -243,7 +243,7 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("some", some);
 		__Nectar_Method_Lazy_Loader("sort", sort);
 		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toLocaleString);
+		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("unshift", unshift);
 		__Nectar_Method_Lazy_Loader("values", values);
@@ -331,7 +331,7 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("some", some);
 		__Nectar_Method_Lazy_Loader("sort", sort);
 		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toLocaleString);
+		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("unshift", unshift);
 		__Nectar_Method_Lazy_Loader("values", values);
@@ -387,7 +387,7 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("some", some);
 		__Nectar_Method_Lazy_Loader("sort", sort);
 		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toLocaleString);
+		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("unshift", unshift);
 		__Nectar_Method_Lazy_Loader("values", values);
@@ -1044,10 +1044,6 @@ namespace NectarCore::Class
 			value.push_back(args[i]);
 		}
 		return ret;
-	}
-	NectarCore::VAR Array::toLocaleString(NectarCore::VAR *args, int _length) const
-	{
-		return toString(args, _length);
 	}
 	NectarCore::VAR Array::toString(NectarCore::VAR *args, int _length) const
 	{

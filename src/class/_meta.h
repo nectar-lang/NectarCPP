@@ -22,22 +22,20 @@
 
 #pragma once
 #include <exception>
+#include "../values_header.h"
 
 namespace NectarCore::Class
 {
 #ifdef __Nectar_ENV_ARDUINO
 	typedef uint16_t count_t;
+	const int SMI_MAX = 32767;
+	const int SMI_MIN = -32768;
 #else
 	typedef int count_t;
+	const int SMI_MAX = 1073741823;
+	const int SMI_MIN = -1073741824;
 #endif
 	class InvalidTypeException : public std::exception
 	{
 	};
-#ifdef __Nectar_ENV_ARDUINO
-	const int SMI_MAX = 32767;
-	const int SMI_MIN = -32768;
-#else
-	const int SMI_MAX = 1073741823;
-	const int SMI_MIN = -1073741824;
-#endif
 } // namespace NectarCore::Class
