@@ -22,6 +22,7 @@
 
 #pragma once
 #include "_meta.h"
+#include <string>
 #include "../var_header.h"
 #include "../helpers_header.h"
 

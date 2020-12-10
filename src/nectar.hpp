@@ -56,9 +56,6 @@
 #include <thread>
 #endif
 
-#include "enum.h"
-#include "macro.h"
-
 namespace NectarCore
 {
 	struct VAR;
@@ -81,16 +78,10 @@ namespace NectarCore
 	}
 } // namespace NectarCore
 
+#include "enum.h"
 #include "var_header.h"
-#include "type_header.h"
 #include "values_header.h"
-#include "functions_header.h"
-#include "classes_header.h"
-#include "native_header.h"
-#include "this_header.h"
-#include "class/number_header.h"
-#include "objmgmt_header.h"
-#include "event_header.h"
-#include "operator_header.h"
-#include "std_global_js_header.h"
-#include "stdfn_header.h"
+#include "type_header.h"
+#include "helpers_header.h"
+#include "class_header.h"
+#include "component_header.h"
