@@ -162,14 +162,52 @@ namespace NectarCore::Class
 				return search.second;
 		}
 #endif
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("split", split);
+		__Nectar_Method_Lazy_Loader("anchor", anchor);
+		__Nectar_Method_Lazy_Loader("big", big);
+		__Nectar_Method_Lazy_Loader("blink", blink);
+		__Nectar_Method_Lazy_Loader("bold", bold);
+		__Nectar_Method_Lazy_Loader("charAt", charAt);
+		__Nectar_Method_Lazy_Loader("charCodeAt", charCodeAt);
+		__Nectar_Method_Lazy_Loader("codePointAt", codePointAt);
+		__Nectar_Method_Lazy_Loader("concat", concat);
+		__Nectar_Method_Lazy_Loader("endsWith", endsWith);
+		__Nectar_Method_Lazy_Loader("fixed", fixed);
+		__Nectar_Method_Lazy_Loader("fontcolor", fontcolor);
+		__Nectar_Method_Lazy_Loader("fontsize", fontsize);
+		__Nectar_Method_Lazy_Loader("includes", includes);
 		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
+		__Nectar_Method_Lazy_Loader("italics", italics);
 		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
+		__Nectar_Method_Lazy_Loader("link", link);
+		__Nectar_Method_Lazy_Loader("localeCompare", localeCompare);
+		__Nectar_Method_Lazy_Loader("match", match);
+		__Nectar_Method_Lazy_Loader("matchAll", matchAll);
+		__Nectar_Method_Lazy_Loader("normalize", normalize);
+		__Nectar_Method_Lazy_Loader("padEnd", padEnd);
+		__Nectar_Method_Lazy_Loader("padStart", padStart);
+		__Nectar_Method_Lazy_Loader("repeat", repeat);
+		__Nectar_Method_Lazy_Loader("replace", replace);
+		__Nectar_Method_Lazy_Loader("replaceAll", replaceAll);
 		__Nectar_Method_Lazy_Loader("search", search);
 		__Nectar_Method_Lazy_Loader("slice", slice);
+		__Nectar_Method_Lazy_Loader("small", small);
+		__Nectar_Method_Lazy_Loader("split", split);
+		__Nectar_Method_Lazy_Loader("startsWith", startsWith);
+		__Nectar_Method_Lazy_Loader("strike", strike);
+		__Nectar_Method_Lazy_Loader("sub", sub);
 		__Nectar_Method_Lazy_Loader("substr", substr);
-		__Nectar_Method_Lazy_Loader("replace", replace);
+		__Nectar_Method_Lazy_Loader("substring", substring);
+		__Nectar_Method_Lazy_Loader("sup", sup);
+		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLowerCase);
+		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
+		__Nectar_Method_Lazy_Loader("toString", toString);
+		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("trim", trim);
+		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
+		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
+
 		if (_sview.compare("length") == 0)
 		{
 			_length = (int)value.size();
@@ -230,14 +268,51 @@ namespace NectarCore::Class
 			}
 		}
 #endif
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("split", split);
+		__Nectar_Method_Lazy_Loader("anchor", anchor);
+		__Nectar_Method_Lazy_Loader("big", big);
+		__Nectar_Method_Lazy_Loader("blink", blink);
+		__Nectar_Method_Lazy_Loader("bold", bold);
+		__Nectar_Method_Lazy_Loader("charAt", charAt);
+		__Nectar_Method_Lazy_Loader("charCodeAt", charCodeAt);
+		__Nectar_Method_Lazy_Loader("codePointAt", codePointAt);
+		__Nectar_Method_Lazy_Loader("concat", concat);
+		__Nectar_Method_Lazy_Loader("endsWith", endsWith);
+		__Nectar_Method_Lazy_Loader("fixed", fixed);
+		__Nectar_Method_Lazy_Loader("fontcolor", fontcolor);
+		__Nectar_Method_Lazy_Loader("fontsize", fontsize);
+		__Nectar_Method_Lazy_Loader("includes", includes);
 		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
+		__Nectar_Method_Lazy_Loader("italics", italics);
 		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
+		__Nectar_Method_Lazy_Loader("link", link);
+		__Nectar_Method_Lazy_Loader("localeCompare", localeCompare);
+		__Nectar_Method_Lazy_Loader("match", match);
+		__Nectar_Method_Lazy_Loader("matchAll", matchAll);
+		__Nectar_Method_Lazy_Loader("normalize", normalize);
+		__Nectar_Method_Lazy_Loader("padEnd", padEnd);
+		__Nectar_Method_Lazy_Loader("padStart", padStart);
+		__Nectar_Method_Lazy_Loader("repeat", repeat);
+		__Nectar_Method_Lazy_Loader("replace", replace);
+		__Nectar_Method_Lazy_Loader("replaceAll", replaceAll);
 		__Nectar_Method_Lazy_Loader("search", search);
 		__Nectar_Method_Lazy_Loader("slice", slice);
+		__Nectar_Method_Lazy_Loader("small", small);
+		__Nectar_Method_Lazy_Loader("split", split);
+		__Nectar_Method_Lazy_Loader("startsWith", startsWith);
+		__Nectar_Method_Lazy_Loader("strike", strike);
+		__Nectar_Method_Lazy_Loader("sub", sub);
 		__Nectar_Method_Lazy_Loader("substr", substr);
-		__Nectar_Method_Lazy_Loader("replace", replace);
+		__Nectar_Method_Lazy_Loader("substring", substring);
+		__Nectar_Method_Lazy_Loader("sup", sup);
+		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLowerCase);
+		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
+		__Nectar_Method_Lazy_Loader("toString", toString);
+		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("trim", trim);
+		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
+		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
 
 		if (_sview.compare("length") == 0)
 		{
@@ -439,10 +514,201 @@ namespace NectarCore::Class
 	}
 	// TODO: ">>>" and ">>>=" operators
 	/*** STRING METHODS ***/
+	inline std::string String::_wrapText(std::string tag) const
+	{
+		return "<" + tag + ">" + value + "</" + tag + ">";
+	}
+
+	NectarCore::VAR String::__iterator(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::anchor(NectarCore::VAR *_args, int _length) const
+	{
+		std::string str = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		return "<a name=\"" + str + "\">" + value + "</a>";
+	}
+	NectarCore::VAR String::big(NectarCore::VAR *_args, int _length) const { return _wrapText("big"); }
+	NectarCore::VAR String::blink(NectarCore::VAR *_args, int _length) const { return _wrapText("blink"); }
+	NectarCore::VAR String::bold(NectarCore::VAR *_args, int _length) const { return _wrapText("bold"); }
+	NectarCore::VAR String::charAt(NectarCore::VAR *_args, int _length) const
+	{
+		auto index = _length > 0 ? (int)_args[0] : 0;
+		if (index >= 0 && index < value.size()) return value.at(index);
+		return "";
+	}
+	NectarCore::VAR String::charCodeAt(NectarCore::VAR *_args, int _length) const
+	{
+		auto index = _length > 0 ? (int)_args[0] : 0;
+		return (index >= 0 && index < value.size())
+			? (int)value.at(index)
+			: std::numeric_limits<double>::quiet_NaN();
+	}
+	NectarCore::VAR String::codePointAt(NectarCore::VAR *_args, int _length) const
+	{
+		auto index = _length > 0 ? (int)_args[0] : 0;
+		auto size = (int)value.size();
+		if (index < 0 || index >= size) return NectarCore::Global::undefined;
+		auto first = (int)value.at(index);
+		if (
+			first >= 0xD800 && first <= 0xDBFF &&
+        	size > index + 1
+		) {
+			auto second = (int)value.at(index + 1);
+			if (second >= 0xDC00 && second <= 0xDFFF) {
+			// https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+				return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
+			}
+		}
+		return first;
+	}
+	NectarCore::VAR String::concat(NectarCore::VAR *_args, int _length) const
+	{
+		auto str = value;
+		for (int i = 0; i < _length; ++i) {
+			str += (std::string)_args[i];
+		}
+		return str;
+	}
+	NectarCore::VAR String::endsWith(NectarCore::VAR *_args, int _length) const
+	{
+		std::string needle = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		auto size = value.size();
+		auto needleSize = needle.size();
+		return size >= needleSize && value.substr(size - needleSize, needleSize) == needle;
+	}
+	NectarCore::VAR String::fixed(NectarCore::VAR *_args, int _length) const { return _wrapText("tt"); }
+	NectarCore::VAR String::fontcolor(NectarCore::VAR *_args, int _length) const
+	{
+		std::string str = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		return "<font color=\"" + str + "\">" + value + "</font>";
+	}
+	NectarCore::VAR String::fontsize(NectarCore::VAR *_args, int _length) const
+	{
+		std::string str = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		return "<font size=\"" + str + "\">" + value + "</font>";
+	}
+	NectarCore::VAR String::includes(NectarCore::VAR *_args, int _length) const
+	{
+		std::string needle = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		auto index = _length > 1 ? (int)_args[1] : 0;
+		auto loc = value.find(needle, index);
+		return loc != std::string::npos;
+	}
+	NectarCore::VAR String::indexOf(NectarCore::VAR *_args, int _length) const
+	{
+		std::string needle = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		auto index = _length > 1 ? (int)_args[1] : 0;
+		auto loc = value.find_first_of(needle, index);
+		return loc != std::string::npos ? (int)loc : -1;
+	}
+	NectarCore::VAR String::italics(NectarCore::VAR *_args, int _length) const { return _wrapText("i"); }
+	NectarCore::VAR String::lastIndexOf(NectarCore::VAR *_args, int _length) const
+	{
+		std::string needle = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		auto index = _length > 1 ? (int)_args[1] : 0;
+		auto loc = value.find_last_of(needle, index);
+		return loc != std::string::npos ? (int)loc : -1;
+	}
+	NectarCore::VAR String::link(NectarCore::VAR *_args, int _length) const
+	{
+		std::string str = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		return "<a href=\"" + str + "\">" + value + "</a>";
+	}
+	NectarCore::VAR String::localeCompare(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::match(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::matchAll(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::normalize(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::padEnd(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::padStart(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::repeat(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::replace(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::replaceAll(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::search(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::slice(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::small(NectarCore::VAR *_args, int _length) const { return _wrapText("small"); }
+	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::startsWith(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::strike(NectarCore::VAR *_args, int _length) const { return _wrapText("s"); }
+	NectarCore::VAR String::sub(NectarCore::VAR *_args, int _length) const { return _wrapText("sub"); }
+	NectarCore::VAR String::substr(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::substring(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::sup(NectarCore::VAR *_args, int _length) const { return _wrapText("sup"); }
+	NectarCore::VAR String::toLowerCase(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
 	NectarCore::VAR String::toString(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::toUpperCase(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::trim(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::trimEnd(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::trimStart(NectarCore::VAR *_args, int _length) const
+	{
+		return;
+	}
+	NectarCore::VAR String::valueOf(NectarCore::VAR *_args, int _length) const
 	{
 		return value;
 	}
+
+
 
 	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
 	{
@@ -473,38 +739,6 @@ namespace NectarCore::Class
 
 		free(delim);
 		return _arr;
-	}
-
-	NectarCore::VAR String::indexOf(NectarCore::VAR *_args, int _length) const
-	{
-		NectarCore::VAR _needle;
-		if (_length > 0)
-			_needle = _args[0];
-		else
-			return -1;
-
-		std::string::size_type loc = this->value.find((std::string)_needle, 0);
-		if (loc != std::string::npos)
-		{
-			return (int)loc;
-		}
-		return -1;
-	}
-
-	NectarCore::VAR String::lastIndexOf(NectarCore::VAR *_args, int _length) const
-	{
-		NectarCore::VAR _needle;
-		if (_length > 0)
-			_needle = _args[0];
-		else
-			return -1;
-
-		std::string::size_type loc = this->value.find_last_of((std::string)_needle, 0);
-		if (loc != std::string::npos)
-		{
-			return (int)loc;
-		}
-		return -1;
 	}
 
 	NectarCore::VAR String::search(NectarCore::VAR *_args, int _length) const
