@@ -206,6 +206,8 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
 		__Nectar_Method_Lazy_Loader("trim", trim);
 		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimRight", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimLeft", trimStart);
 		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
 		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
 
@@ -312,6 +314,8 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
 		__Nectar_Method_Lazy_Loader("trim", trim);
 		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimRight", trimEnd);
+		__Nectar_Method_Lazy_Loader("trimLeft", trimStart);
 		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
 		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
 
@@ -642,11 +646,35 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR String::padEnd(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		int targetLength = _length > 0 ? (int)_args[0] : 0;
+		int size = value.size();
+		if (targetLength > size) return value;
+		targetLength -= size;
+		size = 0;
+		std::string padString =
+			(_length > 1 && _args[1].type == NectarCore::Enum::Type::Undefined)
+			? (std::string)_args[1] : " ";
+		std::string str = "";
+		for (int padSize = padString.size(); size < targetLength; size += padSize) {
+			str += padString;
+		}
+		return value + (size > targetLength ? str.substr(0, targetLength) : str);
 	}
 	NectarCore::VAR String::padStart(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		int targetLength = _length > 0 ? (int)_args[0] : 0;
+		int size = value.size();
+		if (targetLength > size) return value;
+		targetLength -= size;
+		size = 0;
+		std::string padString =
+			(_length > 1 && _args[1].type == NectarCore::Enum::Type::Undefined)
+			? (std::string)_args[1] : " ";
+		std::string str = "";
+		for (int padSize = padString.size(); size < targetLength; size += padSize) {
+			str += padString;
+		}
+		return (size > targetLength ? str.substr(0, targetLength) : str) + value;
 	}
 	NectarCore::VAR String::repeat(NectarCore::VAR *_args, int _length) const
 	{
@@ -803,18 +831,37 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR String::trim(NectarCore::VAR *_args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		int l = value.size();
+		int i1 = 0;
+		for (; i1 < l; i1++) {
+			int c = value[i1];
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+		}
+		int i2 = l;
+		for (; i2 >= i1; i2--) {
+			int c = value[i2];
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+		}
+		return value.substr(i1, i2);
 	}
 	NectarCore::VAR String::trimEnd(NectarCore::VAR *_args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		int i = value.size();
+		for (; i >= 0; i--) {
+			int c = value[i];
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+		}
+		return value.substr(0, i);
 	}
 	NectarCore::VAR String::trimStart(NectarCore::VAR *_args, int _length) const
 	{
-		// TODO: Implement
-		return NectarCore::Global::undefined;
+		int i = 0;
+		int l = value.size();
+		for (; i < l; i++) {
+			int c = value[i];
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+		}
+		return value.substr(i, l);
 	}
 	std::string String::valueOf(NectarCore::VAR *_args, int _length) const
 	{
