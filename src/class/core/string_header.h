@@ -138,13 +138,15 @@ namespace NectarCore::Class
 		NectarCore::VAR substr(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR substring(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR sup(NectarCore::VAR* _args, int _length) const;
+		NectarCore::VAR toLocaleLowerCase(NectarCore::VAR* _args, int _length) const;
+		NectarCore::VAR toLocaleUpperCase(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR toLowerCase(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR toString(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR toUpperCase(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR trim(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR trimEnd(NectarCore::VAR* _args, int _length) const;
 		NectarCore::VAR trimStart(NectarCore::VAR* _args, int _length) const;
-		NectarCore::VAR valueOf(NectarCore::VAR* _args, int _length) const;
+		std::string valueOf(NectarCore::VAR* _args, int _length) const;
 		/* END STRING METHODS */
 	};
 } // namespace NectarCore::Class

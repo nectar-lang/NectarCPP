@@ -24,6 +24,7 @@
 #include "string_header.h"
 #include <string>
 #include <limits>
+#include <locale>
 
 namespace NectarCore::Class
 {
@@ -198,8 +199,8 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("substr", substr);
 		__Nectar_Method_Lazy_Loader("substring", substring);
 		__Nectar_Method_Lazy_Loader("sup", sup);
-		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLowerCase);
-		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLocaleLowerCase);
+		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toLocaleUpperCase);
 		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
@@ -304,8 +305,8 @@ namespace NectarCore::Class
 		__Nectar_Method_Lazy_Loader("substr", substr);
 		__Nectar_Method_Lazy_Loader("substring", substring);
 		__Nectar_Method_Lazy_Loader("sup", sup);
-		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLowerCase);
-		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toUpperCase);
+		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLocaleLowerCase);
+		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toLocaleUpperCase);
 		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
 		__Nectar_Method_Lazy_Loader("toString", toString);
 		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
@@ -617,19 +618,27 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR String::localeCompare(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Locale
+		return NectarCore::Global::undefined;
+		// std::string s1 = value;
+		// std::string s2 = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		// auto& f = std::use_facet<std::collate<CharT>>(_args[1]);
+		// return f.compare(&s1[0], &s1[0] + s1.size(), &s2[0], &s2[0] + s2.size());
 	}
 	NectarCore::VAR String::match(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Implement
+		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR String::matchAll(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Implement
+		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR String::normalize(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Locale
+		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR String::padEnd(NectarCore::VAR *_args, int _length) const
 	{
@@ -641,88 +650,86 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR String::repeat(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		int count = _length > 0 ? (int)_args[0] : 0;
+		if (count < 0) throw new NectarCore::VAR('repeat count must be non-negative');
+		if (_length > 0 && std::isinf((double)_args[0])) throw new NectarCore::VAR('repeat count must be less than infinity');
+		std::string str = "";
+		for (int i = 0; i < count; ++i) {
+			str += value;
+		}
+		return str;
 	}
 	NectarCore::VAR String::replace(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Refactor
+		NectarCore::VAR _search;
+		NectarCore::VAR _replace;
+		if (_length > 0)
+			_search = _args[0];
+		else
+			return value;
+		if (_length > 1)
+			_replace = _args[1];
+
+		size_t start_pos = value.find((std::string)_search);
+		if (start_pos == std::string::npos)
+		{
+			return value;
+		}
+
+		std::string _new = value;
+		return _new.replace(start_pos, ((std::string)_search).length(), (std::string)_replace);
 	}
 	NectarCore::VAR String::replaceAll(NectarCore::VAR *_args, int _length) const
 	{
-		return;
+		// TODO: Implement
+		return NectarCore::Global::undefined;
 	}
 	NectarCore::VAR String::search(NectarCore::VAR *_args, int _length) const
 	{
-		return;
-	}
-	NectarCore::VAR String::slice(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::small(NectarCore::VAR *_args, int _length) const { return _wrapText("small"); }
-	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::startsWith(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::strike(NectarCore::VAR *_args, int _length) const { return _wrapText("s"); }
-	NectarCore::VAR String::sub(NectarCore::VAR *_args, int _length) const { return _wrapText("sub"); }
-	NectarCore::VAR String::substr(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::substring(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::sup(NectarCore::VAR *_args, int _length) const { return _wrapText("sup"); }
-	NectarCore::VAR String::toLowerCase(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::toString(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::toUpperCase(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::trim(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::trimEnd(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::trimStart(NectarCore::VAR *_args, int _length) const
-	{
-		return;
-	}
-	NectarCore::VAR String::valueOf(NectarCore::VAR *_args, int _length) const
-	{
-		return value;
-	}
-
-
-
-	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
-	{
+		// TODO: Refactor
 		NectarCore::VAR _needle;
 		if (_length > 0)
 			_needle = _args[0];
 		else
+			return -1;
+
+		std::string::size_type loc = value.find((std::string)_needle, 0);
+		if (loc != std::string::npos)
+		{
+			return (int)loc;
+		}
+		return -1;
+	}
+	NectarCore::VAR String::slice(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Refactor
+		if (_length == 0)
 			return value;
+		int len = value.size();
+		int start = _length > 0 ? (int)_args[0] : 0;
+		int end = _length > 1 ? (int)_args[1] : len;
+		if (start < 0)
+			start += len;
+		if (end < 0)
+			end += len;
+		if (end >= len)
+			end = len;
+		if (start >= len || end <= start)
+			return "";
+		return value.substr(start, end - start);
+	}
+	NectarCore::VAR String::small(NectarCore::VAR *_args, int _length) const { return _wrapText("small"); }
+	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
+	{
+		if (_length == 0) return value;
+		std::string needle = _args[0];
 
 		NectarCore::VAR _arr = new NectarCore::Class::Array();
-		char *_v = (char *)malloc(strlen(this->value.c_str()) + 1);
-		strcpy(_v, this->value.c_str());
-		char *delim = (char *)malloc(strlen(((std::string)_needle).c_str()) + 1);
-		strcpy(delim, ((std::string)_needle).c_str());
+		char *_v = (char *)malloc(strlen(value.c_str()) + 1);
+		strcpy(_v, value.c_str());
+		char *delim = (char *)malloc(strlen(needle.c_str()) + 1);
+		strcpy(delim, needle.c_str());
 
 		char *ptr = strtok(_v, delim);
 		int i = 0;
@@ -740,43 +747,17 @@ namespace NectarCore::Class
 		free(delim);
 		return _arr;
 	}
-
-	NectarCore::VAR String::search(NectarCore::VAR *_args, int _length) const
+	NectarCore::VAR String::startsWith(NectarCore::VAR *_args, int _length) const
 	{
-		NectarCore::VAR _needle;
-		if (_length > 0)
-			_needle = _args[0];
-		else
-			return -1;
-
-		std::string::size_type loc = this->value.find((std::string)_needle, 0);
-		if (loc != std::string::npos)
-		{
-			return (int)loc;
-		}
-		return -1;
+		std::string needle = _length > 0 ? _args[0] : NectarCore::Global::undefined;
+		auto needleSize = needle.size();
+		return value.size() >= needleSize && value.substr(0, needleSize) == needle;
 	}
-
-	NectarCore::VAR String::slice(NectarCore::VAR *_args, int _length) const
-	{
-		if (_length == 0)
-			return value;
-		int len = value.size();
-		int start = _length > 0 ? (int)_args[0] : 0;
-		int end = _length > 1 ? (int)_args[1] : len;
-		if (start < 0)
-			start += len;
-		if (end < 0)
-			end += len;
-		if (end >= len)
-			end = len;
-		if (start >= len || end <= start)
-			return "";
-		return value.substr(start, end - start);
-	}
-
+	NectarCore::VAR String::strike(NectarCore::VAR *_args, int _length) const { return _wrapText("s"); }
+	NectarCore::VAR String::sub(NectarCore::VAR *_args, int _length) const { return _wrapText("sub"); }
 	NectarCore::VAR String::substr(NectarCore::VAR *_args, int _length) const
 	{
+		// TODO: Refactor
 		NectarCore::VAR _start;
 		NectarCore::VAR _end;
 		if (_length > 0)
@@ -790,26 +771,54 @@ namespace NectarCore::Class
 			return value.substr((int)_start, std::string::npos);
 		return value.substr((int)_start, (int)_end);
 	}
-
-	NectarCore::VAR String::replace(NectarCore::VAR *_args, int _length) const
+	NectarCore::VAR String::substring(NectarCore::VAR *_args, int _length) const
 	{
-		NectarCore::VAR _search;
-		NectarCore::VAR _replace;
-		if (_length > 0)
-			_search = _args[0];
-		else
-			return value;
-		if (_length > 1)
-			_replace = _args[1];
-
-		size_t start_pos = this->value.find((std::string)_search);
-		if (start_pos == std::string::npos)
-		{
-			return value;
-		}
-
-		std::string _new = value;
-		return _new.replace(start_pos, ((std::string)_search).length(), (std::string)_replace);
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::sup(NectarCore::VAR *_args, int _length) const { return _wrapText("sup"); }
+	NectarCore::VAR String::toLocaleLowerCase(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Locale
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::toLocaleUpperCase(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Locale
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::toLowerCase(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::toString(NectarCore::VAR *_args, int _length) const
+	{
+		return valueOf(_args, _length);
+	}
+	NectarCore::VAR String::toUpperCase(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::trim(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::trimEnd(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	NectarCore::VAR String::trimStart(NectarCore::VAR *_args, int _length) const
+	{
+		// TODO: Implement
+		return NectarCore::Global::undefined;
+	}
+	std::string String::valueOf(NectarCore::VAR *_args, int _length) const
+	{
+		return value;
 	}
 	/* END STRING METHODS */
 } // namespace NectarCore::Class
