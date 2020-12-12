@@ -21,9 +21,9 @@
  */
 
 #pragma once
-#include "native_header.h"
-#include <functional>
-#include <limits>
+// #include "native_header.h"
+// #include <functional>
+// #include <limits>
 
 namespace NectarCore::Class
 {

@@ -20,6 +20,9 @@
  *
  */
 
+#pragma once
+#include "var_header.h"
+
 namespace NectarCore::Global
 {
 	using var = NectarCore::VAR;

@@ -20,6 +20,8 @@
  *
  */
 
+#pragma once
+
 namespace NectarCore::Class::NUMBER
 {
 	extern NectarCore::VAR _fn;

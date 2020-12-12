@@ -26,17 +26,17 @@ namespace NectarCore::Enum
 {
 	enum Type
 	{
-		Null,
-		Boolean,
-		Number,
-		String,
+		Null, // Primitive
+		Boolean, // Primitive
+		Number, // Primitive
+		String, // Primitive
+		Array,
+		Object,
+		Function,
+		Undefined, // Global
 		Native,
 		NativeTPL,
 		Struct,
 		FixedArray,
-		Array,
-		Object,
-		Function,
-		Undefined,
 	};
 }

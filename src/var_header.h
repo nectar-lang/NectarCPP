@@ -19,21 +19,26 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
+#pragma once
+#include "enum.h"
+#include "class_header.h"
+#include <string>
+
 namespace NectarCore
 {
 	union Data
 	{
-		void* ptr;
-		double number;		
+		void *ptr;
+		double number;
 	};
-	
+
 	struct VAR
 	{
 		NectarCore::Enum::Type type;
 		std::bitset<2> property; // const, enumerable
 		Data data;
-		
+
 		VAR();
 		~VAR();
 
@@ -41,7 +46,7 @@ namespace NectarCore
 		VAR(VAR const &_v);
 		VAR(VAR const &&_v);
 		/**/
-		
+
 		/*** CONSTRUCTOR ***/
 
 		VAR(NectarCore::Enum::Type _type, int _value);
@@ -63,75 +68,74 @@ namespace NectarCore
 		VAR(NectarCore::Class::String *_value);
 		VAR(NectarCore::Class::Native *_value);
 		VAR(NectarCore::Class::Undefined *_value);
-		VAR(void *_value, void* fn);
+		VAR(void *_value, void *fn);
 		VAR(NectarCore::Enum::Type _type, void *_value);
 		VAR(NectarCore::Enum::Type _type, void *_value, VAR _this);
-		VAR(std::function<VAR(NectarCore::VAR*, int)> &_value);
-		
-		
-		
-		template<typename T>
-		VAR(NectarCore::Class::NativeTPL<T>* _value)
+		VAR(std::function<VAR(NectarCore::VAR *, int)> &_value);
+
+		constexpr bool isPrimitive() const { return type <= NectarCore::Enum::Type::String; }
+
+		template <typename T>
+		VAR(NectarCore::Class::NativeTPL<T> *_value)
 		{
 			this->type = NectarCore::Enum::Type::NativeTPL;
 			data.ptr = _value;
 		};
 
-		
 		template <typename T>
-		T toNative (T _type)
+		T toNative(T _type)
 		{
-			if(type == NectarCore::Enum::Type::NativeTPL)
+			if (type == NectarCore::Enum::Type::NativeTPL)
 			{
-				return (*(NectarCore::Class::NativeTPL<T>*)data.ptr)(_type);
+				return (*(NectarCore::Class::NativeTPL<T> *)data.ptr)(_type);
 			}
 			else
 			{
-		#ifndef __Nectar_NO_EXCEPT
+#ifndef __Nectar_NO_EXCEPT
 				throw VAR("TypeError: Object is not a Native object");
-		#endif
+#endif
 				exit(1);
-			} 
+			}
 		}
-		
+
 		template <typename T>
-		T toNative ()
+		T toNative()
 		{
-			if(type == NectarCore::Enum::Type::NativeTPL)
+			if (type == NectarCore::Enum::Type::NativeTPL)
 			{
-				return (*(NectarCore::Class::NativeTPL<T>*)data.ptr)();
+				return (*(NectarCore::Class::NativeTPL<T> *)data.ptr)();
 			}
 			else
 			{
-		#ifndef __Nectar_NO_EXCEPT
+#ifndef __Nectar_NO_EXCEPT
 				throw VAR("TypeError: Object is not a Native object");
-		#endif
+#endif
 				exit(1);
-			} 
+			}
 		}
-		
-		
+
 		template <class... Args>
-		VAR operator() (Args... args) const
+		VAR operator()(Args... args) const
 		{
 			if (type != NectarCore::Enum::Type::Function)
 			{
-		#ifndef __Nectar_NO_EXCEPT
+#ifndef __Nectar_NO_EXCEPT
 				throw VAR("TypeError: object is not a function");
-		#endif
+#endif
 				exit(1);
 			}
-			else return (*(NectarCore::Class::Function*)data.ptr)((VAR)(args)...);
+			else
+				return (*(NectarCore::Class::Function *)data.ptr)((VAR)(args)...);
 		}
-		
+
 		/* END CALL OVERLOAD */
 
-		VAR & operator[] (VAR _index);
-		VAR & operator[] (VAR _index) const;
-		VAR & operator[] (int _index) const;
-		VAR & operator[] (int _index);
-		VAR & operator[] (double _index);
-		VAR & operator[] (const char* _index);
+		VAR &operator[](VAR _index);
+		VAR &operator[](VAR _index) const;
+		VAR &operator[](int _index) const;
+		VAR &operator[](int _index);
+		VAR &operator[](double _index);
+		VAR &operator[](const char *_index);
 		/* END ACCESS OVERLOAD */
 
 		/*** END CONSTRUCTOR ***/
@@ -151,20 +155,20 @@ namespace NectarCore
 		/// Arithmetic operators
 		VAR operator+(const VAR &_v1);
 		VAR operator+(const char _v1[]);
-		VAR& operator+=(const VAR &_v1);
+		VAR &operator+=(const VAR &_v1);
 		VAR operator-(const VAR &_v1);
-		VAR& operator-=(const VAR &_v1);
+		VAR &operator-=(const VAR &_v1);
 		VAR operator*(const VAR &_v1);
-		VAR& operator*=(const VAR &_v1);
+		VAR &operator*=(const VAR &_v1);
 		VAR operator/(const VAR &_v1);
-		VAR& operator/=(const VAR &_v1);
+		VAR &operator/=(const VAR &_v1);
 		VAR operator%(const VAR &_v1);
-		VAR& operator%=(const VAR &_v1);
+		VAR &operator%=(const VAR &_v1);
 		// TODO: "**" and "**=" operators
-		VAR& operator++(const int _v1);
-		VAR& operator++();
-		VAR& operator--(const int _v1);
-		VAR& operator--();
+		VAR &operator++(const int _v1);
+		VAR &operator++();
+		VAR &operator--(const int _v1);
+		VAR &operator--();
 		/// Comparison operators
 		VAR operator==(const VAR &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
@@ -176,7 +180,7 @@ namespace NectarCore
 		VAR operator>=(const VAR &_v1);
 		/// Bitwise operators
 		VAR operator&(const VAR &_v1);
-		VAR& operator&=(const VAR &_v1);
+		VAR &operator&=(const VAR &_v1);
 		VAR operator|(const VAR &_v1);
 		VAR operator|=(const VAR &_v1);
 		VAR operator^(const VAR &_v1);
@@ -195,10 +199,9 @@ namespace NectarCore
 		operator bool();
 		explicit operator std::string() const;
 		operator std::string();
-		operator const char*() const;
+		operator const char *() const;
 		operator long long();
 		explicit operator long long() const;
 		operator std::string_view() const;
-		
 	};
 } // namespace NectarCore

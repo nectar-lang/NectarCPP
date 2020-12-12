@@ -22,8 +22,42 @@
 
 #pragma once
 #include "array_header.h"
-#include <sstream>
-#include <limits>
+#define __Nectar_Array_Methods__                                 \
+	__Nectar_Method_Lazy_Loader("push", push);                   \
+	__Nectar_Method_Lazy_Loader("@@iterator", __iterator);       \
+	__Nectar_Method_Lazy_Loader("@@unscopables", __unscopables); \
+	__Nectar_Method_Lazy_Loader("concat", concat);               \
+	__Nectar_Method_Lazy_Loader("copyWithin", copyWithin);       \
+	__Nectar_Method_Lazy_Loader("entries", entries);             \
+	__Nectar_Method_Lazy_Loader("every", every);                 \
+	__Nectar_Method_Lazy_Loader("fill", fill);                   \
+	__Nectar_Method_Lazy_Loader("filter", filter);               \
+	__Nectar_Method_Lazy_Loader("find", find);                   \
+	__Nectar_Method_Lazy_Loader("findIndex", findIndex);         \
+	__Nectar_Method_Lazy_Loader("flat", flat);                   \
+	__Nectar_Method_Lazy_Loader("flatMap", flatMap);             \
+	__Nectar_Method_Lazy_Loader("forEach", forEach);             \
+	__Nectar_Method_Lazy_Loader("includes", includes);           \
+	__Nectar_Method_Lazy_Loader("indexOf", indexOf);             \
+	__Nectar_Method_Lazy_Loader("join", join);                   \
+	__Nectar_Method_Lazy_Loader("keys", keys);                   \
+	__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);     \
+	__Nectar_Method_Lazy_Loader("map", map);                     \
+	__Nectar_Method_Lazy_Loader("pop", pop);                     \
+	__Nectar_Method_Lazy_Loader("push", push);                   \
+	__Nectar_Method_Lazy_Loader("reduce", reduce);               \
+	__Nectar_Method_Lazy_Loader("reduceRight", reduceRight);     \
+	__Nectar_Method_Lazy_Loader("reverse", reverse);             \
+	__Nectar_Method_Lazy_Loader("shift", shift);                 \
+	__Nectar_Method_Lazy_Loader("slice", slice);                 \
+	__Nectar_Method_Lazy_Loader("some", some);                   \
+	__Nectar_Method_Lazy_Loader("sort", sort);                   \
+	__Nectar_Method_Lazy_Loader("splice", splice);               \
+	__Nectar_Method_Lazy_Loader("toLocaleString", toString);     \
+	__Nectar_Method_Lazy_Loader("toString", toString);           \
+	__Nectar_Method_Lazy_Loader("unshift", unshift);             \
+	__Nectar_Method_Lazy_Loader("valueOf", valueOf);             \
+	__Nectar_Method_Lazy_Loader("values", values);
 
 namespace NectarCore::Class
 {
@@ -43,16 +77,17 @@ namespace NectarCore::Class
 			delete this;
 		}
 	}
-	inline void Array::jsDelete(NectarCore::VAR _key) noexcept
+	inline void Array::jsDelete(NectarCore::VAR key) noexcept
 	{
-		if (_key.type == NectarCore::Enum::Type::String)
+		if (key.type == NectarCore::Enum::Type::String)
 		{
+			auto str = (std::string)key;
 #ifndef __Nectar__OBJECT_VECTOR
-			object.erase((std::string)_key);
+			object.erase(str);
 #else
 			for (NectarCore::Type::object_t::iterator it = object.begin(); it != object.end(); ++it)
 			{
-				if (((std::string_key)).compare(it->first) == 0)
+				if (str.compare(it->first) == 0)
 				{
 					object.erase(it);
 					return;
@@ -60,9 +95,9 @@ namespace NectarCore::Class
 			}
 #endif
 		}
-		else if (_key.type == NectarCore::Enum::Type::Number)
+		else if (key.type == NectarCore::Enum::Type::Number)
 		{
-			value[(double)_key] = NectarCore::Global::undefined;
+			value[(double)key] = NectarCore::Global::undefined;
 		}
 	}
 	inline void *Array::Copy() noexcept
@@ -71,519 +106,151 @@ namespace NectarCore::Class
 		return this;
 	}
 	// Native cast
-	Array::operator bool() const noexcept { return true; }
-	Array::operator double() const noexcept { return (double)value[0]; }
-	Array::operator int() const noexcept { return (int)value[0]; }
-	Array::operator long long() const noexcept { return (long long)value[0]; }
+	Array::operator double() const noexcept
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (value.size() == 0 && !object.contains("valueOf"))
+			return 0;
+#endif
+		return (double)_defaultValue();
+	}
+	Array::operator int() const noexcept
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (value.size() == 0 && !object.contains("valueOf"))
+			return 0;
+#endif
+		return (int)_defaultValue();
+	}
+	Array::operator long long() const noexcept
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (value.size() == 0 && !object.contains("valueOf"))
+			return 0;
+#endif
+		return (long long)_defaultValue();
+	}
 	Array::operator std::string() const noexcept
 	{
-		NectarCore::VAR _arg = {};
-		auto str = (*this)["toString"](_arg, 0);
-		return (std::string)str;
+#ifndef __Nectar__OBJECT_VECTOR
+		if (value.size() < 2 && !object.contains("toString"))
+		{
+			return (std::string)(value.size() == 1 ? value[0] : "");
+		}
+#endif
+		static NectarCore::VAR _arg = {};
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return (std::string)string;
+		}
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return (std::string)primitive;
+		}
+		throw InvalidTypeException();
 	}
 	// Main operators
 	NectarCore::VAR const Array::operator[](NectarCore::VAR key) const
 	{
-		if (key.type == NectarCore::Enum::Type::Number)
-		{
-			auto i = (int)key;
-			if (i >= 0 && i <= value.size())
-			{
-				return value.at(i);
-			}
-		}
-
-		return NectarCore::Global::undefined;
+		return key.type == NectarCore::Enum::Type::Number
+				   ? (*this)[(double)key]
+				   : (*this)[((std::string)key).c_str()];
 	}
 	NectarCore::VAR const Array::operator[](int key) const
 	{
-		if (key >= 0 && key <= value.size())
-		{
-			return value.at(key);
-		}
-
-		return NectarCore::Global::undefined;
+		return (key >= 0 && key <= value.size())
+				   ? value.at(key)
+				   : NectarCore::Global::undefined;
 	}
 
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Array::operator[](NectarCore::VAR key)
 	{
-		if (key.type == NectarCore::Enum::Type::Number)
-		{
-			auto i = (int)key;
-
-			if (i < 0)
-			{
-				return NectarCore::Global::undefined;
-			}
-			else
-			{
-				if (i >= value.size())
-				{
-					value.resize(i + 1);
-				}
-			}
-			return value[i];
-		}
-
-		std::string _str = ((std::string)key);
-		NectarCore::Type::StringView _sview = _str;
-
-		if (_sview.compare("length") == 0)
-		{
-			length = (int)value.size();
-			return length;
-		}
-
-		NectarCore::VAR &_obj = object[_str];
-		if (_obj)
-			return _obj;
-
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
-		__Nectar_Method_Lazy_Loader("@@unscopables", __unscopables);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("copyWithin", copyWithin);
-		__Nectar_Method_Lazy_Loader("entries", entries);
-		__Nectar_Method_Lazy_Loader("every", every);
-		__Nectar_Method_Lazy_Loader("fill", fill);
-		__Nectar_Method_Lazy_Loader("filter", filter);
-		__Nectar_Method_Lazy_Loader("find", find);
-		__Nectar_Method_Lazy_Loader("findIndex", findIndex);
-		__Nectar_Method_Lazy_Loader("flat", flat);
-		__Nectar_Method_Lazy_Loader("flatMap", flatMap);
-		__Nectar_Method_Lazy_Loader("forEach", forEach);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("join", join);
-		__Nectar_Method_Lazy_Loader("keys", keys);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("map", map);
-		__Nectar_Method_Lazy_Loader("pop", pop);
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("reduce", reduce);
-		__Nectar_Method_Lazy_Loader("reduceRight", reduceRight);
-		__Nectar_Method_Lazy_Loader("reverse", reverse);
-		__Nectar_Method_Lazy_Loader("shift", shift);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("some", some);
-		__Nectar_Method_Lazy_Loader("sort", sort);
-		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("unshift", unshift);
-		__Nectar_Method_Lazy_Loader("values", values);
-
-		return _obj;
+		return key.type == NectarCore::Enum::Type::Number
+				   ? (*this)[(double)key]
+				   : (*this)[((std::string)key).c_str()];
 	}
-#else
-	NectarCore::VAR &Array::operator[](NectarCore::VAR key)
-	{
-		if (key.type == NectarCore::Enum::Type::Number)
-		{
-			auto i = (int)key;
-
-			if (i < 0)
-			{
-				return NectarCore::Global::undefined;
-			}
-			else
-			{
-				if (i >= value.size())
-				{
-					value.resize(i + 1);
-				}
-			}
-			return value[i];
-		}
-
-		std::string _str = ((std::string)key);
-		NectarCore::Type::StringView _sview = _str;
-
-		if (_sview.compare("length") == 0)
-		{
-			length = (int)value.size();
-			return length;
-		}
-
-		for (auto &search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
-		__Nectar_Method_Lazy_Loader("@@unscopables", __unscopables);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("copyWithin", copyWithin);
-		__Nectar_Method_Lazy_Loader("entries", entries);
-		__Nectar_Method_Lazy_Loader("every", every);
-		__Nectar_Method_Lazy_Loader("fill", fill);
-		__Nectar_Method_Lazy_Loader("filter", filter);
-		__Nectar_Method_Lazy_Loader("find", find);
-		__Nectar_Method_Lazy_Loader("findIndex", findIndex);
-		__Nectar_Method_Lazy_Loader("flat", flat);
-		__Nectar_Method_Lazy_Loader("flatMap", flatMap);
-		__Nectar_Method_Lazy_Loader("forEach", forEach);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("join", join);
-		__Nectar_Method_Lazy_Loader("keys", keys);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("map", map);
-		__Nectar_Method_Lazy_Loader("pop", pop);
-		__Nectar_Method_Lazy_Loader("reduce", reduce);
-		__Nectar_Method_Lazy_Loader("reduceRight", reduceRight);
-		__Nectar_Method_Lazy_Loader("reverse", reverse);
-		__Nectar_Method_Lazy_Loader("shift", shift);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("some", some);
-		__Nectar_Method_Lazy_Loader("sort", sort);
-		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("unshift", unshift);
-		__Nectar_Method_Lazy_Loader("values", values);
-
-		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
-		return object[object.size() - 1].second;
-	}
-#endif
 
 	NectarCore::VAR &Array::operator[](int key)
 	{
 		if (key < 0)
-		{
 			return NectarCore::Global::undefined;
-		}
-		else
-		{
-			if (key >= value.size())
-			{
-				value.resize(key + 1);
-			}
-		}
+		if (key >= value.size())
+			value.resize(key + 1);
 		return value[key];
 	}
 
 	NectarCore::VAR &Array::operator[](double key)
 	{
 		if (key < 0)
-		{
 			return NectarCore::Global::undefined;
-		}
-		else
-		{
-			if (key >= value.size())
-			{
-				value.resize(key + 1);
-			}
-		}
+		if (key >= value.size())
+			value.resize(key + 1);
 		return value[key];
 	}
 
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Array::operator[](const char *key)
 	{
 		std::string _str = key;
 		NectarCore::Type::StringView _sview = _str;
-
-		if (_sview.compare("length") == 0)
-		{
-			length = (int)value.size();
-			return length;
-		}
-
+#ifndef __Nectar__OBJECT_VECTOR
 		NectarCore::VAR &_obj = object[_str];
 		if (_obj)
 			return _obj;
-
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
-		__Nectar_Method_Lazy_Loader("@@unscopables", __unscopables);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("copyWithin", copyWithin);
-		__Nectar_Method_Lazy_Loader("entries", entries);
-		__Nectar_Method_Lazy_Loader("every", every);
-		__Nectar_Method_Lazy_Loader("fill", fill);
-		__Nectar_Method_Lazy_Loader("filter", filter);
-		__Nectar_Method_Lazy_Loader("find", find);
-		__Nectar_Method_Lazy_Loader("findIndex", findIndex);
-		__Nectar_Method_Lazy_Loader("flat", flat);
-		__Nectar_Method_Lazy_Loader("flatMap", flatMap);
-		__Nectar_Method_Lazy_Loader("forEach", forEach);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("join", join);
-		__Nectar_Method_Lazy_Loader("keys", keys);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("map", map);
-		__Nectar_Method_Lazy_Loader("pop", pop);
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("reduce", reduce);
-		__Nectar_Method_Lazy_Loader("reduceRight", reduceRight);
-		__Nectar_Method_Lazy_Loader("reverse", reverse);
-		__Nectar_Method_Lazy_Loader("shift", shift);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("some", some);
-		__Nectar_Method_Lazy_Loader("sort", sort);
-		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("unshift", unshift);
-		__Nectar_Method_Lazy_Loader("values", values);
-
-		return _obj;
-	}
 #else
-	NectarCore::VAR &Array::operator[](const char *key)
-	{
-		std::string _str = key;
-		NectarCore::Type::StringView _sview = _str;
-
-		if (_sview.compare("length") == 0)
-		{
-			length = (int)value.size();
-			return length;
-		}
-
 		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
-			{
 				return search.second;
-			}
+		}
+#endif
+		if (_sview.compare("length") == 0)
+		{
+			auto length = NectarCore::VAR((int)value.size());
+			return length;
 		}
 
-		__Nectar_Method_Lazy_Loader("push", push);
-		__Nectar_Method_Lazy_Loader("@@iterator", __iterator);
-		__Nectar_Method_Lazy_Loader("@@unscopables", __unscopables);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("copyWithin", copyWithin);
-		__Nectar_Method_Lazy_Loader("entries", entries);
-		__Nectar_Method_Lazy_Loader("every", every);
-		__Nectar_Method_Lazy_Loader("fill", fill);
-		__Nectar_Method_Lazy_Loader("filter", filter);
-		__Nectar_Method_Lazy_Loader("find", find);
-		__Nectar_Method_Lazy_Loader("findIndex", findIndex);
-		__Nectar_Method_Lazy_Loader("flat", flat);
-		__Nectar_Method_Lazy_Loader("flatMap", flatMap);
-		__Nectar_Method_Lazy_Loader("forEach", forEach);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("join", join);
-		__Nectar_Method_Lazy_Loader("keys", keys);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("map", map);
-		__Nectar_Method_Lazy_Loader("pop", pop);
-		__Nectar_Method_Lazy_Loader("reduce", reduce);
-		__Nectar_Method_Lazy_Loader("reduceRight", reduceRight);
-		__Nectar_Method_Lazy_Loader("reverse", reverse);
-		__Nectar_Method_Lazy_Loader("shift", shift);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("some", some);
-		__Nectar_Method_Lazy_Loader("sort", sort);
-		__Nectar_Method_Lazy_Loader("splice", splice);
-		__Nectar_Method_Lazy_Loader("toLocaleString", toString);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("unshift", unshift);
-		__Nectar_Method_Lazy_Loader("values", values);
-
-		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
+		__Nectar_Array_Methods__
+#ifndef __Nectar__OBJECT_VECTOR
+			return _obj;
+#else
+			object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
-	}
 #endif
-
-	// Comparation operators
-	Array Array::operator!() const
+	}
+	///
+	/// Array methods
+	///
+	NectarCore::VAR Array::_defaultValue() const
 	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("valueOf") && !object.contains("toString"))
+		{
+			return value.size() == 1 ? value[0] : NectarCore::Global::undefined;
+		}
 #endif
-		return Array();
-	}
-
-	// Numeric operators
-	Array Array::operator+() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		static NectarCore::VAR _arg = {};
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
 		throw InvalidTypeException();
-#endif
-		return Array();
 	}
-	Array Array::operator-() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator++(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator--(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator+(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator+=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator-(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator-=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator*(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator*=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	// TODO: "**" and "**=" operators
-	Array Array::operator/(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator/=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator%(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator%=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator&(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator|(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator^(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator~() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator>>(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator<<(const Array &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator&=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator|=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator^=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator>>=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	Array Array::operator<<=(const Array &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Array();
-	}
-	// TODO: ">>>" and ">>>=" operators
 
 	NectarCore::VAR Array::__iterator(NectarCore::VAR *args, int _length) const { return NectarCore::Global::undefined; }
 	NectarCore::VAR Array::__unscopables(NectarCore::VAR *args, int _length) const { return NectarCore::Global::undefined; }
@@ -826,16 +493,17 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR Array::join(NectarCore::VAR *args, int _length) const
 	{
-		if (value.empty())
-			return "";
-		std::string _str = _length ? args[0] : NectarCore::Global::undefined;
-		std::stringstream stream;
-		stream << (std::string)value[0];
+		auto sep = _length > 0 && args[0].type == NectarCore::Enum::Type::Undefined
+					   ? (std::string)args[0]
+					   : ",";
+
+		std::string str = "";
+		value;
 		for (auto &el : value)
 		{
-			stream << _str << (std::string)el;
+			str += sep + (std::string)el;
 		}
-		return stream.str();
+		return str;
 	};
 	NectarCore::VAR Array::keys(NectarCore::VAR *args, int _length) const
 	{
@@ -1059,6 +727,10 @@ namespace NectarCore::Class
 			it = value.insert(it, args[i]);
 		}
 		return (int)value.size();
+	}
+	NectarCore::VAR Array::valueOf(NectarCore::VAR *args, int _length) const
+	{
+		return new Array(value);
 	}
 	NectarCore::VAR Array::values(NectarCore::VAR *args, int _length) const
 	{

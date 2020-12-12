@@ -21,12 +21,11 @@
  */
 
 #pragma once
+#include "values_header.h"
 #include <limits>
 
 namespace NectarCore::Global
 {
-	using var = NectarCore::VAR;
-	using let = NectarCore::VAR;
 	NectarCore::VAR undefined = new NectarCore::Class::Undefined();
 	NectarCore::VAR null = NectarCore::VAR(NectarCore::Enum::Type::Null, 0);
 	NectarCore::VAR Infinity = std::numeric_limits<double>::infinity();

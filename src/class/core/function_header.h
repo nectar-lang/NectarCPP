@@ -40,7 +40,7 @@ namespace NectarCore::Class
 		NectarCore::Type::function_t *value = nullptr;
 		NectarCore::VAR This;
 		NectarCore::Type::object_t object;
-		// Methods
+
 		inline void Delete() noexcept;
 		inline void jsDelete(std::string _key) noexcept;
 		inline void *Copy() noexcept;
@@ -62,14 +62,16 @@ namespace NectarCore::Class
 
 			if (_ret.type == NectarCore::Enum::Type::Object)
 			{
-				((NectarCore::Class::Object *)_ret.data.ptr)->property.set(1, 1);
-				((NectarCore::Class::Object *)_ret.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
+				auto& obj = (NectarCore::Class::Object *)_ret.data.ptr;
+				obj->property.set(1, 1);
+				obj->instance.push_back((*this)["prototype"].data.ptr);
 				return _ret;
 			}
 			else
 			{
-				((NectarCore::Class::Object *)_this.data.ptr)->property.set(1, 1);
-				((NectarCore::Class::Object *)_this.data.ptr)->instance.push_back((*this)["prototype"].data.ptr);
+				auto& obj = (NectarCore::Class::Object *)_this.data.ptr;
+				obj->property.set(1, 1);
+				obj->instance.push_back((*this)["prototype"].data.ptr);
 				return _this;
 			}
 		}
@@ -82,61 +84,18 @@ namespace NectarCore::Class
 			return (*static_cast<NectarCore::Type::function_t *>(value))(This, _args, i);
 		}
 
-		// Native cast
-		explicit operator bool() const noexcept;
-		explicit operator double() const noexcept;
-		explicit operator int() const noexcept;
-		explicit operator long long() const noexcept;
 		explicit operator std::string() const noexcept;
-		// Main operators
+
 		NectarCore::VAR const operator[](NectarCore::VAR key) const;
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		// Comparation operators
-		NectarCore::VAR operator!() const;
-		bool operator==(const Function &_v1) const;
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-		bool operator!=(const Function &_v1) const;
-		bool operator<(const Function &_v1) const;
-		bool operator<=(const Function &_v1) const;
-		bool operator>(const Function &_v1) const;
-		bool operator>=(const Function &_v1) const;
-		// Numeric operators
-		Function operator+() const;
-		Function operator-() const;
-		Function operator++(const int _v1);
-		Function operator--(const int _v1);
-		Function operator+(const Function &_v1) const;
-		Function operator+=(const Function &_v1);
-		Function operator-(const Function &_v1) const;
-		Function operator-=(const Function &_v1);
-		Function operator*(const Function &_v1) const;
-		Function operator*=(const Function &_v1);
-		// TODO: "**" and "**=" operators
-		Function operator/(const Function &_v1) const;
-		Function operator/=(const Function &_v1);
-		Function operator%(const Function &_v1) const;
-		Function operator%=(const Function &_v1);
-		Function operator&(const Function &_v1) const;
-		Function operator|(const Function &_v1) const;
-		Function operator^(const Function &_v1) const;
-		Function operator~() const;
-		Function operator>>(const Function &_v1) const;
-		Function operator<<(const Function &_v1) const;
-		Function operator&=(const Function &_v1);
-		Function operator|=(const Function &_v1);
-		Function operator^=(const Function &_v1);
-		Function operator>>=(const Function &_v1);
-		Function operator<<=(const Function &_v1);
-		// TODO: ">>>" and ">>>=" operators
-		NectarCore::VAR toString(NectarCore::VAR *_args, int _length) const;
-		NectarCore::VAR valueOf(NectarCore::VAR *_args, int _length) const;
+		NectarCore::VAR apply(NectarCore::VAR *_args, int _length);
 		NectarCore::VAR bind(NectarCore::VAR *_args, int _length);
 		NectarCore::VAR call(NectarCore::VAR *_args, int _length);
-		NectarCore::VAR apply(NectarCore::VAR *_args, int _length);
+		NectarCore::VAR toString(NectarCore::VAR *_args, int _length) const;
+		NectarCore::VAR valueOf(NectarCore::VAR *_args, int _length) const;
 	};
 } // namespace NectarCore::Class

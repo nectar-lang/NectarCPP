@@ -20,6 +20,8 @@
  *
  */
 
+#pragma once
+
 NectarCore::VAR operator+(const char *_left, const NectarCore::VAR &_right)
 {
 	return NectarCore::VAR(_left) + _right;

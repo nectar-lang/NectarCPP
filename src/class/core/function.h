@@ -22,8 +22,14 @@
 
 #pragma once
 #include "function_header.h"
-#include <functional>
-#include <limits>
+// #include <functional>
+#define __Nectar_Function_Methods__ \
+	__Nectar_Object_Lazy_Loader("prototype");\
+	__Nectar_Method_Lazy_Loader("apply", apply);\
+	__Nectar_Method_Lazy_Loader("bind", bind);\
+	__Nectar_Method_Lazy_Loader("call", call);\
+	__Nectar_Method_Lazy_Loader("toString", toString);\
+	__Nectar_Method_Lazy_Loader("valueOf", valueOf);
 
 namespace NectarCore::Class
 {
@@ -49,10 +55,10 @@ namespace NectarCore::Class
 			delete this;
 		}
 	}
-	inline void Function::jsDelete(const std::string _key) noexcept
+	inline void Function::jsDelete(const std::string key) noexcept
 	{
 #ifndef __Nectar__OBJECT_VECTOR
-		object.erase(_key);
+		object.erase(key);
 #else
 		for (NectarCore::Type::object_t::iterator it = object.begin(); it != object.end(); ++it)
 		{
@@ -70,19 +76,6 @@ namespace NectarCore::Class
 		return this;
 	}
 	// Native cast
-	Function::operator bool() const noexcept { return true; }
-	Function::operator double() const noexcept
-	{
-		return std::numeric_limits<double>::quiet_NaN();
-	}
-	Function::operator int() const noexcept
-	{
-		return std::numeric_limits<int>::quiet_NaN();
-	}
-	Function::operator long long() const noexcept
-	{
-		return std::numeric_limits<long long>::quiet_NaN();
-	}
 	Function::operator std::string() const noexcept
 	{
 #ifdef __Nectar_DEBUG
@@ -97,32 +90,15 @@ namespace NectarCore::Class
 		return NectarCore::Global::undefined;
 	}
 
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Function::operator[](NectarCore::VAR key)
 	{
 		std::string _str = ((std::string)key);
 		NectarCore::Type::StringView _sview = _str;
-
+#ifndef __Nectar__OBJECT_VECTOR
 		NectarCore::VAR &_obj = object[_str];
 		if (_obj.type != NectarCore::Enum::Type::Undefined)
 			return _obj;
-
-		__Nectar_Object_Lazy_Loader("prototype");
-
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
-		__Nectar_Method_Lazy_Loader("bind", bind);
-		__Nectar_Method_Lazy_Loader("call", call);
-		__Nectar_Method_Lazy_Loader("apply", apply);
-
-		return _obj;
-	}
 #else
-	NectarCore::VAR &Function::operator[](NectarCore::VAR key)
-	{
-		std::string _str = ((std::string)key);
-		NectarCore::Type::StringView _sview = _str;
-
 		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
@@ -130,46 +106,29 @@ namespace NectarCore::Class
 				return search.second;
 			}
 		}
-
-		__Nectar_Object_Lazy_Loader("prototype");
-
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
-		__Nectar_Method_Lazy_Loader("bind", bind);
-		__Nectar_Method_Lazy_Loader("call", call);
-		__Nectar_Method_Lazy_Loader("apply", apply);
-
+#endif
+		if (_sview.compare("length") == 0)
+		{
+			auto length = NectarCore::VAR(0);
+			return length;
+		}
+		__Nectar_Function_Methods__
+#ifndef __Nectar__OBJECT_VECTOR
+		return _obj;
+#else
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
-	}
 #endif
 
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Function::operator[](int key)
 	{
 		std::string _str = std::to_string(key);
 		NectarCore::Type::StringView _sview = _str;
-
+#ifndef __Nectar__OBJECT_VECTOR
 		NectarCore::VAR &_obj = object[_str];
 		if (_obj.type != NectarCore::Enum::Type::Undefined)
 			return _obj;
-
-		__Nectar_Object_Lazy_Loader("prototype");
-
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
-		__Nectar_Method_Lazy_Loader("bind", bind);
-		__Nectar_Method_Lazy_Loader("call", call);
-		__Nectar_Method_Lazy_Loader("apply", apply);
-
-		return _obj;
-	}
 #else
-	NectarCore::VAR &Function::operator[](int key)
-	{
-		std::string _str = std::to_string(key);
-		NectarCore::Type::StringView _sview = _str;
-
 		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
@@ -177,19 +136,15 @@ namespace NectarCore::Class
 				return search.second;
 			}
 		}
-
+#endif
 		__Nectar_Object_Lazy_Loader("prototype");
-
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
-		__Nectar_Method_Lazy_Loader("bind", bind);
-		__Nectar_Method_Lazy_Loader("call", call);
-		__Nectar_Method_Lazy_Loader("apply", apply);
-
+#ifndef __Nectar__OBJECT_VECTOR
+		return _obj;
+#else
 		object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
-	}
 #endif
+	}
 
 #ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Function::operator[](double key)
@@ -285,197 +240,7 @@ namespace NectarCore::Class
 	}
 #endif
 
-	// Comparation operators
-	NectarCore::VAR Function::operator!() const
-	{
-		return __Nectar_Boolean_FALSE;
-	}
-	bool Function::operator==(const Function &_v1) const { return false; }
-	// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-	bool Function::operator!=(const Function &_v1) const { return true; }
-	bool Function::operator<(const Function &_v1) const { return false; }
-	bool Function::operator<=(const Function &_v1) const { return true; }
-	bool Function::operator>(const Function &_v1) const { return false; }
-	bool Function::operator>=(const Function &_v1) const { return true; }
-	// Numeric operators
-	Function Function::operator+() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator-() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator++(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator--(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator+(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator+=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator-(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator-=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator*(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator*=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	// TODO: "**" and "**=" operators
-	Function Function::operator/(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator/=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator%(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator%=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator&(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator|(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator^(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator~() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator>>(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator<<(const Function &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator&=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator|=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator^=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator>>=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	Function Function::operator<<=(const Function &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Function();
-	}
-	// TODO: ">>>" and ">>>=" operators
+	// Methods
 	NectarCore::VAR Function::toString(NectarCore::VAR *_args, int _length) const
 	{
 		return (std::string) * this;

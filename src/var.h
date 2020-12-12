@@ -44,7 +44,7 @@ namespace NectarCore
 
 		property = _v.property;
 		type = _v.type;
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (double)_v;
 		}
@@ -58,7 +58,7 @@ namespace NectarCore
 	{
 		property = _v.property;
 		type = _v.type;
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = _v.data.number;
 		}
@@ -209,42 +209,42 @@ namespace NectarCore
 
 	VAR &VAR::operator[](VAR _index)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Class::NUMBER::Accessor(*this, _index);
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
 
 	VAR &VAR::operator[](VAR _index) const
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Class::NUMBER::Accessor(*this, _index);
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
 
 	VAR &VAR::operator[](int _index) const
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Global::undefined;
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
 
 	VAR &VAR::operator[](int _index)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Global::undefined;
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
 
 	VAR &VAR::operator[](double _index)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Global::undefined;
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
 
 	VAR &VAR::operator[](const char *_index)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return NectarCore::Class::NUMBER::Accessor(*this, VAR(_index));
 		return (*(NectarCore::Class::Base *)data.ptr)[_index];
 	}
@@ -264,7 +264,7 @@ namespace NectarCore
 		}
 		property = _v.property;
 		type = _v.type;
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (double)_v;
 		}
@@ -277,20 +277,20 @@ namespace NectarCore
 	/// Unary VAR::operators
 	VAR VAR::operator+()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number;
 		return (double)*this;
 	}
 
 	VAR VAR::operator-()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return -data.number;
 		return -(double)*this;
 	}
 	VAR VAR::operator!()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return !data.number;
 		return !(bool)*this;
 	};
@@ -302,7 +302,7 @@ namespace NectarCore
 	/// Arithmetic VAR::operators
 	VAR VAR::operator+(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			return data.number + _v1;
 		}
@@ -322,7 +322,7 @@ namespace NectarCore
 
 	VAR &VAR::operator+=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number += _v1;
 		}
@@ -341,7 +341,7 @@ namespace NectarCore
 	}
 	VAR VAR::operator-(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number - _v1;
 		else
 			return NectarCore::Global::NaN;
@@ -349,7 +349,7 @@ namespace NectarCore
 
 	VAR &VAR::operator-=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			data.number -= _v1;
 		else
 		{
@@ -359,33 +359,33 @@ namespace NectarCore
 	}
 	VAR VAR::operator*(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number * _v1;
 		return NectarCore::Global::NaN;
 	}
 
 	VAR &VAR::operator*=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			data.number *= _v1;
 		return *this;
 	}
 	VAR VAR::operator/(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number / _v1;
 		return NectarCore::Global::NaN;
 	}
 
 	VAR &VAR::operator/=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			data.number /= _v1;
 		return *this;
 	}
 	VAR VAR::operator%(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String && _v1.type < NectarCore::Enum::Type::String)
+		if (isPrimitive() && _v1.isPrimitive())
 		{
 			int _left = (int)_v1;
 			if (_left == 0)
@@ -402,7 +402,7 @@ namespace NectarCore
 	}
 	VAR &VAR::operator%=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			int _left = (int)data.number;
 			_left %= (int)_v1;
@@ -420,7 +420,7 @@ namespace NectarCore
 	// var++
 	VAR &VAR::operator++(const int _v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number++;
 		}
@@ -429,7 +429,7 @@ namespace NectarCore
 	// ++var
 	VAR &VAR::operator++()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			++data.number;
 		}
@@ -438,7 +438,7 @@ namespace NectarCore
 	// var--
 	VAR &VAR::operator--(const int _v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number--;
 		}
@@ -447,7 +447,7 @@ namespace NectarCore
 	// --var
 	VAR &VAR::operator--()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			--data.number;
 		}
@@ -457,10 +457,11 @@ namespace NectarCore
 	/// Comparison VAR::operators
 	VAR VAR::operator==(const VAR &_v1) const
 	{
+		if (data.ptr == _v1.data.ptr) return true;
 		if (type == _v1.type)
 		{
 
-			if (type < NectarCore::Enum::Type::String)
+			if (isPrimitive())
 				return data.number == _v1.data.number;
 			if (type == NectarCore::Enum::Type::String)
 			{
@@ -488,25 +489,55 @@ namespace NectarCore
 	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
 	VAR VAR::operator<(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
-			return data.number < _v1.data.number;
-		if (type == NectarCore::Enum::Type::String)
-		{
-			return *(NectarCore::Class::String *)data.ptr < *(NectarCore::Class::String *)_v1.data.ptr;
-		}
-		return false;
+
+		/*
+1. Call ToPrimitive(x, hint Number).
+2. Call ToPrimitive(y, hint Number).
+3. If Type(Result(1)) is String and Type(Result(2)) is String, go to step 16. (Note that this step differs
+from step 7 in the algorithm for the addition operator + in using and instead of or.)
+4. Call ToNumber(Result(1)).
+5. Call ToNumber(Result(2)).
+6. If Result(4) is NaN, return undefined.
+7. If Result(5) is NaN, return undefined.
+8. If Result(4) and Result(5) are the same number value, return false.
+9. If Result(4) is +0 and Result(5) is −0, return false.
+10. If Result(4) is −0 and Result(5) is +0, return false.
+11. If Result(4) is +∞, return false.
+12. If Result(5) is +∞, return true.
+13. If Result(5) is −∞, return false.
+- 54 -
+14. If Result(4) is −∞, return true.
+15.If the mathematical value of Result(4) is less than the mathematical value of Result(5)—note that
+these mathematical values are both finite and not both zero—return true. Otherwise, return false.
+16.If Result(2) is a prefix of Result(1), return false. (A string value p is a prefix of string value q if q
+can be the result of concatenating p and some other string r. Note that any string is a prefix of itself,
+because r may be the empty string.)
+17. If Result(1) is a prefix of Result(2), return true.
+18.Let k be the smallest nonnegative integer such that the character at position k within Result(1) is
+different from the character at position k within Result(2). (There must be such a k, for neither string
+is a prefix of the other.)
+19. Let m be the integer that is the code point value for the character at position k within Result(1).
+20. Let n be the integer that is the code point value for the character at position k within Result(2).
+21. If m < n, return true. Otherwise, return false.
+*/
+		
+		return (double)*this < (double)_v1;
 	}
 	VAR VAR::operator<=(const VAR &_v1)
 	{
-		return (int)*this <= (int)_v1;
+		return (double)*this <= (double)_v1;
 	}
 	VAR VAR::operator>(const VAR &_v1)
 	{
-		return (int)*this > (int)_v1;
+		return (double)*this > (double)_v1;
 	}
 	VAR VAR::operator>=(const VAR &_v1)
 	{
-		return (int)*this >= (int)_v1;
+		if (isPrimitive() || _v1.isPrimitive())
+		{
+			return data.number >= _v1.data.number;
+		}
+		return (double)*this >= (double)_v1;
 	}
 
 	/// Bitwise VAR::operators
@@ -524,7 +555,7 @@ namespace NectarCore
 	}
 	VAR VAR::operator|=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (int)data.number | (int)_v1;
 		}
@@ -537,7 +568,7 @@ namespace NectarCore
 	VAR VAR::operator^(const VAR &_v1) { return (int)*this ^ (int)_v1; }
 	VAR VAR::operator^=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (int)data.number ^ (int)_v1;
 		}
@@ -551,7 +582,7 @@ namespace NectarCore
 	VAR VAR::operator>>(const VAR &_v1) { return (int)*this >> (int)_v1; }
 	VAR VAR::operator>>=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (int)data.number >> (int)_v1;
 		}
@@ -567,7 +598,7 @@ namespace NectarCore
 	}
 	VAR VAR::operator<<=(const VAR &_v1)
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 		{
 			data.number = (int)data.number << (int)_v1;
 		}
@@ -580,50 +611,40 @@ namespace NectarCore
 
 	VAR::operator int() const
 	{
-		if (type < NectarCore::Enum::Type::String)
-			return data.number;
+		if (isPrimitive()) return data.number;
 		return (int)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator int()
 	{
-		if (type < NectarCore::Enum::Type::String)
-			return data.number;
+		if (isPrimitive()) return data.number;
 		return (int)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator double() const
 	{
-		if (type < NectarCore::Enum::Type::String)
-			return data.number;
+		if (isPrimitive()) return data.number;
 		return (double)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator double()
 	{
-		if (type < NectarCore::Enum::Type::String)
-			return data.number;
+		if (isPrimitive()) return data.number;
 		return (double)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator bool() const
 	{
-		if (type == NectarCore::Enum::Type::Undefined)
-			return false;
-		else if (type == NectarCore::Enum::Type::Boolean || type == NectarCore::Enum::Type::Number)
-			return data.number;
-		else
-			return (bool)(*(NectarCore::Class::Base *)data.ptr);
+		if (type == NectarCore::Enum::Type::Undefined) return false;
+		if (isPrimitive()) return data.number;
+		return (bool)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator bool()
 	{
-		if (type == NectarCore::Enum::Type::Undefined)
-			return false;
-		else if (type == NectarCore::Enum::Type::Boolean || type == NectarCore::Enum::Type::Number)
-			return data.number;
-		else
-			return (bool)(*(NectarCore::Class::Base *)data.ptr);
+		if (type == NectarCore::Enum::Type::Undefined) return false;
+		if (isPrimitive()) return data.number;
+		return (bool)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator const char *() const
@@ -642,30 +663,29 @@ namespace NectarCore
 	{
 		if (type == NectarCore::Enum::Type::Null)
 			return "null";
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return __Nectar_DOUBLE_TO_STRING(data.number);
 		return (std::string)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator std::string()
 	{
-		if (type == NectarCore::Enum::Type::Null)
-			return "null";
-		if (type < NectarCore::Enum::Type::String)
+		if (type == NectarCore::Enum::Type::Null) return "null";
+		if (isPrimitive())
 			return __Nectar_DOUBLE_TO_STRING(data.number);
 		return (std::string)(*(NectarCore::Class::Base *)data.ptr);
 	}
 
 	VAR::operator long long()
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number;
 		return (long long)((double)*this);
 	}
 
 	VAR::operator long long() const
 	{
-		if (type < NectarCore::Enum::Type::String)
+		if (isPrimitive())
 			return data.number;
 		return (long long)((double)*this);
 	}

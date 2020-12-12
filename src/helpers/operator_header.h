@@ -20,6 +20,9 @@
  *
  */
 
+#pragma once
+#include <string>
+
 constexpr bool operator==(std::string_view sw, const char *c)
 {
 	return sw == std::string_view(c);

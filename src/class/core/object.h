@@ -21,8 +21,8 @@
  */
 
 #pragma once
-#include "object_header.h"
-#include <limits>
+// #include "object_header.h"
+// #include <limits>
 
 namespace NectarCore::Class
 {

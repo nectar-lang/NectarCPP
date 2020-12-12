@@ -33,20 +33,18 @@ namespace NectarCore::Class
 		Array(NectarCore::Type::vector_t vec);
 		// Properties
 		count_t counter = 0;
-		NectarCore::VAR length;
 		NectarCore::Type::vector_t value;
 		NectarCore::Type::object_t object;
-		// Methods
+
 		inline void Delete() noexcept;
 		inline void jsDelete(const NectarCore::VAR _key) noexcept;
 		inline void *Copy() noexcept;
-		// Native cast
-		explicit operator bool() const noexcept;
+
 		explicit operator double() const noexcept;
 		explicit operator int() const noexcept;
 		explicit operator long long() const noexcept;
 		explicit operator std::string() const noexcept;
-		// Main operators
+
 		NectarCore::VAR const operator[](NectarCore::VAR key) const;
 		NectarCore::VAR const operator[](int key) const;
 		NectarCore::VAR &operator[](NectarCore::VAR key);
@@ -54,59 +52,7 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		// Comparation operators
-		Array operator!() const;
-
-		template <typename t>
-		bool operator==(const t &_v1) const { return false; }
-
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-
-		template <typename t>
-		bool operator!=(const t &_v1) const { return true; }
-
-		template <typename t>
-		bool operator<(const t &_v1) const { return (*this)[0] < _v1; }
-
-		template <typename t>
-		bool operator<=(const t &_v1) const { return (*this)[0] <= _v1; }
-
-		template <typename t>
-		bool operator>(const t &_v1) const { return (*this)[0] > _v1; }
-
-		template <typename t>
-		bool operator>=(const t &_v1) const { return (*this)[0] >= _v1; }
-
-		// Numeric operators
-		Array operator+() const;
-		Array operator-() const;
-		Array operator++(const int _v1);
-		Array operator--(const int _v1);
-		Array operator+(const Array &_v1) const;
-		Array operator+=(const Array &_v1);
-		Array operator-(const Array &_v1) const;
-		Array operator-=(const Array &_v1);
-		Array operator*(const Array &_v1) const;
-		Array operator*=(const Array &_v1);
-		// TODO: "**" and "**=" operators
-		Array operator/(const Array &_v1) const;
-		Array operator/=(const Array &_v1);
-		Array operator%(const Array &_v1) const;
-		Array operator%=(const Array &_v1);
-		Array operator&(const Array &_v1) const;
-		Array operator|(const Array &_v1) const;
-		Array operator^(const Array &_v1) const;
-		Array operator~() const;
-		Array operator>>(const Array &_v1) const;
-		Array operator<<(const Array &_v1) const;
-		Array operator&=(const Array &_v1);
-		Array operator|=(const Array &_v1);
-		Array operator^=(const Array &_v1);
-		Array operator>>=(const Array &_v1);
-		Array operator<<=(const Array &_v1);
-		// TODO: ">>>" and ">>>=" operators
-
+		NectarCore::VAR _defaultValue() const;
 		NectarCore::Type::vector_t _flat(double depth) const;
 
 		NectarCore::VAR __iterator(NectarCore::VAR *args, int _length) const;
@@ -141,6 +87,7 @@ namespace NectarCore::Class
 		NectarCore::VAR toLocaleString(NectarCore::VAR *args, int _length) const;
 		NectarCore::VAR toString(NectarCore::VAR *args, int _length) const;
 		NectarCore::VAR unshift(NectarCore::VAR *args, int _length);
+		NectarCore::VAR valueOf(NectarCore::VAR *args, int _length) const;
 		NectarCore::VAR values(NectarCore::VAR *args, int _length) const;
 	};
 } // namespace NectarCore::Class

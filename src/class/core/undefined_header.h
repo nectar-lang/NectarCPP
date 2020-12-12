@@ -21,7 +21,7 @@
  */
  
 #pragma once
-#include "../base_header.h"
+// #include "../base_header.h"
 
 namespace NectarCore::Class
 {

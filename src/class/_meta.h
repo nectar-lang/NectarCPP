@@ -22,19 +22,18 @@
 
 #pragma once
 #include <exception>
-#include "../values_header.h"
+#include <string_view>
+#include "../enum.h"
+#include "../types.h"
 
 namespace NectarCore::Class
 {
 #ifdef __Nectar_ENV_ARDUINO
 	typedef uint16_t count_t;
-	const int SMI_MAX = 32767;
-	const int SMI_MIN = -32768;
 #else
 	typedef int count_t;
-	const int SMI_MAX = 1073741823;
-	const int SMI_MIN = -1073741824;
 #endif
+	typedef NectarCore::Type::StringView str_view;
 	class InvalidTypeException : public std::exception
 	{
 	};

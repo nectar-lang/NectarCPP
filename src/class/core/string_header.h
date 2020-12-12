@@ -21,7 +21,7 @@
  */
  
 #pragma once
-#include "../base_header.h"
+// #include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -53,15 +53,6 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](const char* key);
 		
 		// Comparation operators
-		template <class... Args>
-		NectarCore::VAR operator() (Args... args)
-		{
-			#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-			throw InvalidTypeException();
-			#endif
-			return NectarCore::Global::undefined;
-		}
-		String operator!() const;
 		bool operator==(const String &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
 		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
@@ -70,34 +61,6 @@ namespace NectarCore::Class
 		bool operator<=(const String &_v1) const;
 		bool operator>(const String &_v1) const;
 		bool operator>=(const String &_v1) const;
-		// Numeric operators
-		String operator+() const;
-		String operator-() const;
-		String operator++(const int _v1);
-		String operator--(const int _v1);
-		String operator+(const String &_v1) const;
-		String operator+=(const String &_v1);
-		String operator-(const String &_v1) const;
-		String operator-=(const String &_v1);
-		String operator*(const String &_v1) const;
-		String operator*=(const String &_v1);
-		// TODO: "**" and "**=" operators
-		String operator/(const String &_v1) const;
-		String operator/=(const String &_v1);
-		String operator%(const String &_v1) const;
-		String operator%=(const String &_v1);
-		String operator&(const String &_v1) const;
-		String operator|(const String &_v1) const;
-		String operator^(const String &_v1) const;
-		String operator~() const;
-		String operator>>(const String &_v1) const;
-		String operator<<(const String &_v1) const;
-		String operator&=(const String &_v1);
-		String operator|=(const String &_v1);
-		String operator^=(const String &_v1);
-		String operator>>=(const String &_v1);
-		String operator<<=(const String &_v1);
-		// TODO: ">>>" and ">>>=" operators
 		/*** STRING METHODS ***/
 		inline std::string _wrapText(std::string tag) const;
 
