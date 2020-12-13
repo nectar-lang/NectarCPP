@@ -57,27 +57,12 @@ t operator+(t _left, const NectarCore::VAR &_right)
 
 NectarCore::VAR operator- (const char* _left, const NectarCore::VAR &_right);
 NectarCore::VAR operator- (std::string _left, const NectarCore::VAR &_right);
-template <typename t>
-t operator-(t _left, const NectarCore::VAR &_right)
-{
-	return _left - (t)_right;
-}
 
 NectarCore::VAR operator* (const char* _left, const NectarCore::VAR &_right);
 NectarCore::VAR operator* (std::string _left, const NectarCore::VAR &_right);
-template <typename t>
-t operator*(t _left, const NectarCore::VAR &_right)
-{
-	return _left * (t)_right;
-}
 
 NectarCore::VAR operator/ (const char* _left, const NectarCore::VAR &_right);
 NectarCore::VAR operator/ (std::string _left, const NectarCore::VAR &_right);
-template <typename t>
-t operator/(t _left, const NectarCore::VAR &_right)
-{
-	return _left / (t)_right;
-}
 
 NectarCore::VAR operator< (NectarCore::VAR _left, int right);
 NectarCore::VAR operator< (NectarCore::VAR _left, double right);
@@ -115,13 +100,6 @@ void operator+= (NectarCore::VAR& _left, std::string right);
 void operator+= (NectarCore::VAR& _left, const char* right);
 void operator+= (NectarCore::VAR& _left, int right);
 void operator+= (NectarCore::VAR& _left, double right);
-
-template<class T>
-void operator-= (NectarCore::VAR& _left, T right)
-{
-	if(_left.type == NectarCore::Enum::Type::Number) _left.data.number -= right;
-	else _left -= right;
-}
 
 NectarCore::VAR operator* (NectarCore::VAR _left, int right);
 NectarCore::VAR operator* (NectarCore::VAR _left, double right);
