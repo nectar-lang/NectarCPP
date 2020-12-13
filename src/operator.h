@@ -832,11 +832,6 @@ void operator+= (NectarCore::VAR& _left, double right)
 	}
 }
 
-NectarCore::VAR operator* (NectarCore::VAR _left, const char* right)
-{
-	return _left * std::string(right);
-}
-
 NectarCore::VAR operator- (NectarCore::VAR _left, const char* right)
 {
 	return _left - std::string(right);
@@ -870,3 +865,25 @@ NectarCore::VAR operator|| (NectarCore::VAR _left, const char* right)
 	if(_left.type != NectarCore::Enum::Type::Undefined) return _left;
 	else return right;
 }
+
+/*** op* ***/
+NectarCore::VAR operator* (NectarCore::VAR _left, int right)
+{
+	return (double)_left * right;
+}
+
+NectarCore::VAR operator* (NectarCore::VAR _left, double right)
+{
+	return (double)_left * right;
+}
+
+NectarCore::VAR operator* (NectarCore::VAR _left, std::string right)
+{
+	return (double)_left * (double)(NectarCore::VAR(right));
+}
+
+NectarCore::VAR operator* (NectarCore::VAR _left, const char* right)
+{
+	return (double)_left * (double)(NectarCore::VAR(right));
+}
+/* end op* */
