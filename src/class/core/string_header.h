@@ -21,7 +21,7 @@
  */
  
 #pragma once
-// #include "../base_header.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -54,13 +54,10 @@ namespace NectarCore::Class
 		
 		// Comparation operators
 		bool operator==(const String &_v1) const;
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
 		bool operator!=(const String &_v1) const;
-		bool operator<(const String &_v1) const;
-		bool operator<=(const String &_v1) const;
-		bool operator>(const String &_v1) const;
-		bool operator>=(const String &_v1) const;
+
+		NectarCore::VAR _toPrimitive(std::true_type) const;
+		NectarCore::VAR _toPrimitive(std::false_type) const;
 		/*** STRING METHODS ***/
 		inline std::string _wrapText(std::string tag) const;
 

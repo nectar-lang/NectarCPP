@@ -21,19 +21,17 @@
  */
 
 #pragma once
-// #include "symbol_header.h"
-// #include <limits>
+#include "symbol_header.h"
 
 namespace NectarCore::Class
 {
 	// Constructors
 	Symbol::Symbol()
 	{
-		value = SymbolCounter++;
 	}
-	Symbol::Symbol(NectarCore::VAR val)
+	Symbol::Symbol(std::string val)
 	{
-		name = (std::string)val;
+		name = val.c_str();
 	}
 	Symbol::Symbol(const char *val)
 	{
@@ -49,48 +47,25 @@ namespace NectarCore::Class
 	}
 	inline void *Symbol::Copy() noexcept
 	{
-		auto obj = new Symbol(name);
-		obj->value = value;
-		--SymbolCounter;
-		return obj;
+		return this;
 	}
 	// Native cast
-	Symbol::operator bool() const noexcept { return true; }
-	Symbol::operator double() const noexcept
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return std::numeric_limits<double>::quiet_NaN();
-	}
-	Symbol::operator int() const noexcept
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return std::numeric_limits<int>::quiet_NaN();
-	}
-	Symbol::operator long long() const noexcept
-	{
-		#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return std::numeric_limits<long long>::quiet_NaN();
-	}
 	Symbol::operator std::string() const noexcept
 	{
-		return "Symbol(" + name + ")";
+		return (std::string)_toPrimitive(std::false_type());
 	}
+
 	// Main operators
 	NectarCore::VAR const Symbol::operator[](NectarCore::VAR key) const
 	{
-		if (key == "toString" || key == "toLocaleString") {
+		std::string str = key;
+		if (str == "toString" || str == "toLocaleString") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
 			return obj;
 		}
-		if (key == "valueOf" || key == "toLocaleString") {
+		if (str == "valueOf") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
@@ -101,13 +76,14 @@ namespace NectarCore::Class
 
 	NectarCore::VAR &Symbol::operator[](NectarCore::VAR key)
 	{
-		if (key == "toString" || key == "toLocaleString") {
+		std::string str = key;
+		if (str == "toString" || str == "toLocaleString") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
 			return obj;
 		}
-		if (key == "valueOf" || key == "toLocaleString") {
+		if (str == "valueOf") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
@@ -115,229 +91,72 @@ namespace NectarCore::Class
 		}
 		auto _obj = NectarCore::Global::undefined;
 		return _obj;
-	}
-
-	NectarCore::VAR &Symbol::operator[](int key)
-	{
-		return NectarCore::Global::undefined;
-	}
-
-	NectarCore::VAR &Symbol::operator[](double key)
-	{
-		return NectarCore::Global::undefined;
 	}
 
 	NectarCore::VAR &Symbol::operator[](const char *key)
 	{
-		if (key == "toString" || key == "toLocaleString") {
+		std::string str = key;
+		if (str == "toString" || str == "toLocaleString") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
 			return obj;
 		}
-		if (key == "valueOf" || key == "toLocaleString") {
+		if (str == "valueOf") {
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
 				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
 			);
 			return obj;
 		}
-		auto _obj = NectarCore::Global::undefined;
+		static auto _obj = NectarCore::Global::undefined;
 		return _obj;
 	}
 
-	// Comparation operators
-	bool Symbol::operator!() const { return false; }
-	bool Symbol::operator==(const Symbol &_v1) const { return value == _v1.value; }
-	// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-	bool Symbol::operator!=(const Symbol &_v1) const { return value != _v1.value; }
-	bool Symbol::operator<(const Symbol &_v1) const { return false; }
-	bool Symbol::operator<=(const Symbol &_v1) const { return false; }
-	bool Symbol::operator>(const Symbol &_v1) const { return false; }
-	bool Symbol::operator>=(const Symbol &_v1) const { return false; }
-	// Numeric operators
-	Symbol Symbol::operator+() const
+	NectarCore::VAR Symbol::_toPrimitive(std::true_type) const
 	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		static NectarCore::VAR _arg = {};
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
 		throw InvalidTypeException();
-#endif
-		return Symbol();
 	}
-	Symbol Symbol::operator-() const
+	NectarCore::VAR Symbol::_toPrimitive(std::false_type) const
 	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		static NectarCore::VAR _arg = {};
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
 		throw InvalidTypeException();
-#endif
-		return Symbol();
 	}
-	Symbol Symbol::operator++(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator--(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator+(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator+=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator-(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator-=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator*(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator*=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	// TODO: "**" and "**=" operators
-	Symbol Symbol::operator/(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator/=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator%(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator%=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator&(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator|(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator^(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator~() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator>>(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator<<(const Symbol &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator&=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator|=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator^=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator>>=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
-	Symbol Symbol::operator<<=(const Symbol &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Symbol();
-	}
+
 	NectarCore::VAR Symbol::valueOf(NectarCore::VAR *args, int _length) const
 	{
-		return *this;
+		return this;
 	}
 	NectarCore::VAR Symbol::toString(NectarCore::VAR *args, int _length) const
 	{
-		return (std::string)*this;
+		return std::string("Symbol(") + name + ")";
 	}
 } // namespace NectarCore::Class

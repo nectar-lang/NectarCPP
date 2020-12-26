@@ -81,7 +81,7 @@ namespace NectarCore
 #include "enum.h"
 #include "var_header.h"
 #include "values_header.h"
-#include "type_header.h"
+#include "types.h"
 #include "helpers_header.h"
 #include "class_header.h"
 #include "component_header.h"

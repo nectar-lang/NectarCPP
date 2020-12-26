@@ -21,6 +21,7 @@
  */
 
 #pragma once
+#include <functional>
 #include "../base_header.h"
 
 namespace NectarCore::Class
@@ -62,14 +63,14 @@ namespace NectarCore::Class
 
 			if (_ret.type == NectarCore::Enum::Type::Object)
 			{
-				auto& obj = (NectarCore::Class::Object *)_ret.data.ptr;
+				auto &obj = (NectarCore::Class::Object *)_ret.data.ptr;
 				obj->property.set(1, 1);
 				obj->instance.push_back((*this)["prototype"].data.ptr);
 				return _ret;
 			}
 			else
 			{
-				auto& obj = (NectarCore::Class::Object *)_this.data.ptr;
+				auto &obj = (NectarCore::Class::Object *)_this.data.ptr;
 				obj->property.set(1, 1);
 				obj->instance.push_back((*this)["prototype"].data.ptr);
 				return _this;
@@ -86,7 +87,6 @@ namespace NectarCore::Class
 
 		explicit operator std::string() const noexcept;
 
-		NectarCore::VAR const operator[](NectarCore::VAR key) const;
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);

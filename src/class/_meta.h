@@ -25,14 +25,21 @@
 #include <string_view>
 #include "../enum.h"
 #include "../types.h"
+#include "../var_header.h"
 
 namespace NectarCore::Class
 {
 #ifdef __Nectar_ENV_ARDUINO
 	typedef uint16_t count_t;
+	constexpr count_t POOL_SIZE = 256;
 #else
 	typedef int count_t;
+	constexpr count_t POOL_SIZE = 64 * 1024;
 #endif
+	typedef NectarCore::VAR VAR;
+	typedef NectarCore::Type::pair_t pair_t;
+	typedef NectarCore::Type::vector_t vector_t;
+	typedef NectarCore::Type::object_t object_t;
 	typedef NectarCore::Type::StringView str_view;
 	class InvalidTypeException : public std::exception
 	{

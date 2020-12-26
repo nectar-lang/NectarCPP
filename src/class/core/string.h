@@ -21,10 +21,57 @@
  */
 
 #pragma once
-// #include "string_header.h"
-// #include <string>
-// #include <limits>
+#include "string_header.h"
+#include <limits>
 // #include <locale>
+#define __Nectar_String_Methods__                                        \
+	__Nectar_Method_Lazy_Loader("anchor", anchor);                       \
+	__Nectar_Method_Lazy_Loader("big", big);                             \
+	__Nectar_Method_Lazy_Loader("blink", blink);                         \
+	__Nectar_Method_Lazy_Loader("bold", bold);                           \
+	__Nectar_Method_Lazy_Loader("charAt", charAt);                       \
+	__Nectar_Method_Lazy_Loader("charCodeAt", charCodeAt);               \
+	__Nectar_Method_Lazy_Loader("codePointAt", codePointAt);             \
+	__Nectar_Method_Lazy_Loader("concat", concat);                       \
+	__Nectar_Method_Lazy_Loader("endsWith", endsWith);                   \
+	__Nectar_Method_Lazy_Loader("fixed", fixed);                         \
+	__Nectar_Method_Lazy_Loader("fontcolor", fontcolor);                 \
+	__Nectar_Method_Lazy_Loader("fontsize", fontsize);                   \
+	__Nectar_Method_Lazy_Loader("includes", includes);                   \
+	__Nectar_Method_Lazy_Loader("indexOf", indexOf);                     \
+	__Nectar_Method_Lazy_Loader("italics", italics);                     \
+	__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);             \
+	__Nectar_Method_Lazy_Loader("link", link);                           \
+	__Nectar_Method_Lazy_Loader("localeCompare", localeCompare);         \
+	__Nectar_Method_Lazy_Loader("match", match);                         \
+	__Nectar_Method_Lazy_Loader("matchAll", matchAll);                   \
+	__Nectar_Method_Lazy_Loader("normalize", normalize);                 \
+	__Nectar_Method_Lazy_Loader("padEnd", padEnd);                       \
+	__Nectar_Method_Lazy_Loader("padStart", padStart);                   \
+	__Nectar_Method_Lazy_Loader("repeat", repeat);                       \
+	__Nectar_Method_Lazy_Loader("replace", replace);                     \
+	__Nectar_Method_Lazy_Loader("replaceAll", replaceAll);               \
+	__Nectar_Method_Lazy_Loader("search", search);                       \
+	__Nectar_Method_Lazy_Loader("slice", slice);                         \
+	__Nectar_Method_Lazy_Loader("small", small);                         \
+	__Nectar_Method_Lazy_Loader("split", split);                         \
+	__Nectar_Method_Lazy_Loader("startsWith", startsWith);               \
+	__Nectar_Method_Lazy_Loader("strike", strike);                       \
+	__Nectar_Method_Lazy_Loader("sub", sub);                             \
+	__Nectar_Method_Lazy_Loader("substr", substr);                       \
+	__Nectar_Method_Lazy_Loader("substring", substring);                 \
+	__Nectar_Method_Lazy_Loader("sup", sup);                             \
+	__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLocaleLowerCase); \
+	__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toLocaleUpperCase); \
+	__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);             \
+	__Nectar_Method_Lazy_Loader("toString", toString);                   \
+	__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);             \
+	__Nectar_Method_Lazy_Loader("trim", trim);                           \
+	__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);                     \
+	__Nectar_Method_Lazy_Loader("trimRight", trimEnd);                   \
+	__Nectar_Method_Lazy_Loader("trimLeft", trimStart);                  \
+	__Nectar_Method_Lazy_Loader("trimStart", trimStart);                 \
+	__Nectar_Method_Lazy_Loader("valueOf", valueOf);
 
 namespace NectarCore::Class
 {
@@ -163,55 +210,9 @@ namespace NectarCore::Class
 				return search.second;
 		}
 #endif
-		__Nectar_Method_Lazy_Loader("anchor", anchor);
-		__Nectar_Method_Lazy_Loader("big", big);
-		__Nectar_Method_Lazy_Loader("blink", blink);
-		__Nectar_Method_Lazy_Loader("bold", bold);
-		__Nectar_Method_Lazy_Loader("charAt", charAt);
-		__Nectar_Method_Lazy_Loader("charCodeAt", charCodeAt);
-		__Nectar_Method_Lazy_Loader("codePointAt", codePointAt);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("endsWith", endsWith);
-		__Nectar_Method_Lazy_Loader("fixed", fixed);
-		__Nectar_Method_Lazy_Loader("fontcolor", fontcolor);
-		__Nectar_Method_Lazy_Loader("fontsize", fontsize);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("italics", italics);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("link", link);
-		__Nectar_Method_Lazy_Loader("localeCompare", localeCompare);
-		__Nectar_Method_Lazy_Loader("match", match);
-		__Nectar_Method_Lazy_Loader("matchAll", matchAll);
-		__Nectar_Method_Lazy_Loader("normalize", normalize);
-		__Nectar_Method_Lazy_Loader("padEnd", padEnd);
-		__Nectar_Method_Lazy_Loader("padStart", padStart);
-		__Nectar_Method_Lazy_Loader("repeat", repeat);
-		__Nectar_Method_Lazy_Loader("replace", replace);
-		__Nectar_Method_Lazy_Loader("replaceAll", replaceAll);
-		__Nectar_Method_Lazy_Loader("search", search);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("small", small);
-		__Nectar_Method_Lazy_Loader("split", split);
-		__Nectar_Method_Lazy_Loader("startsWith", startsWith);
-		__Nectar_Method_Lazy_Loader("strike", strike);
-		__Nectar_Method_Lazy_Loader("sub", sub);
-		__Nectar_Method_Lazy_Loader("substr", substr);
-		__Nectar_Method_Lazy_Loader("substring", substring);
-		__Nectar_Method_Lazy_Loader("sup", sup);
-		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLocaleLowerCase);
-		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toLocaleUpperCase);
-		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
-		__Nectar_Method_Lazy_Loader("trim", trim);
-		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
-		__Nectar_Method_Lazy_Loader("trimRight", trimEnd);
-		__Nectar_Method_Lazy_Loader("trimLeft", trimStart);
-		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
+		__Nectar_String_Methods__
 
-		if (_sview.compare("length") == 0)
+			if (_sview.compare("length") == 0)
 		{
 			_length = (int)value.size();
 			return _length;
@@ -271,55 +272,9 @@ namespace NectarCore::Class
 			}
 		}
 #endif
-		__Nectar_Method_Lazy_Loader("anchor", anchor);
-		__Nectar_Method_Lazy_Loader("big", big);
-		__Nectar_Method_Lazy_Loader("blink", blink);
-		__Nectar_Method_Lazy_Loader("bold", bold);
-		__Nectar_Method_Lazy_Loader("charAt", charAt);
-		__Nectar_Method_Lazy_Loader("charCodeAt", charCodeAt);
-		__Nectar_Method_Lazy_Loader("codePointAt", codePointAt);
-		__Nectar_Method_Lazy_Loader("concat", concat);
-		__Nectar_Method_Lazy_Loader("endsWith", endsWith);
-		__Nectar_Method_Lazy_Loader("fixed", fixed);
-		__Nectar_Method_Lazy_Loader("fontcolor", fontcolor);
-		__Nectar_Method_Lazy_Loader("fontsize", fontsize);
-		__Nectar_Method_Lazy_Loader("includes", includes);
-		__Nectar_Method_Lazy_Loader("indexOf", indexOf);
-		__Nectar_Method_Lazy_Loader("italics", italics);
-		__Nectar_Method_Lazy_Loader("lastIndexOf", lastIndexOf);
-		__Nectar_Method_Lazy_Loader("link", link);
-		__Nectar_Method_Lazy_Loader("localeCompare", localeCompare);
-		__Nectar_Method_Lazy_Loader("match", match);
-		__Nectar_Method_Lazy_Loader("matchAll", matchAll);
-		__Nectar_Method_Lazy_Loader("normalize", normalize);
-		__Nectar_Method_Lazy_Loader("padEnd", padEnd);
-		__Nectar_Method_Lazy_Loader("padStart", padStart);
-		__Nectar_Method_Lazy_Loader("repeat", repeat);
-		__Nectar_Method_Lazy_Loader("replace", replace);
-		__Nectar_Method_Lazy_Loader("replaceAll", replaceAll);
-		__Nectar_Method_Lazy_Loader("search", search);
-		__Nectar_Method_Lazy_Loader("slice", slice);
-		__Nectar_Method_Lazy_Loader("small", small);
-		__Nectar_Method_Lazy_Loader("split", split);
-		__Nectar_Method_Lazy_Loader("startsWith", startsWith);
-		__Nectar_Method_Lazy_Loader("strike", strike);
-		__Nectar_Method_Lazy_Loader("sub", sub);
-		__Nectar_Method_Lazy_Loader("substr", substr);
-		__Nectar_Method_Lazy_Loader("substring", substring);
-		__Nectar_Method_Lazy_Loader("sup", sup);
-		__Nectar_Method_Lazy_Loader("toLocaleLowerCase", toLocaleLowerCase);
-		__Nectar_Method_Lazy_Loader("toLocaleUpperCase", toLocaleUpperCase);
-		__Nectar_Method_Lazy_Loader("toLowerCase", toLowerCase);
-		__Nectar_Method_Lazy_Loader("toString", toString);
-		__Nectar_Method_Lazy_Loader("toUpperCase", toUpperCase);
-		__Nectar_Method_Lazy_Loader("trim", trim);
-		__Nectar_Method_Lazy_Loader("trimEnd", trimEnd);
-		__Nectar_Method_Lazy_Loader("trimRight", trimEnd);
-		__Nectar_Method_Lazy_Loader("trimLeft", trimStart);
-		__Nectar_Method_Lazy_Loader("trimStart", trimStart);
-		__Nectar_Method_Lazy_Loader("valueOf", valueOf);
+		__Nectar_String_Methods__
 
-		if (_sview.compare("length") == 0)
+			if (_sview.compare("length") == 0)
 		{
 			_length = (int)value.size();
 			return _length;
@@ -334,14 +289,59 @@ namespace NectarCore::Class
 
 	// Comparation operators
 	bool String::operator==(const String &_v1) const { return value.compare(_v1.value) == 0; }
-	// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
 	bool String::operator!=(const String &_v1) const { return value.compare(_v1.value) != 0; }
-	bool String::operator<(const String &_v1) const { return value.compare(_v1.value) < 0; }
-	bool String::operator<=(const String &_v1) const { return value.compare(_v1.value) <= 0; }
-	bool String::operator>(const String &_v1) const { return value.compare(_v1.value) > 0; }
-	bool String::operator>=(const String &_v1) const { return value.compare(_v1.value) >= 0; }
-	// TODO: ">>>" and ">>>=" operators
+	
+	NectarCore::VAR String::_toPrimitive(std::true_type) const
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("valueOf"))
+		{
+			return value;
+		}
+#endif
+		static NectarCore::VAR _arg = {};
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		throw InvalidTypeException();
+	}
+	NectarCore::VAR String::_toPrimitive(std::false_type) const
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("toString"))
+		{
+			return value;
+		}
+#endif
+		static NectarCore::VAR _arg = {};
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
+		throw InvalidTypeException();
+	}
+	
 	/*** STRING METHODS ***/
 	inline std::string String::_wrapText(std::string tag) const
 	{
@@ -363,29 +363,32 @@ namespace NectarCore::Class
 	NectarCore::VAR String::charAt(NectarCore::VAR *_args, int _length) const
 	{
 		auto index = _length > 0 ? (int)_args[0] : 0;
-		if (index >= 0 && index < value.size()) return value.at(index);
+		if (index >= 0 && index < value.size())
+			return value.at(index);
 		return "";
 	}
 	NectarCore::VAR String::charCodeAt(NectarCore::VAR *_args, int _length) const
 	{
 		auto index = _length > 0 ? (int)_args[0] : 0;
 		return (index >= 0 && index < value.size())
-			? (int)value.at(index)
-			: std::numeric_limits<double>::quiet_NaN();
+				   ? (int)value.at(index)
+				   : std::numeric_limits<double>::quiet_NaN();
 	}
 	NectarCore::VAR String::codePointAt(NectarCore::VAR *_args, int _length) const
 	{
 		auto index = _length > 0 ? (int)_args[0] : 0;
 		auto size = (int)value.size();
-		if (index < 0 || index >= size) return NectarCore::Global::undefined;
+		if (index < 0 || index >= size)
+			return NectarCore::Global::undefined;
 		auto first = (int)value.at(index);
 		if (
 			first >= 0xD800 && first <= 0xDBFF &&
-        	size > index + 1
-		) {
+			size > index + 1)
+		{
 			auto second = (int)value.at(index + 1);
-			if (second >= 0xDC00 && second <= 0xDFFF) {
-			// https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+			if (second >= 0xDC00 && second <= 0xDFFF)
+			{
+				// https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
 				return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
 			}
 		}
@@ -394,7 +397,8 @@ namespace NectarCore::Class
 	NectarCore::VAR String::concat(NectarCore::VAR *_args, int _length) const
 	{
 		auto str = value;
-		for (int i = 0; i < _length; ++i) {
+		for (int i = 0; i < _length; ++i)
+		{
 			str += (std::string)_args[i];
 		}
 		return str;
@@ -472,14 +476,17 @@ namespace NectarCore::Class
 	{
 		int targetLength = _length > 0 ? (int)_args[0] : 0;
 		int size = value.size();
-		if (targetLength > size) return value;
+		if (targetLength > size)
+			return value;
 		targetLength -= size;
 		size = 0;
 		std::string padString =
 			(_length > 1 && _args[1].type == NectarCore::Enum::Type::Undefined)
-			? (std::string)_args[1] : " ";
+				? (std::string)_args[1]
+				: " ";
 		std::string str = "";
-		for (int padSize = padString.size(); size < targetLength; size += padSize) {
+		for (int padSize = padString.size(); size < targetLength; size += padSize)
+		{
 			str += padString;
 		}
 		return value + (size > targetLength ? str.substr(0, targetLength) : str);
@@ -488,14 +495,17 @@ namespace NectarCore::Class
 	{
 		int targetLength = _length > 0 ? (int)_args[0] : 0;
 		int size = value.size();
-		if (targetLength > size) return value;
+		if (targetLength > size)
+			return value;
 		targetLength -= size;
 		size = 0;
 		std::string padString =
 			(_length > 1 && _args[1].type == NectarCore::Enum::Type::Undefined)
-			? (std::string)_args[1] : " ";
+				? (std::string)_args[1]
+				: " ";
 		std::string str = "";
-		for (int padSize = padString.size(); size < targetLength; size += padSize) {
+		for (int padSize = padString.size(); size < targetLength; size += padSize)
+		{
 			str += padString;
 		}
 		return (size > targetLength ? str.substr(0, targetLength) : str) + value;
@@ -503,10 +513,13 @@ namespace NectarCore::Class
 	NectarCore::VAR String::repeat(NectarCore::VAR *_args, int _length) const
 	{
 		int count = _length > 0 ? (int)_args[0] : 0;
-		if (count < 0) throw new NectarCore::VAR('repeat count must be non-negative');
-		if (_length > 0 && std::isinf((double)_args[0])) throw new NectarCore::VAR('repeat count must be less than infinity');
+		if (count < 0)
+			throw new NectarCore::VAR('repeat count must be non-negative');
+		if (_length > 0 && std::isinf((double)_args[0]))
+			throw new NectarCore::VAR('repeat count must be less than infinity');
 		std::string str = "";
-		for (int i = 0; i < count; ++i) {
+		for (int i = 0; i < count; ++i)
+		{
 			str += value;
 		}
 		return str;
@@ -517,7 +530,8 @@ namespace NectarCore::Class
 		std::string _search = _length > 0 ? _args[0] : NectarCore::Global::undefined;
 		std::string _replace = _length > 1 ? _args[1] : NectarCore::Global::undefined;
 		size_t start_pos = value.find(_search);
-		if (start_pos == std::string::npos) return value;
+		if (start_pos == std::string::npos)
+			return value;
 		std::string _new = value;
 		return _new.replace(start_pos, _search.length(), _replace);
 	}
@@ -559,7 +573,8 @@ namespace NectarCore::Class
 	NectarCore::VAR String::small(NectarCore::VAR *_args, int _length) const { return _wrapText("small"); }
 	NectarCore::VAR String::split(NectarCore::VAR *_args, int _length) const
 	{
-		if (_length == 0) return value;
+		if (_length == 0)
+			return value;
 		std::string needle = _args[0];
 
 		NectarCore::VAR _arr = new NectarCore::Class::Array();
@@ -631,7 +646,7 @@ namespace NectarCore::Class
 	}
 	NectarCore::VAR String::toString(NectarCore::VAR *_args, int _length) const
 	{
-		return valueOf(_args, _length);
+		return value;
 	}
 	NectarCore::VAR String::toUpperCase(NectarCore::VAR *_args, int _length) const
 	{
@@ -642,23 +657,29 @@ namespace NectarCore::Class
 	{
 		int l = value.size();
 		int i1 = 0;
-		for (; i1 < l; i1++) {
+		for (; i1 < l; i1++)
+		{
 			int c = value[i1];
-			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF))
+				break;
 		}
 		int i2 = l;
-		for (; i2 >= i1; i2--) {
+		for (; i2 >= i1; i2--)
+		{
 			int c = value[i2];
-			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF))
+				break;
 		}
 		return value.substr(i1, i2);
 	}
 	NectarCore::VAR String::trimEnd(NectarCore::VAR *_args, int _length) const
 	{
 		int i = value.size();
-		for (; i >= 0; i--) {
+		for (; i >= 0; i--)
+		{
 			int c = value[i];
-			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF))
+				break;
 		}
 		return value.substr(0, i);
 	}
@@ -666,9 +687,11 @@ namespace NectarCore::Class
 	{
 		int i = 0;
 		int l = value.size();
-		for (; i < l; i++) {
+		for (; i < l; i++)
+		{
 			int c = value[i];
-			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF)) break;
+			if (!(c == 9 || c == 10 || c == 32 || c == 0xA0 || c == 0xFEFF))
+				break;
 		}
 		return value.substr(i, l);
 	}

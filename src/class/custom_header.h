@@ -23,4 +23,5 @@
 #pragma once
 
 #include "./custom/fixed_array_header.h"
+#include "./custom/native_tpl_header.h"
 #include "./custom/struct_header.h"

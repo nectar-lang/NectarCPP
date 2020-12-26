@@ -21,7 +21,7 @@
  */
  
 #pragma once
-// #include "../base_header.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -37,9 +37,6 @@ namespace NectarCore::Class
 		inline void* Copy() noexcept;
 		// Native cast
 		explicit operator bool() const noexcept;
-		explicit operator double() const noexcept;
-		explicit operator int() const noexcept;
-		explicit operator long long() const noexcept;
 		explicit operator std::string() const noexcept;
 		// Main operators
 		NectarCore::VAR const operator[](NectarCore::VAR key) const;
@@ -49,7 +46,6 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](const char* key);
 
 		// Comparation operators
-		Undefined operator!() const;
 		bool operator==(const Undefined &_v1) const;
 		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
 		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
@@ -58,33 +54,5 @@ namespace NectarCore::Class
 		bool operator<=(const Undefined &_v1) const;
 		bool operator>(const Undefined &_v1) const;
 		bool operator>=(const Undefined &_v1) const;
-		// Numeric operators
-		Undefined operator+() const;
-		Undefined operator-() const;
-		Undefined operator++(const int _v1);
-		Undefined operator--(const int _v1);
-		Undefined operator+(const Undefined &_v1) const;
-		Undefined operator+=(const Undefined &_v1);
-		Undefined operator-(const Undefined &_v1) const;
-		Undefined operator-=(const Undefined &_v1);
-		Undefined operator*(const Undefined &_v1) const;
-		Undefined operator*=(const Undefined &_v1);
-		// TODO: "**" and "**=" operators
-		Undefined operator/(const Undefined &_v1) const;
-		Undefined operator/=(const Undefined &_v1);
-		Undefined operator%(const Undefined &_v1) const;
-		Undefined operator%=(const Undefined &_v1);
-		Undefined operator&(const Undefined &_v1) const;
-		Undefined operator|(const Undefined &_v1) const;
-		Undefined operator^(const Undefined &_v1) const;
-		Undefined operator~() const;
-		Undefined operator>>(const Undefined &_v1) const;
-		Undefined operator<<(const Undefined &_v1) const;
-		Undefined operator&=(const Undefined &_v1);
-		Undefined operator|=(const Undefined &_v1);
-		Undefined operator^=(const Undefined &_v1);
-		Undefined operator>>=(const Undefined &_v1);
-		Undefined operator<<=(const Undefined &_v1);
-		// TODO: ">>>" and ">>>=" operators
 	};
 } // namespace NectarCore::Class

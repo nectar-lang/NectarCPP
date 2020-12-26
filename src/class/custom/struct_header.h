@@ -21,7 +21,7 @@
  */
 
 #pragma once
-#include "../_meta.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -42,10 +42,6 @@ namespace NectarCore::Class
 		inline void StructDelete() noexcept;
 		inline void *Copy() noexcept;
 		// Struct cast
-		explicit operator bool() const noexcept;
-		explicit operator double() const noexcept;
-		explicit operator int() const noexcept;
-		explicit operator long long() const noexcept;
 		explicit operator std::string() const noexcept;
 		// Main operators
 		NectarCore::VAR const operator[](NectarCore::VAR key) const;
@@ -62,42 +58,6 @@ namespace NectarCore::Class
 		}
 
 		// Comparation operators
-		NectarCore::VAR operator!() const;
-		bool operator==(const NectarCore::VAR &_v1) const;
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-		bool operator!=(const NectarCore::VAR &_v1) const;
-		bool operator<(const NectarCore::VAR &_v1) const;
-		bool operator<=(const NectarCore::VAR &_v1) const;
-		bool operator>(const NectarCore::VAR &_v1) const;
-		bool operator>=(const NectarCore::VAR &_v1) const;
-		// Numeric operators
-		NectarCore::VAR operator+() const;
-		NectarCore::VAR operator-() const;
-		NectarCore::VAR operator++(const int _v1);
-		NectarCore::VAR operator--(const int _v1);
-		NectarCore::VAR operator+(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator+=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator-(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator-=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator*(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator*=(const NectarCore::VAR &_v1);
-		// TODO: "**" and "**=" operators
-		NectarCore::VAR operator/(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator/=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator%(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator%=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator&(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator|(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator^(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator~() const;
-		NectarCore::VAR operator>>(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator<<(const NectarCore::VAR &_v1) const;
-		NectarCore::VAR operator&=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator|=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator^=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator>>=(const NectarCore::VAR &_v1);
-		NectarCore::VAR operator<<=(const NectarCore::VAR &_v1);
 		// TODO: ">>>" and ">>>=" operators
 	};
 } // namespace NectarCore::Class

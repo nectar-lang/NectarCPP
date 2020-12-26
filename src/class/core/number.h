@@ -21,6 +21,7 @@
  */
 
 #pragma once
+#include "number_header.h"
 
 namespace NectarCore::Class::NUMBER
 {

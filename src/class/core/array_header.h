@@ -28,13 +28,12 @@ namespace NectarCore::Class
 	class Array : public virtual Base
 	{
 	public:
-		// Constructors
 		Array();
-		Array(NectarCore::Type::vector_t vec);
-		// Properties
+		Array(vector_t vec);
+
 		count_t counter = 0;
-		NectarCore::Type::vector_t value;
-		NectarCore::Type::object_t object;
+		vector_t value;
+		object_t object;
 
 		inline void Delete() noexcept;
 		inline void jsDelete(const NectarCore::VAR _key) noexcept;
@@ -52,8 +51,9 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		NectarCore::VAR _defaultValue() const;
-		NectarCore::Type::vector_t _flat(double depth) const;
+		NectarCore::VAR _toPrimitive(std::true_type) const;
+		NectarCore::VAR _toPrimitive(std::false_type) const;
+		vector_t _flat(double depth) const;
 
 		NectarCore::VAR __iterator(NectarCore::VAR *args, int _length) const;
 		NectarCore::VAR __unscopables(NectarCore::VAR *args, int _length) const;

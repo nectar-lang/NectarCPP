@@ -21,11 +21,10 @@
  */
 
 #pragma once
-// #include "../base_header.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
-	count_t SymbolCounter = 0;
 	class Symbol : public virtual Base
 	{
 	public:
@@ -34,23 +33,16 @@ namespace NectarCore::Class
 		Symbol(std::string val);
 		Symbol(const char *val);
 		// Properties
-		count_t value;
 		const char* name = "";
 		count_t counter = 1;
 		// Methods
 		inline void Delete() noexcept;
 		inline void *Copy() noexcept;
 		// Native cast
-		explicit operator bool() const noexcept;
-		explicit operator double() const noexcept;
-		explicit operator int() const noexcept;
-		explicit operator long long() const noexcept;
 		explicit operator std::string() const noexcept;
 		// Main operators
 		NectarCore::VAR const operator[](NectarCore::VAR key) const;
 		NectarCore::VAR &operator[](NectarCore::VAR key);
-		NectarCore::VAR &operator[](int key);
-		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
 		template <class... Args>
@@ -62,44 +54,8 @@ namespace NectarCore::Class
 			return NectarCore::Global::undefined;
 		}
 
-		// Comparation operators
-		bool operator!() const;
-		bool operator==(const Symbol &_v1) const;
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-		bool operator!=(const Symbol &_v1) const;
-		bool operator<(const Symbol &_v1) const;
-		bool operator<=(const Symbol &_v1) const;
-		bool operator>(const Symbol &_v1) const;
-		bool operator>=(const Symbol &_v1) const;
-		// Numeric operators
-		Symbol operator+() const;
-		Symbol operator-() const;
-		Symbol operator++(const int _v1);
-		Symbol operator--(const int _v1);
-		Symbol operator+(const Symbol &_v1) const;
-		Symbol operator+=(const Symbol &_v1);
-		Symbol operator-(const Symbol &_v1) const;
-		Symbol operator-=(const Symbol &_v1);
-		Symbol operator*(const Symbol &_v1) const;
-		Symbol operator*=(const Symbol &_v1);
-		// TODO: "**" and "**=" operators
-		Symbol operator/(const Symbol &_v1) const;
-		Symbol operator/=(const Symbol &_v1);
-		Symbol operator%(const Symbol &_v1) const;
-		Symbol operator%=(const Symbol &_v1);
-		Symbol operator&(const Symbol &_v1) const;
-		Symbol operator|(const Symbol &_v1) const;
-		Symbol operator^(const Symbol &_v1) const;
-		Symbol operator~() const;
-		Symbol operator>>(const Symbol &_v1) const;
-		Symbol operator<<(const Symbol &_v1) const;
-		Symbol operator&=(const Symbol &_v1);
-		Symbol operator|=(const Symbol &_v1);
-		Symbol operator^=(const Symbol &_v1);
-		Symbol operator>>=(const Symbol &_v1);
-		Symbol operator<<=(const Symbol &_v1);
-		// TODO: ">>>" and ">>>=" operators
+		NectarCore::VAR _toPrimitive(std::true_type) const;
+		NectarCore::VAR _toPrimitive(std::false_type) const;
 		/*** Symbol METHODS ***/
 		NectarCore::VAR valueOf(NectarCore::VAR *_args, int _length) const;
 		NectarCore::VAR toString(NectarCore::VAR *_args, int _length) const;

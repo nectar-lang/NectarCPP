@@ -65,7 +65,7 @@ namespace NectarCore::Class
 	Array::Array()
 	{
 	}
-	Array::Array(NectarCore::Type::vector_t vec)
+	Array::Array(vector_t vec)
 	{
 		value = vec;
 	}
@@ -85,7 +85,7 @@ namespace NectarCore::Class
 #ifndef __Nectar__OBJECT_VECTOR
 			object.erase(str);
 #else
-			for (NectarCore::Type::object_t::iterator it = object.begin(); it != object.end(); ++it)
+			for (object_t::iterator it = object.begin(); it != object.end(); ++it)
 			{
 				if (str.compare(it->first) == 0)
 				{
@@ -108,72 +108,39 @@ namespace NectarCore::Class
 	// Native cast
 	Array::operator double() const noexcept
 	{
-#ifndef __Nectar__OBJECT_VECTOR
-		if (value.size() == 0 && !object.contains("valueOf"))
-			return 0;
-#endif
-		return (double)_defaultValue();
+		return (double)_toPrimitive(std::true_type());
 	}
 	Array::operator int() const noexcept
 	{
-#ifndef __Nectar__OBJECT_VECTOR
-		if (value.size() == 0 && !object.contains("valueOf"))
-			return 0;
-#endif
-		return (int)_defaultValue();
+		return (int)_toPrimitive(std::true_type());
 	}
 	Array::operator long long() const noexcept
 	{
-#ifndef __Nectar__OBJECT_VECTOR
-		if (value.size() == 0 && !object.contains("valueOf"))
-			return 0;
-#endif
-		return (long long)_defaultValue();
+		return (long long)_toPrimitive(std::true_type());
 	}
 	Array::operator std::string() const noexcept
 	{
-#ifndef __Nectar__OBJECT_VECTOR
-		if (value.size() < 2 && !object.contains("toString"))
-		{
-			return (std::string)(value.size() == 1 ? value[0] : "");
-		}
-#endif
-		static NectarCore::VAR _arg = {};
-		auto &_toString = (*this)["toString"];
-		if (_toString.type == NectarCore::Enum::Type::Function)
-		{
-			auto string = _toString(_arg, 0);
-			if (string.isPrimitive())
-				return (std::string)string;
-		}
-		auto &_valueOf = (*this)["valueOf"];
-		if (_valueOf.type == NectarCore::Enum::Type::Function)
-		{
-			auto primitive = _valueOf(_arg, 0);
-			if (primitive.isPrimitive())
-				return (std::string)primitive;
-		}
-		throw InvalidTypeException();
+		return (std::string)_toPrimitive(std::false_type());
 	}
 	// Main operators
 	NectarCore::VAR const Array::operator[](NectarCore::VAR key) const
 	{
-		return key.type == NectarCore::Enum::Type::Number
-				   ? (*this)[(double)key]
-				   : (*this)[((std::string)key).c_str()];
+		if (key.type == NectarCore::Enum::Type::Number)
+			return (*this)[(double)key];
+		return (*this)[((std::string)key).c_str()];
 	}
 	NectarCore::VAR const Array::operator[](int key) const
 	{
-		return (key >= 0 && key <= value.size())
-				   ? value.at(key)
-				   : NectarCore::Global::undefined;
+		if (key >= 0 && key <= value.size())
+			return value.at(key);
+		return NectarCore::Global::undefined;
 	}
 
 	NectarCore::VAR &Array::operator[](NectarCore::VAR key)
 	{
-		return key.type == NectarCore::Enum::Type::Number
-				   ? (*this)[(double)key]
-				   : (*this)[((std::string)key).c_str()];
+		if (key.type == NectarCore::Enum::Type::Number)
+			return (*this)[(double)key];
+		return (*this)[((std::string)key).c_str()];
 	}
 
 	NectarCore::VAR &Array::operator[](int key)
@@ -197,7 +164,7 @@ namespace NectarCore::Class
 	NectarCore::VAR &Array::operator[](const char *key)
 	{
 		std::string _str = key;
-		NectarCore::Type::StringView _sview = _str;
+		str_view _sview = _str;
 #ifndef __Nectar__OBJECT_VECTOR
 		NectarCore::VAR &_obj = object[_str];
 		if (_obj)
@@ -219,14 +186,14 @@ namespace NectarCore::Class
 #ifndef __Nectar__OBJECT_VECTOR
 			return _obj;
 #else
-			object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
+			object.push_back(pair_t(_str, NectarCore::Global::undefined));
 		return object[object.size() - 1].second;
 #endif
 	}
 	///
 	/// Array methods
 	///
-	NectarCore::VAR Array::_defaultValue() const
+	NectarCore::VAR Array::_toPrimitive(std::true_type) const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf") && !object.contains("toString"))
@@ -248,6 +215,31 @@ namespace NectarCore::Class
 			auto string = _toString(_arg, 0);
 			if (string.isPrimitive())
 				return string;
+		}
+		throw InvalidTypeException();
+	}
+	NectarCore::VAR Array::_toPrimitive(std::false_type) const
+	{
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("valueOf") && !object.contains("toString"))
+		{
+			return value.size() == 1 ? value[0] : NectarCore::Global::undefined;
+		}
+#endif
+		static NectarCore::VAR _arg = {};
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
 		}
 		throw InvalidTypeException();
 	}
@@ -291,7 +283,7 @@ namespace NectarCore::Class
 		auto &arr = res->value;
 		for (int i = 0, l = value.size(); i < l; ++i)
 		{
-			auto entry = NectarCore::Type::vector_t({i, value[i]});
+			auto entry = vector_t({i, value[i]});
 			arr.push_back(NectarCore::VAR(new Array(entry)));
 		}
 		return res;
@@ -380,9 +372,9 @@ namespace NectarCore::Class
 		}
 		return -1;
 	}
-	NectarCore::Type::vector_t Array::_flat(double depth) const
+	vector_t Array::_flat(double depth) const
 	{
-		NectarCore::Type::vector_t arr = {};
+		vector_t arr = {};
 		for (auto &el : value)
 		{
 			if (!(bool)el.property[1])
@@ -633,7 +625,7 @@ namespace NectarCore::Class
 			if (end > value.size())
 				end = value.size();
 		}
-		auto ret = NectarCore::Type::vector_t(value.begin() + start, value.begin() + end);
+		auto ret = vector_t(value.begin() + start, value.begin() + end);
 		return new Array(ret);
 	}
 	NectarCore::VAR Array::some(NectarCore::VAR *args, int _length) const

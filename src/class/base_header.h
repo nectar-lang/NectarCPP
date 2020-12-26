@@ -24,7 +24,7 @@
 #include "_meta.h"
 #include <string>
 #include "../var_header.h"
-// #include "../helpers_header.h"
+#include "../values_header.h"
 
 namespace NectarCore::Class
 {
@@ -37,42 +37,59 @@ namespace NectarCore::Class
 		virtual void Delete() noexcept {}
 		virtual void jsDelete(const NectarCore::VAR key) noexcept {}
 		virtual void *Copy() noexcept { return nullptr; }
-		// Cast to primitive
+
 		virtual explicit operator bool() const noexcept { return true; }
 		virtual explicit operator std::string() const noexcept { return ""; }
 		virtual explicit operator int() const noexcept { return std::numeric_limits<int>::quiet_NaN(); }
 		virtual explicit operator double() const noexcept { return std::numeric_limits<double>::quiet_NaN(); }
 		virtual explicit operator long long() const noexcept { return std::numeric_limits<long long>::quiet_NaN(); }
-		/// Access operators
 
 		virtual NectarCore::VAR &operator[](NectarCore::VAR key)
 		{
-			static NectarCore::VAR _ret = NectarCore::VAR();
+			static auto _ret = NectarCore::Global::undefined;
 			return _ret;
 		}
 		virtual NectarCore::VAR &operator[](int key)
 		{
-			static NectarCore::VAR _ret = NectarCore::VAR();
+			static auto _ret = NectarCore::Global::undefined;
 			return _ret;
 		}
 		virtual NectarCore::VAR &operator[](double key)
 		{
-			static NectarCore::VAR _ret = NectarCore::VAR();
+			static auto _ret = NectarCore::Global::undefined;
 			return _ret;
 		}
 		virtual NectarCore::VAR &operator[](const char *key)
 		{
-			static NectarCore::VAR _ret = NectarCore::VAR();
+			static auto _ret = NectarCore::Global::undefined;
 			return _ret;
 		}
-		/// Comparison operators
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
 
 		virtual bool operator==(const Base &_v1) const { return false; }
 		virtual bool operator!=(const Base &_v1) const { return true; }
-		/// Numeric operators
-		// TODO: "**" and "**=" operators
+		virtual bool operator<(const Base &_v1) const {
+			return _toPrimitive(std::true_type()) < _v1._toPrimitive(std::true_type());
+		}
+		virtual bool operator<=(const Base &_v1) const {
+			return _toPrimitive(std::true_type()) <= _v1._toPrimitive(std::true_type());
+		}
+		virtual bool operator>(const Base &_v1) const {
+			return _toPrimitive(std::true_type()) > _v1._toPrimitive(std::true_type());
+		}
+		virtual bool operator>=(const Base &_v1) const {
+			return _toPrimitive(std::true_type()) >= _v1._toPrimitive(std::true_type());
+		}
+
+		virtual NectarCore::VAR _toPrimitive(std::true_type) const
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		}
+		virtual NectarCore::VAR _toPrimitive(std::false_type) const
+		{
+			static NectarCore::VAR _ret = NectarCore::VAR();
+			return _ret;
+		}
 
 		virtual Base operator+() { throw InvalidTypeException(); }
 		virtual Base operator-() const { throw InvalidTypeException(); }

@@ -19,9 +19,9 @@
  * along with NectarCPP.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
+
 #pragma once
-// #include "../base_header.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -30,64 +30,21 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		Native();
-		Native(void* val);
-		// Properties
+		Native(void *val);
+
 		count_t counter = 1;
-		void* value = nullptr;
+		void *value = nullptr;
 		NectarCore::Type::object_t object;
-		// Methods
+
 		inline void Delete() noexcept;
-		inline void* Copy() noexcept;
-		// Native cast
-		explicit operator bool() const noexcept;
-		explicit operator double() const noexcept;
-		explicit operator int() const noexcept;
-		explicit operator long long() const noexcept;
+		inline void *Copy() noexcept;
 		explicit operator std::string() const noexcept;
-		// Main operators
-		NectarCore::VAR const operator[](NectarCore::VAR key) const;
+
 		NectarCore::VAR &operator[](NectarCore::VAR key);
 		NectarCore::VAR &operator[](int key);
 		NectarCore::VAR &operator[](double key);
-		NectarCore::VAR &operator[](const char* key);
-		
-		// Comparation operators
-		Native operator!() const;
-		bool operator==(const Native &_v1) const;
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-		bool operator!=(const Native &_v1) const;
-		bool operator<(const Native &_v1) const;
-		bool operator<=(const Native &_v1) const;
-		bool operator>(const Native &_v1) const;
-		bool operator>=(const Native &_v1) const;
-		// Numeric operators
-		Native operator+() const;
-		Native operator-() const;
-		Native operator++(const int _v1);
-		Native operator--(const int _v1);
-		Native operator+(const Native &_v1) const;
-		Native operator+=(const Native &_v1);
-		Native operator-(const Native &_v1) const;
-		Native operator-=(const Native &_v1);
-		Native operator*(const Native &_v1) const;
-		Native operator*=(const Native &_v1);
-		// TODO: "**" and "**=" operators
-		Native operator/(const Native &_v1) const;
-		Native operator/=(const Native &_v1);
-		Native operator%(const Native &_v1) const;
-		Native operator%=(const Native &_v1);
-		Native operator&(const Native &_v1) const;
-		Native operator|(const Native &_v1) const;
-		Native operator^(const Native &_v1) const;
-		Native operator~() const;
-		Native operator>>(const Native &_v1) const;
-		Native operator<<(const Native &_v1) const;
-		Native operator&=(const Native &_v1);
-		Native operator|=(const Native &_v1);
-		Native operator^=(const Native &_v1);
-		Native operator>>=(const Native &_v1);
-		Native operator<<=(const Native &_v1);
-		// TODO: ">>>" and ">>>=" operators
+		NectarCore::VAR &operator[](const char *key);
+		NectarCore::VAR _toPrimitive(std::true_type) const;
+		NectarCore::VAR _toPrimitive(std::false_type) const;
 	};
 } // namespace NectarCore::Class

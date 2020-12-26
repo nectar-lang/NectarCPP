@@ -21,8 +21,7 @@
  */
 
 #pragma once
-// #include "object_header.h"
-// #include <limits>
+#include "object_header.h"
 
 namespace NectarCore::Class
 {
@@ -58,336 +57,33 @@ namespace NectarCore::Class
 		return this;
 	}
 	// Native cast
-	Object::operator bool() const noexcept { return true; }
-	Object::operator double() const noexcept
-	{
-		return std::numeric_limits<double>::quiet_NaN();
-	}
-	Object::operator int() const noexcept
-	{
-		return std::numeric_limits<int>::quiet_NaN();
-	}
-	Object::operator long long() const noexcept
-	{
-		return std::numeric_limits<long long>::quiet_NaN();
-	}
 	Object::operator std::string() const noexcept
 	{
 		return "[object Object]";
 	}
 	// Main operators
-	NectarCore::VAR const Object::operator[](NectarCore::VAR key) const
-	{
-		return NectarCore::Global::undefined;
-	}
 
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Object::operator[](NectarCore::VAR key)
 	{
-		std::string _str = ((std::string)key);
-		NectarCore::Type::StringView _sview = _str;
-
-		NectarCore::VAR &_obj = object[_str];
-		if (_obj.type != NectarCore::Enum::Type::Undefined)
-		{
-			if (!property[1])
-			{
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-			else
-			{
-				if (_obj.type == NectarCore::Enum::Type::Function)
-				{
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.data.ptr = this;
-				}
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this););
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return this;);
-		}
-
-		if (!property[0])
-			return _obj;
-		__proxy = NectarCore::Global::undefined;
-		return __proxy;
+		return (*this)[(std::string)key];
 	}
-#else
-	NectarCore::VAR &Object::operator[](NectarCore::VAR key)
-	{
-		std::string _str = ((std::string)key);
-		NectarCore::Type::StringView _sview = _str;
 
-		if (key.type == NectarCore::Enum::Type::Number)
-		{
-			auto i = (int)key;
-
-			if (i < 0)
-			{
-				return NectarCore::Global::undefined;
-			}
-			else
-			{
-				if (i >= object.size())
-				{
-					object.reserve(i + 1);
-					object.resize(i + 1);
-				}
-			}
-			return object[i].second;
-		}
-
-		for (auto &search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				if (!property[1])
-				{
-					return search.second;
-				}
-				else
-				{
-					if (search.second.type == NectarCore::Enum::Type::Function)
-					{
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.data.ptr = this;
-					}
-
-					return search.second;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this);)));
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return this;)));
-		}
-		else
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
-		}
-
-		return object[object.size() - 1].second;
-	}
-#endif
-
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Object::operator[](int key)
 	{
-		std::string _str = std::to_string(key);
-		NectarCore::Type::StringView _sview = _str;
-
-		NectarCore::VAR &_obj = object[_str];
-		if (_obj.type != NectarCore::Enum::Type::Undefined)
-		{
-			if (!property[1])
-			{
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-			else
-			{
-				if (_obj.type == NectarCore::Enum::Type::Function)
-				{
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.data.ptr = this;
-				}
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this););
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return this;);
-		}
-
-		if (!property[0])
-			return _obj;
-		__proxy = NectarCore::Global::undefined;
-		return __proxy;
+		return (*this)[std::to_string(key)];
 	}
-#else
-	NectarCore::VAR &Object::operator[](int key)
-	{
-		std::string _str = std::to_string(key);
-		NectarCore::Type::StringView _sview = _str;
 
-		for (auto &search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				if (!property[1])
-				{
-					return search.second;
-				}
-				else
-				{
-					if (search.second.type == NectarCore::Enum::Type::Function)
-					{
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.data.ptr = this;
-					}
-
-					return search.second;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this);)));
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return this;)));
-		}
-		else
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
-		}
-
-		return object[object.size() - 1].second;
-	}
-#endif
-
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Object::operator[](double key)
 	{
-		std::string _str = std::to_string(key);
-		NectarCore::Type::StringView _sview = _str;
-
-		NectarCore::VAR &_obj = object[_str];
-		if (_obj.type != NectarCore::Enum::Type::Undefined)
-		{
-			if (!property[1])
-			{
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-			else
-			{
-				if (_obj.type == NectarCore::Enum::Type::Function)
-				{
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-					((NectarCore::Class::Function *)_obj.data.ptr)->This.data.ptr = this;
-				}
-				if (!property[0])
-					return _obj;
-				else
-				{
-					__proxy = _obj;
-					return __proxy;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this););
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object[_str] = __Nectar_Create_Var_Scoped_Anon(return this;);
-		}
-
-		if (!property[0])
-			return _obj;
-		__proxy = NectarCore::Global::undefined;
-		return __proxy;
+		return (*this)[std::to_string(key)];
 	}
-#else
-	NectarCore::VAR &Object::operator[](double key)
-	{
-		std::string _str = std::to_string(key);
-		NectarCore::Type::StringView _sview = _str;
 
-		for (auto &search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				if (!property[1])
-				{
-					return search.second;
-				}
-				else
-				{
-					if (search.second.type == NectarCore::Enum::Type::Function)
-					{
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.type = NectarCore::Enum::Type::Object;
-						((NectarCore::Class::Function *)search.second.data.ptr)->This.data.ptr = this;
-					}
-
-					return search.second;
-				}
-			}
-		}
-
-		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this);)));
-		}
-		else if (_sview.compare("valueOf") == 0)
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return this;)));
-		}
-		else
-		{
-			object.push_back(NectarCore::Type::pair_t(_str, NectarCore::Global::undefined));
-		}
-
-		return object[object.size() - 1].second;
-	}
-#endif
-
-#ifndef __Nectar__OBJECT_VECTOR
 	NectarCore::VAR &Object::operator[](const char *key)
 	{
 		std::string _str = key;
 		NectarCore::Type::StringView _sview = _str;
 
+#ifndef __Nectar__OBJECT_VECTOR
 		NectarCore::VAR &_obj = object[_str];
 		if (_obj.type != NectarCore::Enum::Type::Undefined)
 		{
@@ -417,7 +113,6 @@ namespace NectarCore::Class
 				}
 			}
 		}
-
 		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
 		{
 			object[_str] = __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this););
@@ -431,13 +126,7 @@ namespace NectarCore::Class
 			return _obj;
 		__proxy = NectarCore::Global::undefined;
 		return __proxy;
-	}
 #else
-	NectarCore::VAR &Object::operator[](const char *key)
-	{
-		std::string _str = key;
-		NectarCore::Type::StringView _sview = _str;
-
 		for (auto &search : object)
 		{
 			if (_sview.compare(search.first) == 0)
@@ -458,7 +147,6 @@ namespace NectarCore::Class
 				}
 			}
 		}
-
 		if (_sview.compare("toString") == 0 || _sview.compare("toLocaleString") == 0)
 		{
 			object.push_back(NectarCore::Type::pair_t(_str, __Nectar_Create_Var_Scoped_Anon(return __Nectar_Object_Stringify(this);)));
@@ -473,201 +161,57 @@ namespace NectarCore::Class
 		}
 
 		return object[object.size() - 1].second;
-	}
 #endif
+	}
 
-	// Comparation operators
-	Object Object::operator!() const
+	NectarCore::VAR Object::_toPrimitive(std::true_type) const
 	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("valueOf") && !object.contains("toString"))
+		{
+			return NectarCore::Global::undefined;
+		}
 #endif
-		return Object();
+		static NectarCore::VAR _arg = {};
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		throw InvalidTypeException();
 	}
-	bool Object::operator==(const Object &_v1) const { return false; }
-	// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-	// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-	bool Object::operator!=(const Object &_v1) const { return true; }
-	bool Object::operator<(const Object &_v1) const { return false; }
-	bool Object::operator<=(const Object &_v1) const { return true; }
-	bool Object::operator>(const Object &_v1) const { return false; }
-	bool Object::operator>=(const Object &_v1) const { return true; }
-	// Numeric operators
-	Object Object::operator+() const
+	NectarCore::VAR Object::_toPrimitive(std::false_type) const
 	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
+#ifndef __Nectar__OBJECT_VECTOR
+		if (!object.contains("valueOf") && !object.contains("toString"))
+		{
+			return "[object Object]";
+		}
 #endif
-		return Object();
-	}
-	Object Object::operator-() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
+		static NectarCore::VAR _arg = {};
+		auto &_toString = (*this)["toString"];
+		if (_toString.type == NectarCore::Enum::Type::Function)
+		{
+			auto string = _toString(_arg, 0);
+			if (string.isPrimitive())
+				return string;
+		}
+		auto &_valueOf = (*this)["valueOf"];
+		if (_valueOf.type == NectarCore::Enum::Type::Function)
+		{
+			auto primitive = _valueOf(_arg, 0);
+			if (primitive.isPrimitive())
+				return primitive;
+		}
 		throw InvalidTypeException();
-#endif
-		return Object();
 	}
-	Object Object::operator++(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator--(const int _v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator+(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator+=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator-(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator-=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator*(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator*=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	// TODO: "**" and "**=" operators
-	Object Object::operator/(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator/=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator%(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator%=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator&(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator|(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator^(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator~() const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator>>(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator<<(const Object &_v1) const
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator&=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator|=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator^=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator>>=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	Object Object::operator<<=(const Object &_v1)
-	{
-#if !defined(__Nectar_ENV_ARDUINO) && !defined(__Nectar_ENV_ESP32)
-		throw InvalidTypeException();
-#endif
-		return Object();
-	}
-	// TODO: ">>>" and ">>>=" operators
 } // namespace NectarCore::Class

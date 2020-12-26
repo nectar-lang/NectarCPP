@@ -21,7 +21,7 @@
  */
 
 #pragma once
-#include "../_meta.h"
+#include "../base_header.h"
 
 namespace NectarCore::Class
 {
@@ -30,10 +30,10 @@ namespace NectarCore::Class
 	public:
 		// Constructors
 		FixedArray();
-		FixedArray(NectarCore::VAR length);
+		FixedArray(count_t length);
 		// Properties
 		count_t counter = 0;
-		NectarCore::VAR length;
+		count_t length;
 		NectarCore::VAR *value;
 		NectarCore::Type::object_t object;
 		// Methods
@@ -53,57 +53,7 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		// Comparation operators
-		FixedArray operator!() const;
-
-		template <typename t>
-		bool operator==(const t &_v1) const { return false; }
-
-		// === emulated with __Nectar_EQUAL_VALUE_AND_TYPE
-		// !== emulated with __Nectar_NOT_EQUAL_VALUE_AND_TYPE
-
-		template <typename t>
-		bool operator!=(const t &_v1) const { return true; }
-
-		template <typename t>
-		bool operator<(const t &_v1) const { return (*this)[0] < _v1; }
-
-		template <typename t>
-		bool operator<=(const t &_v1) const { return (*this)[0] <= _v1; }
-
-		template <typename t>
-		bool operator>(const t &_v1) const { return (*this)[0] > _v1; }
-
-		template <typename t>
-		bool operator>=(const t &_v1) const { return (*this)[0] >= _v1; }
-
-		// Numeric operators
-		FixedArray operator+() const;
-		FixedArray operator-() const;
-		FixedArray operator++(const int _v1);
-		FixedArray operator--(const int _v1);
-		FixedArray operator+(const FixedArray &_v1) const;
-		FixedArray operator+=(const FixedArray &_v1);
-		FixedArray operator-(const FixedArray &_v1) const;
-		FixedArray operator-=(const FixedArray &_v1);
-		FixedArray operator*(const FixedArray &_v1) const;
-		FixedArray operator*=(const FixedArray &_v1);
-		// TODO: "**" and "**=" operators
-		FixedArray operator/(const FixedArray &_v1) const;
-		FixedArray operator/=(const FixedArray &_v1);
-		FixedArray operator%(const FixedArray &_v1) const;
-		FixedArray operator%=(const FixedArray &_v1);
-		FixedArray operator&(const FixedArray &_v1) const;
-		FixedArray operator|(const FixedArray &_v1) const;
-		FixedArray operator^(const FixedArray &_v1) const;
-		FixedArray operator~() const;
-		FixedArray operator>>(const FixedArray &_v1) const;
-		FixedArray operator<<(const FixedArray &_v1) const;
-		FixedArray operator&=(const FixedArray &_v1);
-		FixedArray operator|=(const FixedArray &_v1);
-		FixedArray operator^=(const FixedArray &_v1);
-		FixedArray operator>>=(const FixedArray &_v1);
-		FixedArray operator<<=(const FixedArray &_v1);
-		// TODO: ">>>" and ">>>=" operators
+		NectarCore::VAR _toPrimitive(std::true_type) const;
+		NectarCore::VAR _toPrimitive(std::false_type) const;
 	};
 } // namespace NectarCore::Class

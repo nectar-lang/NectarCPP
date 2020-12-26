@@ -23,4 +23,5 @@
 #pragma once
 
 #include "./custom/fixed_array.h"
+#include "./custom/native_tpl.h"
 #include "./custom/struct.h"

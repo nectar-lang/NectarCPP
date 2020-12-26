@@ -22,6 +22,7 @@
 
 #pragma once
 #include <deque>
+#include "../var_header.h"
 
 namespace NectarCore::Event
 {
