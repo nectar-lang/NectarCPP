@@ -28,6 +28,7 @@ namespace NectarCore::Class
 	NectarCore::VAR __proxy;
 	// Constructors
 	Object::Object() {}
+	Object::Object(NectarCore::Type::object_t _obj) : object(_obj) {}
 	// Methods
 	inline void Object::Delete() noexcept
 	{

@@ -30,6 +30,7 @@ namespace NectarCore::Class
 	public:
 		Array();
 		Array(vector_t vec);
+		Array(NectarCore::VAR *el, int count);
 
 		count_t counter = 0;
 		vector_t value;

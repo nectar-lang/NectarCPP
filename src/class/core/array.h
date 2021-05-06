@@ -62,12 +62,10 @@
 namespace NectarCore::Class
 {
 	// Constructors
-	Array::Array()
-	{
-	}
-	Array::Array(vector_t vec)
-	{
-		value = vec;
+	Array::Array() {}
+	Array::Array(vector_t vec) : value(vec) {}
+	Array::Array(NectarCore::VAR *el, int count) {
+		value = vector_t(el, el + count)
 	}
 	// Methods
 	inline void Array::Delete() noexcept
@@ -193,7 +191,7 @@ namespace NectarCore::Class
 	///
 	/// Array methods
 	///
-	NectarCore::VAR Array::_toPrimitive(std::true_type) const
+	NectarCore::VAR Array::_toPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf") && !object.contains("toString"))
@@ -218,7 +216,7 @@ namespace NectarCore::Class
 		}
 		throw InvalidTypeException();
 	}
-	NectarCore::VAR Array::_toPrimitive(std::false_type) const
+	NectarCore::VAR Array::_toStringPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf") && !object.contains("toString"))
