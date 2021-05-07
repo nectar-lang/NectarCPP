@@ -38,16 +38,16 @@ namespace NectarCore::Class
 #ifdef __Nectar_DEBUG
 		std::string code = "[native code]";
 #endif
-		NectarCore::Type::function_t *value = nullptr;
+		function_t *value = nullptr;
 		NectarCore::VAR This;
-		NectarCore::Type::object_t object;
+		object_t object;
 
 		inline void Delete() noexcept;
 		inline void jsDelete(std::string _key) noexcept;
 		inline void *Copy() noexcept;
 		inline NectarCore::VAR Call(NectarCore::VAR &__Nectar_THIS, NectarCore::VAR *_args, int i)
 		{
-			return (*static_cast<NectarCore::Type::function_t *>(value))(__Nectar_THIS, _args, i);
+			return (*static_cast<function_t *>(value))(__Nectar_THIS, _args, i);
 		}
 		template <class... Args>
 		NectarCore::VAR New(Args... args)
@@ -82,7 +82,7 @@ namespace NectarCore::Class
 		{
 			NectarCore::VAR _args[] = {args...};
 			int i = sizeof...(args);
-			return (*static_cast<NectarCore::Type::function_t *>(value))(This, _args, i);
+			return (*static_cast<function_t *>(value))(This, _args, i);
 		}
 
 		explicit operator std::string() const noexcept;

@@ -27,7 +27,6 @@ namespace NectarCore::Class
 {
 	class Undefined : public virtual Base
 	{
-	class Empty {};
 	public:
 		// Constructors
 		Undefined();

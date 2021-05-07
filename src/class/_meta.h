@@ -40,6 +40,7 @@ namespace NectarCore::Class
 	typedef NectarCore::Type::pair_t pair_t;
 	typedef NectarCore::Type::vector_t vector_t;
 	typedef NectarCore::Type::object_t object_t;
+	typedef NectarCore::Type::function_t function_t;
 	typedef NectarCore::Type::StringView str_view;
 	class InvalidTypeException : public std::exception
 	{
