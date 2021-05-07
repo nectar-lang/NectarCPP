@@ -165,7 +165,7 @@ namespace NectarCore::Class
 #endif
 	}
 
-	NectarCore::VAR Object::_toPrimitive(std::true_type) const
+	NectarCore::VAR Object::_toPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf") && !object.contains("toString"))
@@ -190,7 +190,7 @@ namespace NectarCore::Class
 		}
 		throw InvalidTypeException();
 	}
-	NectarCore::VAR Object::_toPrimitive(std::false_type) const
+	NectarCore::VAR Object::_toStringPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf") && !object.contains("toString"))

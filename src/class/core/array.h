@@ -64,7 +64,8 @@ namespace NectarCore::Class
 	// Constructors
 	Array::Array() {}
 	Array::Array(vector_t vec) : value(vec) {}
-	Array::Array(NectarCore::VAR *el, int count) {
+	Array::Array(NectarCore::VAR *el, int count)
+	{
 		value = vector_t(el, el + count)
 	}
 	// Methods
@@ -106,19 +107,19 @@ namespace NectarCore::Class
 	// Native cast
 	Array::operator double() const noexcept
 	{
-		return (double)_toPrimitive(std::true_type());
+		return (double)_toPrimitive();
 	}
 	Array::operator int() const noexcept
 	{
-		return (int)_toPrimitive(std::true_type());
+		return (int)_toPrimitive();
 	}
 	Array::operator long long() const noexcept
 	{
-		return (long long)_toPrimitive(std::true_type());
+		return (long long)_toPrimitive();
 	}
 	Array::operator std::string() const noexcept
 	{
-		return (std::string)_toPrimitive(std::false_type());
+		return (std::string)_toStringPrimitive();
 	}
 	// Main operators
 	NectarCore::VAR const Array::operator[](NectarCore::VAR key) const

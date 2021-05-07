@@ -290,8 +290,8 @@ namespace NectarCore::Class
 	// Comparation operators
 	bool String::operator==(const String &_v1) const { return value.compare(_v1.value) == 0; }
 	bool String::operator!=(const String &_v1) const { return value.compare(_v1.value) != 0; }
-	
-	NectarCore::VAR String::_toPrimitive(std::true_type) const
+
+	NectarCore::VAR String::_toPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("valueOf"))
@@ -316,7 +316,7 @@ namespace NectarCore::Class
 		}
 		throw InvalidTypeException();
 	}
-	NectarCore::VAR String::_toPrimitive(std::false_type) const
+	NectarCore::VAR String::_toStringPrimitive() const
 	{
 #ifndef __Nectar__OBJECT_VECTOR
 		if (!object.contains("toString"))
@@ -341,7 +341,7 @@ namespace NectarCore::Class
 		}
 		throw InvalidTypeException();
 	}
-	
+
 	/*** STRING METHODS ***/
 	inline std::string String::_wrapText(std::string tag) const
 	{

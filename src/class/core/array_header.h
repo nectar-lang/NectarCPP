@@ -52,8 +52,8 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		NectarCore::VAR _toPrimitive(std::true_type) const;
-		NectarCore::VAR _toPrimitive(std::false_type) const;
+		NectarCore::VAR _toPrimitive() const;
+		NectarCore::VAR _toStringPrimitive() const;
 		vector_t _flat(double depth) const;
 
 		NectarCore::VAR __iterator(NectarCore::VAR *args, int _length) const;

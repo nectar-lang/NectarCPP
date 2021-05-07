@@ -56,8 +56,8 @@ namespace NectarCore::Class
 		bool operator==(const String &_v1) const;
 		bool operator!=(const String &_v1) const;
 
-		NectarCore::VAR _toPrimitive(std::true_type) const;
-		NectarCore::VAR _toPrimitive(std::false_type) const;
+		NectarCore::VAR _toPrimitive() const;
+		NectarCore::VAR _toStringPrimitive() const;
 		/*** STRING METHODS ***/
 		inline std::string _wrapText(std::string tag) const;
 

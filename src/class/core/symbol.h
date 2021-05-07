@@ -52,23 +52,23 @@ namespace NectarCore::Class
 	// Native cast
 	Symbol::operator std::string() const noexcept
 	{
-		return (std::string)_toPrimitive(std::false_type());
+		return (std::string)_toStringPrimitive();
 	}
 
 	// Main operators
 	NectarCore::VAR const Symbol::operator[](NectarCore::VAR key) const
 	{
 		std::string str = key;
-		if (str == "toString" || str == "toLocaleString") {
+		if (str == "toString" || str == "toLocaleString")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
-		if (str == "valueOf") {
+		if (str == "valueOf")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
 		return NectarCore::Global::undefined;
@@ -77,16 +77,16 @@ namespace NectarCore::Class
 	NectarCore::VAR &Symbol::operator[](NectarCore::VAR key)
 	{
 		std::string str = key;
-		if (str == "toString" || str == "toLocaleString") {
+		if (str == "toString" || str == "toLocaleString")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
-		if (str == "valueOf") {
+		if (str == "valueOf")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
 		auto _obj = NectarCore::Global::undefined;
@@ -96,23 +96,23 @@ namespace NectarCore::Class
 	NectarCore::VAR &Symbol::operator[](const char *key)
 	{
 		std::string str = key;
-		if (str == "toString" || str == "toLocaleString") {
+		if (str == "toString" || str == "toLocaleString")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return toString(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
-		if (str == "valueOf") {
+		if (str == "valueOf")
+		{
 			auto obj = __Nectar_Create_Var_Scoped_Anon(
-				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH);
-			);
+				return valueOf(__Nectar_VARARGS, __Nectar_VARLENGTH););
 			return obj;
 		}
 		static auto _obj = NectarCore::Global::undefined;
 		return _obj;
 	}
 
-	NectarCore::VAR Symbol::_toPrimitive(std::true_type) const
+	NectarCore::VAR Symbol::_toPrimitive() const
 	{
 		static NectarCore::VAR _arg = {};
 		auto &_valueOf = (*this)["valueOf"];
@@ -131,7 +131,7 @@ namespace NectarCore::Class
 		}
 		throw InvalidTypeException();
 	}
-	NectarCore::VAR Symbol::_toPrimitive(std::false_type) const
+	NectarCore::VAR Symbol::_toStringPrimitive() const
 	{
 		static NectarCore::VAR _arg = {};
 		auto &_toString = (*this)["toString"];

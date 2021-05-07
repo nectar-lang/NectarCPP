@@ -49,7 +49,7 @@ namespace NectarCore::Class
 		NectarCore::VAR &operator[](double key);
 		NectarCore::VAR &operator[](const char *key);
 
-		NectarCore::VAR _toPrimitive(std::true_type) const;
-		NectarCore::VAR _toPrimitive(std::false_type) const;
+		NectarCore::VAR _toPrimitive() const;
+		NectarCore::VAR _toStringPrimitive() const;
 	};
 } // namespace NectarCore::Class

@@ -23,8 +23,8 @@
 #include "nectar.hpp"
 
 #include "enum.h"
-#include "var.h"
 #include "values.h"
 #include "helpers.h"
 #include "class.h"
 #include "component.h"
+#include "var.h"

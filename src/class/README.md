@@ -11,5 +11,3 @@ This is a directory for low-level class types and its methods.
 4. Declaration file can contain short (inlinable) definitions
 
 5. Definition file must include `{class}_header.h`
-
-6. Definition file can include files to be self-contained (compilable on their own)

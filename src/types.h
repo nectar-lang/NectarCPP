@@ -22,7 +22,6 @@
 
 #pragma once
 #include <vector>
-#include "var_header.h"
 #include <functional>
 #ifndef __Nectar__OBJECT_VECTOR
 #include <unordered_map>

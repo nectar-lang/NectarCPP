@@ -32,9 +32,11 @@ namespace NectarCore::Class
 	{
 	public:
 #ifdef __Nectar_ENV_ESP32
-		virtual ~Base() {};
+		virtual ~Base(){};
 #endif
-		virtual void Delete() noexcept {}
+		virtual void Delete() noexcept
+		{
+		}
 		virtual void jsDelete(const NectarCore::VAR key) noexcept {}
 		virtual void *Copy() noexcept { return nullptr; }
 
@@ -67,25 +69,29 @@ namespace NectarCore::Class
 
 		virtual bool operator==(const Base &_v1) const { return false; }
 		virtual bool operator!=(const Base &_v1) const { return true; }
-		virtual bool operator<(const Base &_v1) const {
-			return _toPrimitive(std::true_type()) < _v1._toPrimitive(std::true_type());
+		virtual bool operator<(const Base &_v1) const
+		{
+			return _toPrimitive() < _v1._toPrimitive();
 		}
-		virtual bool operator<=(const Base &_v1) const {
-			return _toPrimitive(std::true_type()) <= _v1._toPrimitive(std::true_type());
+		virtual bool operator<=(const Base &_v1) const
+		{
+			return _toPrimitive() <= _v1._toPrimitive();
 		}
-		virtual bool operator>(const Base &_v1) const {
-			return _toPrimitive(std::true_type()) > _v1._toPrimitive(std::true_type());
+		virtual bool operator>(const Base &_v1) const
+		{
+			return _toPrimitive() > _v1._toPrimitive();
 		}
-		virtual bool operator>=(const Base &_v1) const {
-			return _toPrimitive(std::true_type()) >= _v1._toPrimitive(std::true_type());
+		virtual bool operator>=(const Base &_v1) const
+		{
+			return _toPrimitive() >= _v1._toPrimitive();
 		}
 
-		virtual NectarCore::VAR _toPrimitive(std::true_type) const
+		virtual NectarCore::VAR _toPrimitive() const
 		{
 			static NectarCore::VAR _ret = NectarCore::VAR();
 			return _ret;
 		}
-		virtual NectarCore::VAR _toPrimitive(std::false_type) const
+		virtual NectarCore::VAR _toStringPrimitive() const
 		{
 			static NectarCore::VAR _ret = NectarCore::VAR();
 			return _ret;
@@ -93,28 +99,28 @@ namespace NectarCore::Class
 
 		virtual Base operator+() { throw InvalidTypeException(); }
 		virtual Base operator-() const { throw InvalidTypeException(); }
-		virtual Base& operator++(const int) { throw InvalidTypeException(); }
-		virtual Base& operator--(const int) { throw InvalidTypeException(); }
+		virtual Base &operator++(const int) { throw InvalidTypeException(); }
+		virtual Base &operator--(const int) { throw InvalidTypeException(); }
 		virtual Base operator+(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator-(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator*(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator/(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator%(const Base &_v1) const { throw InvalidTypeException(); }
-		virtual Base& operator+=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator-=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator*=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator/=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator%=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator+=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator-=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator*=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator/=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator%=(const Base &_v1) { throw InvalidTypeException(); }
 		virtual Base operator&(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator|(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator^(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator~() const { throw InvalidTypeException(); }
 		virtual Base operator>>(const Base &_v1) const { throw InvalidTypeException(); }
 		virtual Base operator<<(const Base &_v1) const { throw InvalidTypeException(); }
-		virtual Base& operator&=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator|=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator^=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator>>=(const Base &_v1) { throw InvalidTypeException(); }
-		virtual Base& operator<<=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator&=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator|=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator^=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator>>=(const Base &_v1) { throw InvalidTypeException(); }
+		virtual Base &operator<<=(const Base &_v1) { throw InvalidTypeException(); }
 	};
 } // namespace NectarCore::Class

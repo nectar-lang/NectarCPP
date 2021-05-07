@@ -33,7 +33,7 @@ namespace NectarCore::Class
 		Symbol(std::string val);
 		Symbol(const char *val);
 		// Properties
-		const char* name = "";
+		const char *name = "";
 		count_t counter = 1;
 		// Methods
 		inline void Delete() noexcept;
@@ -54,8 +54,8 @@ namespace NectarCore::Class
 			return NectarCore::Global::undefined;
 		}
 
-		NectarCore::VAR _toPrimitive(std::true_type) const;
-		NectarCore::VAR _toPrimitive(std::false_type) const;
+		NectarCore::VAR _toPrimitive() const;
+		NectarCore::VAR _toStringPrimitive() const;
 		/*** Symbol METHODS ***/
 		NectarCore::VAR valueOf(NectarCore::VAR *_args, int _length) const;
 		NectarCore::VAR toString(NectarCore::VAR *_args, int _length) const;
