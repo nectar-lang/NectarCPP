@@ -1,5 +1,5 @@
 # NectarCPP
-Nectar C++ lib/runtime. C++17/20 compatible.
+Nectar C++ lib/runtime. C++20 compatible.
 
 # About NectarCPP
 NectarCPP lets you write JS like code in C++:
@@ -15,7 +15,7 @@ println(a);
 
 # Gettin started
 
-You need a C++ compiler (g++ or clang++) to use NectarCPP.
+You need a C++ compiler (g++11 or clang++) to use NectarCPP.
 
 Clone this repository, and create a file mycode.cpp. Add in this file the folling lines: 
 
@@ -41,12 +41,7 @@ int main(int argc, char** argv)
 ```
 
 then:
-- Compile the headers: `g++ -std=c++17 -c src/nectar.hpp -Ofast`
-- Compile the main lib: `g++ -std=c++17 -c src/nectar.cpp -Ofast`
+- Compile the main lib: `gcc -std=c++20 -fmodules-ts -Ofast concepts.cpp operators.cpp prototype.cpp symbol_t.cpp value.cpp var.cpp`
 - Compile your code 
-	* on Windows: `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
-	* on unix/linux: `g++ -std=c++17 mycode.cpp nectar.o -lpthread -Ofast -o myapp`
-
-You can then modify your app, and only compile your code, because the libs are already compiled:
-- On Windows: `g++ -std=c++17 nectar.o mycode.cpp -lpthread -Ofast -o myapp`
-- On Unix/Linux: `g++ -std=c++17 mycode.cpp nectar.o -lpthread -Ofast -o myapp`
+	* on Windows: `g++ -std=c++20 -fmodules-ts -Ofast var.o mycode.cpp -lpthread -o myapp`
+	* on unix/linux: `g++ -std=c++20 -fmodules-ts -Ofast mycode.cpp nectar.o -lpthread -o myapp`
