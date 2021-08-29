@@ -36,5 +36,8 @@ export namespace NectarCore::Concepts
 		concept has_type = requires { typename T::type; };
 
 		template<typename T>
-		concept has_nullish = requires(T t) { { t.isNullish() } -> std::same_as<bool>; };
+		concept var_nullish = requires(T t) { t.isNullish(); };
+
+		template<typename T>
+		concept var_type = requires(T t) { t.property.type; };
 };
