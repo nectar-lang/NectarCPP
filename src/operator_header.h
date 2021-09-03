@@ -20,6 +20,16 @@
  *
  */
 
+namespace NectarCore::Operator {
+	NectarCore::VAR TypeOf(NectarCore::VAR value);
+	NectarCore::VAR StrictEqual(NectarCore::VAR left, NectarCore::VAR right);
+	NectarCore::VAR StrictNotEqual(NectarCore::VAR left, NectarCore::VAR right);
+	NectarCore::VAR InstanceOf(NectarCore::VAR instance, NectarCore::VAR constructor);
+	NectarCore::VAR KeyInObject(NectarCore::VAR key, NectarCore::VAR object);
+	NectarCore::VAR UnsignedRightShift(NectarCore::VAR value, NectarCore::VAR shift);
+	NectarCore::VAR NullishCoalescing(NectarCore::VAR value, NectarCore::VAR alternate);
+}
+
 constexpr bool operator==(std::string_view sw, const char* c)
 {
 	return sw == std::string_view(c);

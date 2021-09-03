@@ -20,6 +20,42 @@
  *
  */
 
+namespace NectarCore::Operator {
+	static const std::string _Types[] = {"object", "boolean", "number", "string", "native", "native", "struct", "fixed_array", "array", "object", "function", "undefined" };
+	NectarCore::VAR TypeOf(NectarCore::VAR value) {
+		return _Types[value.type];
+	};
+	NectarCore::VAR StrictEqual(NectarCore::VAR left, NectarCore::VAR right) {
+		return left.type == right.type && left == right;
+	};
+	NectarCore::VAR StrictNotEqual(NectarCore::VAR left, NectarCore::VAR right) {
+		return left.type != right.type || left != right;
+	};
+	NectarCore::VAR InstanceOf(NectarCore::VAR instance, NectarCore::VAR constructor) {
+		if (instance.type < NectarCore::Enum::Type::Object) return false;
+		NectarCore::VAR protoRight = constructor["prototype"];
+		if (!protoRight) return false;
+		NectarCore::Type::vector_p vLeft = ((NectarCore::Class::Object*)instance.data.ptr)->instance;
+		for (auto searchLeft : vLeft)
+		{
+			if (searchLeft == protoRight.data.ptr) return true;
+		}
+		return false;
+	};
+	NectarCore::VAR KeyInObject(NectarCore::VAR key, NectarCore::VAR object) {
+		return object[key].type != NectarCore::Enum::Type::Undefined;
+	};
+	NectarCore::VAR UnsignedRightShift(NectarCore::VAR value, NectarCore::VAR shift) {
+		return (int)((unsigned int)((int)value) >> (int)shift);
+	};
+	NectarCore::VAR NullishCoalescing(NectarCore::VAR value, NectarCore::VAR alternate) {
+		return value.type != NectarCore::Enum::Type::Undefined
+			&& value.type != NectarCore::Enum::Type::Null
+			? value
+			: alternate
+	};
+}
+
 NectarCore::VAR operator+ (const char* _left, const NectarCore::VAR &_right)
 {
 	return NectarCore::VAR(_left) + _right;
@@ -758,24 +794,14 @@ std::function<NectarCore::VAR(NectarCore::Type::vector_t)> *__Nectar_IS_NAN = ne
 
 NectarCore::VAR isNaN = NectarCore::VAR(NectarCore::Enum::Type::Function, __Nectar_IS_NAN);
 
+// TODO: Remove it
 NectarCore::VAR __Nectar_EQUAL_VALUE_AND_TYPE(NectarCore::VAR _left, NectarCore::VAR _right)
 {
-	if (_left.type == _right.type && (NectarCore::VAR)_left == (NectarCore::VAR)_right)
-	{
-		return __Nectar_Create_Boolean(1);
-	}
-
-	return __Nectar_Create_Boolean(0);
+	return NectarCore::Operator::StrictEqual(_left, _right);
 }
-
 NectarCore::VAR __Nectar_NOT_EQUAL_VALUE_AND_TYPE(NectarCore::VAR _left, NectarCore::VAR _right)
 {
-	if (_left.type != _right.type || (bool)(_left != _right))
-	{
-		return __Nectar_Create_Boolean(1);
-	}
-
-	return __Nectar_Create_Boolean(0);
+	return NectarCore::Operator::StrictNotEqual(_left, _right);
 }
 
 NectarCore::VAR operator+ (NectarCore::VAR _left, int right)
