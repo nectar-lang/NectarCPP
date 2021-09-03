@@ -52,7 +52,7 @@ namespace NectarCore::Operator {
 		return value.type != NectarCore::Enum::Type::Undefined
 			&& value.type != NectarCore::Enum::Type::Null
 			? value
-			: alternate
+			: alternate;
 	};
 }
 
